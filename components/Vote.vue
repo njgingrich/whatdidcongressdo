@@ -8,18 +8,26 @@
       <VoteTally type="Yea"
                  :democratic="vote.democratic.yes"
                  :republican="vote.republican.yes"
-                 :independent="vote.independent.yes"/>
+                 :independent="vote.independent.yes"
+                 :independentsExist="independentsExist"/>
       <VoteTally type="Nay"
                  :democratic="vote.democratic.no"
                  :republican="vote.republican.no"
-                 :independent="vote.independent.no"/>
+                 :independent="vote.independent.no"
+                 :independentsExist="independentsExist"/>
       <VoteTally type="N/V"
                  :democratic="vote.democratic.not_voting"
                  :republican="vote.republican.not_voting"
-                 :independent="vote.independent.not_voting"/>
+                 :independent="vote.independent.not_voting"
+                 :independentsExist="independentsExist"/>
     </div>
-    <div class="votes-result">
-      <span class="result-text">{{vote.result}}</span>
+    <div class="votes-footer">
+      <div class="votes-result">
+        <span class="result-text">{{vote.result}}</span>
+      </div>
+      <div class="votes-learnmore">
+        <a :href="vote.url" class="learnmore">Learn more..</a>
+      </div>
     </div>
   </section>
 </template>
@@ -48,6 +56,10 @@ export default {
       } else {
         return this.vote.question.substring(7)
       }
+    },
+    independentsExist () {
+      // independent.present being 0 does not mean none of them voted
+      return (this.vote.independent.no + this.vote.independent.yes + this.vote.independent.not_voting) > 0
     }
   }
 }
@@ -78,20 +90,51 @@ export default {
 }
 
 .vote-container {
-  margin: 16px;
+  margin-bottom: 32px;
   padding: 16px;
 
   font-family: 'Merriweather';
   background-color: $blue;
   color: $white;
+
+  box-shadow: 0 8px 8px -3px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+
+  &:hover {
+  box-shadow: 0 8px 16px -3px rgba(0, 0, 0, 0.8);
+    transform: translateY(-2px);
+  }
 }
 
 .votes {
   display: flex;
 }
 
+.votes-footer {
+  display: flex;
+}
+
 .votes-result {
   padding-top: 16px;
+  width: 70%;
+}
+
+.votes-learnmore {
+  width: 30%;
+  align-self: flex-end;
+  padding: 2px 3px;
+
+  a, a:visited, a:active {
+    text-decoration: none;
+    color: $white;
+  }
+
+  &:hover {
+    background-color: $beige-light;
+    a {
+      color: $blue;
+    }
+  }
 }
 
 .result-text {

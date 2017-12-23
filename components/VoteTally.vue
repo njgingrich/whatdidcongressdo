@@ -9,9 +9,11 @@
       <div class="vote square"></div>
       <div class="vote tally">{{democratic}}</div>
     </div>
-    <div class="vote independent">
-      <div class="vote square"></div>
-      <div class="vote tally">{{independent}}</div>
+    <div v-if="independentsExist">
+      <div class="vote independent">
+        <div class="vote square"></div>
+        <div class="vote tally">{{independent}}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -21,7 +23,8 @@ export default {
     type: String,
     democratic: Number,
     republican: Number,
-    independent: Number
+    independent: Number,
+    independentsExist: Boolean
   }
 }
 </script>

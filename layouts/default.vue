@@ -7,6 +7,10 @@
     <nuxt/>
   </div>
 </template>
+<script>
+export default {
+}
+</script>
 
 <style lang="scss">
 @import "~assets/styles/colors";
@@ -20,6 +24,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+  background-color: $offwhite;
 }
 
 body {
@@ -34,6 +39,7 @@ body {
   display: flex;
   align-items: center;
   position: fixed;
+  z-index: 1000;
   width: 100%;
   padding-left: 32px;
   padding-right: 32px;
