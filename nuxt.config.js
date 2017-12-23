@@ -15,7 +15,7 @@ module.exports = {
     ]
   },
   router: {
-    base: '/whatdidcongressdo/'
+    base: '/'
   },
   /*
   ** Customize the progress bar color
