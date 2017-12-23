@@ -1,0 +1,208 @@
+{
+	"status": "OK",
+	"copyright": " Copyright (c) 2017 Pro Publica Inc. All Rights Reserved.",
+	"results": [
+		{
+			"congress": "115",
+			"chamber": "House",
+			"date": "2017-12-21",
+			"num_results": 20,
+			"offset": 0,
+			"floor_actions": [
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 09:09:57 -0500",
+					"date": "2017-12-21",
+					"action_id": "H61000",
+					"description": "The Speaker announced that the House do now recess. The next meeting is subject to the call of the Chair.",
+					"bill_ids": []
+				},
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 09:01:58 -0500",
+					"date": "2017-12-21",
+					"action_id": "H8D000",
+					"description": "ONE MINUTE SPEECHES - The House proceeded with one minute speeches, which by direction of the Chair would be limited to 5 per side of the aisle.",
+					"bill_ids": []
+				},
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 09:01:38 -0500",
+					"date": "2017-12-21",
+					"action_id": "H2C000",
+					"description": "PLEDGE OF ALLEGIANCE - The Chair designated Mr. Kildee to lead the Members in reciting the Pledge of Allegiance to the Flag.",
+					"bill_ids": []
+				},
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 09:01:01 -0500",
+					"date": "2017-12-21",
+					"action_id": "H8D000",
+					"description": "SPEAKER'S APPROVAL OF THE JOURNAL - The Chair announced that he had examined the Journal of the last day's proceedings and had approved it. Mr. Thompson (PA) demanded that the question be put on agreeing to the Speaker's approval of the Journal and by voice vote, the Chair announced that the ayes had prevailed. Mr. Thompson (PA) objected to the voice vote based upon the absence of a quorum and the Chair postponed further proceedings until later in the legislative day.",
+					"bill_ids": []
+				},
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 09:00:07 -0500",
+					"date": "2017-12-21",
+					"action_id": "H21000",
+					"description": "Today's prayer was offered by the House Chaplain, Rev. Patrick J. Conroy.",
+					"bill_ids": []
+				},
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 09:00:02 -0500",
+					"date": "2017-12-21",
+					"action_id": "H20100",
+					"description": "The House convened, starting a new legislative day.",
+					"bill_ids": []
+				},
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 12:27:39 -0500",
+					"date": "2017-12-21",
+					"action_id": "H8D000",
+					"description": "DEBATE - The House proceeded with one hour of debate on H. Res. 670.",
+					"bill_ids": [
+						"hres670-115"
+					]
+				},
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 12:23:40 -0500",
+					"date": "2017-12-21",
+					"action_id": "H30000",
+					"description": "Considered as privileged matter. H. Res. 670 — \"Providing for consideration of the Senate amendment to the bill (H.R.1370) to amend the Homeland Security Act of 2002 to require the Secretary of Homeland Security to issue Department of Homeland Security-wide guidance and develop training programs as part of the Department of Homeland Security Blue Campaign, and for other purposes; providing for consideration of the bill (H.R. 4667) making further supplemental appropriations for the fiscal year ending September 30, 2018, for disaster assistance for Hurricanes Harvey, Irma, and Maria, and calendar year 2017 wildfires, and for other purposes; and providing for proceedings during the period from December 22, 2017, through January 7, 2018.\"",
+					"bill_ids": [
+						"hres670-115",
+						"hr1370-115"
+					]
+				},
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 12:21:56 -0500",
+					"date": "2017-12-21",
+					"action_id": "H25100",
+					"description": "Mr. Woodall filed a report from the Committee on Rules on H. Res. 670.",
+					"bill_ids": [
+						"hres670-115"
+					]
+				},
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 12:21:16 -0500",
+					"date": "2017-12-21",
+					"action_id": "H20100",
+					"description": "The House convened, returning from a recess continuing the legislative day of December 21.",
+					"bill_ids": []
+				},
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 12:23:02 -0500",
+					"date": "2017-12-21",
+					"action_id": "H24500",
+					"description": "The House received a message from the Clerk. Pursuant to the permission granted in Clause 2(h) of Rule II of the Rules of the U.S. House of Representatives, the Clerk notified the House that she received the following message from the Secretary of the Senate on December 21, 2017, at 9:25 a.m.: that the Senate agreed to S. Con. Res. 31, that the Senate passed S. 117 and S. 501.",
+					"bill_ids": []
+				},
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 13:38:08 -0500",
+					"date": "2017-12-21",
+					"action_id": "H88000",
+					"description": "On ordering the previous question Roll Call 704 - Yea and Nay vote pending.",
+					"bill_ids": []
+				},
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 14:30:24 -0500",
+					"date": "2017-12-21",
+					"action_id": "H8D000",
+					"description": "DEBATE - The House proceeded with forty minutes of debate on S. 1766.",
+					"bill_ids": [
+						"s1766-115"
+					]
+				},
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 14:30:23 -0500",
+					"date": "2017-12-21",
+					"action_id": "H30000",
+					"description": "Considered under suspension of the rules.",
+					"bill_ids": []
+				},
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 14:30:11 -0500",
+					"date": "2017-12-21",
+					"action_id": "H30300",
+					"description": "Mrs. Handel moved to suspend the rules and pass the bill. S. 1766 — \"To reauthorize the SAFER Act of 2013, and for other purposes.\"",
+					"bill_ids": [
+						"s1766-115"
+					]
+				},
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 14:29:39 -0500",
+					"date": "2017-12-21",
+					"action_id": "H26200",
+					"description": "The Speaker announced that votes on suspensions, if ordered, will be postponed until a time to be announced.",
+					"bill_ids": []
+				},
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 14:29:25 -0500",
+					"date": "2017-12-21",
+					"action_id": "H38310",
+					"description": "Motion to reconsider laid on the table Agreed to without objection.",
+					"bill_ids": []
+				},
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 14:29:22 -0500",
+					"date": "2017-12-21",
+					"action_id": "H37100",
+					"description": "On passage Passed without objection.",
+					"bill_ids": []
+				},
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 14:28:54 -0500",
+					"date": "2017-12-21",
+					"action_id": "H30000",
+					"description": "Considered by unanimous consent. H.R. 4641 — \"To authorize the President to award the Medal of Honor to John L. Canley for acts of valor during the Vietnam War while a member of the Marine Corps.\"",
+					"bill_ids": [
+						"hr4641-115"
+					]
+				},
+				{
+					"congress": "115",
+					"chamber": "House",
+					"timestamp": "2017-12-21 14:28:54 -0500",
+					"date": "2017-12-21",
+					"action_id": "H30200",
+					"description": "Mr. Coffman asked unanimous consent to discharge from committee and consider.",
+					"bill_ids": []
+				}
+			]
+		}
+	]
+}
