@@ -12,15 +12,18 @@ module.exports = {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge,chrome=1' },
-      { hid: 'description', name: 'description', content: 'What is Congress doing today?' },
+      { hid: 'description', name: 'description', content: 'Find out what votes and activity has Congress done today.' },
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { name: 'apple-mobile-web-app-status-bar-style', content: '#293340' },
       { property: 'og:url', content: 'http://whatdidcongressdo.today' },
       { property: 'og:title', content: 'What Did Congress Do Today?' },
       { property: 'og:description', content: 'Find out what votes and activity has Congress done today.' },
       { property: 'og:image', content: 'http://whatdidcongressdo.today/congress.jpg' },
-      { name: 'twitter:card', content: 'summary' },
-      { name: 'twitter:creator', content: '@njgingrich' }
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:creator', content: '@njgingrich' },
+      { name: 'twitter:title', content: 'What Did Congress Do Today?' },
+      { name: 'twitter:description', content: 'Find out what votes and activity has Congress done today.' },
+      { name: 'twitter:image', content: 'http://whatdidcongressdo.today/congress.jpg' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
