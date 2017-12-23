@@ -1,6 +1,9 @@
 <template>
   <section class="container">
-    <Navbar />
+    <Navbar>
+      <a href="#senate" class="link-item title-text">Senate</a>
+      <a href="#house" class="link-item title-text">House</a>
+    </Navbar>
     <header class="header">
       <h1 class="header--text title-text">What Did Congress Do Today?</h1>
     </header>
@@ -82,31 +85,6 @@ export default {
   overflow: hidden;
 }
 
-@media (min-width: 979px) {
-  .container {
-    grid-template-columns: 1fr minmax(420px, 520px) 64px minmax(auto, 600px) 1fr;
-    grid-template-rows: 56px 100vh auto auto auto auto auto auto;
-    grid-template-areas:
-      "navbar  navbar    navbar navbar    navbar "
-      "header  header    header header    header "
-      "s-head  s-head    s-head s-head    s-head "
-      ".       s-h-votes .      s-h-floor .      "
-      ".       s-votes   .      s-floor   .      "
-      "h-head  h-head    h-head h-head    h-head "
-      ".       h-h-votes .      h-h-floor .      "
-      ".       h-votes   .      h-floor   .      ";
-  }
-
-  .offset-box {
-    transform: translateY(-40px);
-    text-align: left;
-  }
-
-  .chambers--votes, .chambers--floor {
-    padding-top: 0;
-  }
-}
-
 .offset-box {
   span {
     display: block;
@@ -160,7 +138,7 @@ export default {
 }
 
 .header--text {
-  margin-top: 150px;
+  margin-top: 80px;
   margin-bottom: 0;
   padding: 16px 32px;
   font-size: 5vw;//56px;
@@ -201,5 +179,34 @@ export default {
 
 .senate-header--floor {
   grid-area: s-h-floor;
+}
+
+@media (min-width: 979px) {
+  .container {
+    grid-template-columns: 1fr minmax(420px, 520px) 64px minmax(auto, 600px) 1fr;
+    grid-template-rows: 56px 100vh auto auto auto auto auto auto;
+    grid-template-areas:
+      "navbar  navbar    navbar navbar    navbar "
+      "header  header    header header    header "
+      "s-head  s-head    s-head s-head    s-head "
+      ".       s-h-votes .      s-h-floor .      "
+      ".       s-votes   .      s-floor   .      "
+      "h-head  h-head    h-head h-head    h-head "
+      ".       h-h-votes .      h-h-floor .      "
+      ".       h-votes   .      h-floor   .      ";
+  }
+
+  .offset-box {
+    transform: translateY(-40px);
+
+    span {
+      text-align: left;
+      display: inline;
+    }
+  }
+
+  .chambers--votes, .chambers--floor {
+    padding-top: 0;
+  }
 }
 </style>

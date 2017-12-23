@@ -1,8 +1,8 @@
 <template>
   <nav class="top-navbar">
     <a href="#top" class="link-item title-text">Home</a>
-    <a href="#senate" class="link-item title-text">Senate</a>
-    <a href="#house" class="link-item title-text">House</a>
+    <slot></slot>
+    <a href="about" class="link-item title-text">About</a>
   </nav>
 </template>
 <script>
@@ -21,10 +21,17 @@ export default {
   z-index: 1000;
   width: 100%;
   height: 56px;
-  padding-left: 32px;
-  padding-right: 32px;
+  padding-left: 8px;
+  padding-right: 8px;
 
   background-color: $blue;
+}
+
+@media (min-width: 979px) {
+  .top-navbar {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
 }
 
 .link-item {
