@@ -52,12 +52,13 @@ export default {
   font-family: 'Merriweather';
 
   box-shadow: 0 4px 8px -3px rgba(0, 0, 0, 0.4);
-  transition: all 0.2s ease;
+  transition: all 0.2s ease-out;
 
   &:hover {
     box-shadow: 0 4px 12px -3px rgba(0, 0, 0, 0.8);
-    transform: translateY(-1px) translateX(-4px);
+    transform: translateY(-1px);
     border-left: 28px solid $blue;
+    margin-left: -28px;
   }
 }
 </style>
