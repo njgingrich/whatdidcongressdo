@@ -26,7 +26,7 @@
         <span class="result-text">{{vote.result}}</span>
       </div>
       <div class="votes-learnmore">
-        <a :href="vote.url" class="learnmore">Learn more..</a>
+        <a :href="vote.url" class="learnmore">Read more</a>
       </div>
     </div>
   </section>
@@ -101,8 +101,15 @@ export default {
   transition: all 0.2s ease;
 
   &:hover {
-  box-shadow: 0 8px 16px -3px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 8px 16px -3px rgba(0, 0, 0, 0.8);
     transform: translateY(-2px);
+
+    .votes-footer .votes-learnmore {
+      background-color: $beige-light;
+      a {
+        color: $blue;
+      }
+    }
   }
 }
 
@@ -123,17 +130,12 @@ export default {
   width: 30%;
   align-self: flex-end;
   padding: 2px 3px;
+  font-weight: bold;
+  transform: translateX(32px);
 
   a, a:visited, a:active {
     text-decoration: none;
     color: $white;
-  }
-
-  &:hover {
-    background-color: $beige-light;
-    a {
-      color: $blue;
-    }
   }
 }
 

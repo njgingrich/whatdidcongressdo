@@ -1,5 +1,6 @@
 import Vuex from 'vuex'
 import axios from 'axios'
+import moment from 'moment'
 
 const createStore = () => {
   return new Vuex.Store({
@@ -31,12 +32,13 @@ const createStore = () => {
     },
     actions: {
       async getTodaysVotes ({ commit }, params) {
+        let today = moment().subtract(2, 'days').format('YYYY-MM-DD')
         axios.defaults.headers.common['X-API-Key'] = 'wy7lAERzwY95CUEKsJFmX8gCLXD2JcBYue1fSnaQ'
-        // const { data: houseData } = await axios.get(`https://api.propublica.org/congress/v1/house/votes/2017-12-21/2017-12-21.json`)
-        // const { data: senateData } = await axios.get(`https://api.propublica.org/congress/v1/senate/votes/2017-12-21/2017-12-21.json`)
+        const { data: houseData } = await axios.get(`https://api.propublica.org/congress/v1/house/votes/${today}/${today}.json`)
+        const { data: senateData } = await axios.get(`https://api.propublica.org/congress/v1/senate/votes/${today}/${today}.json`)
 
-        const { data: houseData } = await axios.get(`http://localhost:3000/testdata/house.json`)
-        const { data: senateData } = await axios.get(`http://localhost:3000/testdata/senate.json`)
+        // const { data: houseData } = await axios.get(`http://localhost:3000/testdata/house.json`)
+        // const { data: senateData } = await axios.get(`http://localhost:3000/testdata/senate.json`)
         commit('setVotes', {
           chamber: 'house',
           votes: houseData.results.votes
@@ -47,11 +49,13 @@ const createStore = () => {
         })
       },
       async getTodaysFloorActions ({ commit }, params) {
+        let today = moment().subtract(2, 'days').format('YYYY/MM/DD')
         axios.defaults.headers.common['X-API-Key'] = 'wy7lAERzwY95CUEKsJFmX8gCLXD2JcBYue1fSnaQ'
+        const { data: houseData } = await axios.get(`https://api.propublica.org/congress/v1/house/floor_updates/${today}.json`)
+        const { data: senateData } = await axios.get(`https://api.propublica.org/congress/v1/senate/floor_updates/${today}.json`)
 
-        const { data: houseData } = await axios.get(`http://localhost:3000/testdata/house_floor.json`)
-        const { data: senateData } = await axios.get(`http://localhost:3000/testdata/senate_floor.json`)
-        console.log('housedata:', houseData)
+        // const { data: houseData } = await axios.get(`http://localhost:3000/testdata/house_floor.json`)
+        // const { data: senateData } = await axios.get(`http://localhost:3000/testdata/senate_floor.json`)
         commit('setFloorActions', {
           chamber: 'house',
           floor_actions: houseData.results[0].floor_actions

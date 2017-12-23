@@ -1,48 +1,55 @@
 <template>
   <section class="container">
+    <Navbar />
     <header class="header">
       <h1 class="header--text title-text">What Did Congress Do Today?</h1>
     </header>
-    <h2 class="chambers--text title-text senate-header">Senate</h2>
+    <h2 id="senate" class="chambers--text title-text senate-header">Senate</h2>
     <div class="offset-box title-text senate-header--votes">
       <span>Votes</span>
     </div>
     <div class="offset-box title-text senate-header--floor">
-      <span>Floor</span>
+      <span>Floor Actions</span>
     </div>
-    <section class="chamber senate">
-      <div class="chambers--votes">
-        <Vote v-for="vote in senateVotes" :key="vote.bill.bill_id" :vote="vote"/>
-      </div>
-      <div class="chambers--floor"></div>
-    </section>
-    <h2 class="chambers--text title-text house-header">House</h2>
+    <div class="chambers--votes senate">
+      <Vote v-for="vote in senateVotes" :key="vote.bill.bill_id" :vote="vote"/>
+    </div>
+    <div class="chambers--floor senate">
+      <FloorAction v-for="action in senateActions" :key="action.timestamp" :action="action"/>
+    </div>
+    <h2 id="house" class="chambers--text title-text house-header">House</h2>
     <div class="offset-box title-text house-header--votes">
       <span>Votes</span>
     </div>
     <div class="offset-box title-text house-header--floor">
-      <span>Floor</span>
+      <span>Floor Actions</span>
     </div>
-    <section class="chamber house">
-      <div class="chambers--votes">
-        <Vote v-for="vote in houseVotes" :key="vote.bill.bill_id" :vote="vote"/>
-      </div>
-      <div class="chambers--floor"></div>
-    </section>
+    <div class="chambers--votes house">
+      <Vote v-for="vote in houseVotes" :key="vote.bill.bill_id" :vote="vote"/>
+    </div>
+    <div class="chambers--floor house">
+      <FloorAction v-for="action in houseActions" :key="action.timestamp" :action="action"/>
+    </div>
   </section>
 </template>
 
 <script>
+import FloorAction from '~/components/FloorAction'
+import Navbar from '~/components/Navbar'
 import Vote from '~/components/Vote'
 
 export default {
   components: {
+    FloorAction,
+    Navbar,
     Vote
   },
   data () {
     return {
       houseVotes: this.$store.state.house.votes,
-      senateVotes: this.$store.state.senate.votes
+      senateVotes: this.$store.state.senate.votes,
+      senateActions: this.$store.state.senate.floor_actions,
+      houseActions: this.$store.state.house.floor_actions
     }
   },
   async fetch ({ store, params }) {
@@ -57,31 +64,40 @@ export default {
 
 .container {
   display: grid;
-  grid-template-columns: 1fr auto 32px auto 1fr;
-  grid-template-rows: 100vh auto auto auto auto auto auto;
+  grid-template-columns: 1fr minmax(420px, 520px) 64px minmax(auto, 600px) 1fr;
+  grid-template-rows: 56px 100vh auto auto auto auto auto auto;
   grid-template-areas:
-    "header  header  header header  header "
-    "s-head  s-head  s-head s-head  s-head "
-    ".       s-votes .      s-floor .      "
-    ".       senate  senate senate  .      "
-    "h-head  h-head  h-head h-head  h-head "
-    ".       h-votes .      h-floor .      "
-    ".       house   house  house   .      ";
+    "navbar  navbar    navbar navbar    navbar "
+    "header  header    header header    header "
+    "s-head  s-head    s-head s-head    s-head "
+    ".       s-h-votes .      s-h-floor .      "
+    ".       s-votes   .      s-floor   .      "
+    "h-head  h-head    h-head h-head    h-head "
+    ".       h-h-votes .      h-h-floor .      "
+    ".       h-votes   .      h-floor   .      ";
 }
 
-.chamber {
-  display: grid;
-  grid-template-columns: minmax(auto, 520px) 32px minmax(50%, auto);
-  grid-template-rows: auto;
-  grid-template-areas: "votes . floor";
+.senate {
+  &.chambers--votes {
+    grid-area: s-votes;
+  }
+
+  &.chambers--floor {
+    grid-area: s-floor;
+  }
 }
 
-.chambers--votes {
-  grid-area: votes;
+.house {
+  &.chambers--votes {
+    grid-area: h-votes;
+  }
+
+  &.chambers--floor {
+    grid-area: h-floor;
+  }
 }
 
 .chambers--floor {
-  grid-area: floor;
   min-width: 480px;
 }
 
@@ -110,18 +126,11 @@ export default {
 
 .chambers--text {
   margin: 0;
-  padding: 32px 0 72px 0;
+  padding: 56px 0 80px 0;
   font-size: 72px;
   text-align: center;
   color: $white;
   background-color: $blue;
-}
-
-
-.title-text {
-  font-family: 'EB Garamond';
-  font-weight: bold;
-  text-transform: uppercase;
 }
 
 .offset-box {
@@ -134,25 +143,17 @@ export default {
   }
 }
 
-.house {
-  grid-area: house;
-}
-
 .house-header {
   grid-area: h-head;
 }
 
 .house-header--votes {
-  grid-area: h-votes;
+  grid-area: h-h-votes;
 
 }
 
 .house-header--floor {
-  grid-area: h-floor;
-}
-
-.senate {
-  grid-area: senate;
+  grid-area: h-h-floor;
 }
 
 .senate-header {
@@ -160,10 +161,10 @@ export default {
 }
 
 .senate-header--votes {
-  grid-area: s-votes;
+  grid-area: s-h-votes;
 }
 
 .senate-header--floor {
-  grid-area: s-floor;
+  grid-area: s-h-floor;
 }
 </style>

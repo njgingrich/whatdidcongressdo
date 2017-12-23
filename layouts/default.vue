@@ -1,9 +1,5 @@
 <template>
   <div>
-    <nav class="top-navbar">
-      <nuxt-link to="/" class="link-item">Home</nuxt-link>
-    </nav>
-
     <nuxt/>
   </div>
 </template>
@@ -35,31 +31,14 @@ body {
   box-sizing: border-box;
 }
 
-.top-navbar {
-  display: flex;
-  align-items: center;
-  position: fixed;
-  z-index: 1000;
-  width: 100%;
-  padding-left: 32px;
-  padding-right: 32px;
-
-  height: 56px;
-  background-color: $blue;
-}
-
-.link-item {
-  font-family: 'EB Garamond';
-  font-size: 24px;
-  text-transform: uppercase;
-}
-
 a.link-item, a.link-item:visited, a.link-item:active {
   color: $white;
   text-decoration: none;
+}
 
-  &:hover {
-    color: $white;
-  }
+.title-text {
+  font-family: 'EB Garamond';
+  font-weight: bold;
+  text-transform: uppercase;
 }
 </style>
