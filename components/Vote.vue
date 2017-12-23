@@ -123,13 +123,12 @@ export default {
 
 .votes-result {
   padding-top: 16px;
-  width: 70%;
+  margin-right: auto;
 }
 
 .votes-learnmore {
-  width: 30%;
   align-self: flex-end;
-  padding: 2px 3px;
+  padding: 2px 36px 2px 3px;
   font-weight: bold;
   transform: translateX(32px);
 
@@ -143,10 +142,16 @@ export default {
   margin: 0;
   padding: 4px 6px;
 
+  font-size: 18px;
   text-transform: uppercase;
-  font-size: 24px;
   font-weight: bold;
   color: $blue;
   background-color: $white;
+}
+
+@media (min-width: 979px) {
+  .result-text {
+    font-size: 24px;
+  }
 }
 </style>

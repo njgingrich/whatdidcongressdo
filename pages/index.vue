@@ -64,17 +64,58 @@ export default {
 
 .container {
   display: grid;
-  grid-template-columns: 1fr minmax(420px, 520px) 64px minmax(auto, 600px) 1fr;
-  grid-template-rows: 56px 100vh auto auto auto auto auto auto;
+  grid-template-columns: 1fr 90vw 1fr;
+  grid-template-rows: 56px 100vh repeat(10, auto);
   grid-template-areas:
-    "navbar  navbar    navbar navbar    navbar "
-    "header  header    header header    header "
-    "s-head  s-head    s-head s-head    s-head "
-    ".       s-h-votes .      s-h-floor .      "
-    ".       s-votes   .      s-floor   .      "
-    "h-head  h-head    h-head h-head    h-head "
-    ".       h-h-votes .      h-h-floor .      "
-    ".       h-votes   .      h-floor   .      ";
+    "navbar    navbar    navbar"
+    "header    header    header"
+    "s-head    s-head    s-head"
+    "s-h-votes s-h-votes s-h-votes"
+    ".         s-votes   .     "
+    "s-h-floor s-h-floor s-h-floor"
+    ".         s-floor   .     "
+    "h-head    h-head    h-head"
+    "h-h-votes h-h-votes h-h-votes"
+    ".         h-votes   .     "
+    "h-h-floor h-h-floor h-h-floor"
+    ".         h-floor   .     ";
+  overflow: hidden;
+}
+
+@media (min-width: 979px) {
+  .container {
+    grid-template-columns: 1fr minmax(420px, 520px) 64px minmax(auto, 600px) 1fr;
+    grid-template-rows: 56px 100vh auto auto auto auto auto auto;
+    grid-template-areas:
+      "navbar  navbar    navbar navbar    navbar "
+      "header  header    header header    header "
+      "s-head  s-head    s-head s-head    s-head "
+      ".       s-h-votes .      s-h-floor .      "
+      ".       s-votes   .      s-floor   .      "
+      "h-head  h-head    h-head h-head    h-head "
+      ".       h-h-votes .      h-h-floor .      "
+      ".       h-votes   .      h-floor   .      ";
+  }
+
+  .offset-box {
+    transform: translateY(-40px);
+    text-align: left;
+  }
+
+  .chambers--votes, .chambers--floor {
+    padding-top: 0;
+  }
+}
+
+.offset-box {
+  span {
+    display: block;
+    padding: 8px 16px;
+    background-color: $beige-light;
+    color: $blue;
+    font-size: 36px;
+    text-align: center;
+  }
 }
 
 .senate {
@@ -97,8 +138,12 @@ export default {
   }
 }
 
+.chambers--votes {
+  padding-top: 16px;
+}
+
 .chambers--floor {
-  min-width: 480px;
+  padding-top: 16px;
 }
 
 .header {
@@ -131,16 +176,6 @@ export default {
   text-align: center;
   color: $white;
   background-color: $blue;
-}
-
-.offset-box {
-  transform: translateY(-40px);
-  span {
-    padding: 8px 16px;
-    background-color: $beige-light;
-    color: $blue;
-    font-size: 36px;
-  }
 }
 
 .house-header {
