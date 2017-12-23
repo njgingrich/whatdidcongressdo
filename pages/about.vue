@@ -7,7 +7,7 @@
         I developed this site because I wanted an easy way to see what exactly Congress is doing every day, and to make it easy for others to see the process that goes on in the Senate and the House.
       </p>
       <p class="content-sub-info">
-        This site runs off of the <a href="https://projects.propublica.org/api-docs/congress-api/">ProPublica Congress API</a>, and is updated approximately every hour.
+        This site runs off of the <a href="https://projects.propublica.org/api-docs/congress-api/" target="_blank" rel="noopener">ProPublica Congress API</a>, and is updated approximately every hour.
       </p>
     </section>
   </section>
