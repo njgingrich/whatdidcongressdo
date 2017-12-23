@@ -1,4 +1,11 @@
 /*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+/*!
  * Vue.js v2.4.4
  * (c) 2014-2017 Evan You
  * Released under the MIT License.
@@ -8,13 +15,6 @@
  * vuex v2.5.0
  * (c) 2017 Evan You
  * @license MIT
- */
-
-/*!
- * Determine if an object is a Buffer
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
  */
 
 /*!
