@@ -13,6 +13,11 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@nuxtjs/dotenv": "^1.1.0",
+    "@nuxtjs/google-analytics": "^2.0.2",
+    "axios": "^0.17.1",
+    "dotenv": "^4.0.0",
+    "moment": "^2.20.1",
     "nuxt": "^1.0.0-rc11"
   },
   "devDependencies": {
