@@ -15,10 +15,20 @@
       <span>Floor Actions</span>
     </div>
     <div class="chambers--votes senate">
-      <Vote v-for="vote in senateVotes" :key="vote.bill.bill_id" :vote="vote"/>
+      <template v-if="anySenateVotes">
+        <Vote v-for="vote in senateVotes" :key="vote.bill.bill_id" :vote="vote"/>
+      </template>
+      <template v-else>
+        <div class="message">No votes today.</div>
+      </template>
     </div>
     <div class="chambers--floor senate">
-      <FloorAction v-for="action in senateActions" :key="action.timestamp" :action="action"/>
+      <template v-if="anySenateActions">
+        <FloorAction v-for="action in senateActions" :key="action.timestamp" :action="action"/>
+      </template>
+      <template v-else>
+        <div class="message">No floor actions today.</div>
+      </template>
     </div>
     <h2 id="house" class="chambers--text title-text house-header">House</h2>
     <div class="offset-box title-text house-header--votes">
@@ -28,10 +38,20 @@
       <span>Floor Actions</span>
     </div>
     <div class="chambers--votes house">
-      <Vote v-for="vote in houseVotes" :key="vote.bill.bill_id" :vote="vote"/>
+      <template v-if="anyHouseVotes">
+        <Vote v-for="vote in houseVotes" :key="vote.bill.bill_id" :vote="vote"/>
+      </template>
+      <template v-else>
+        <div class="message">No votes today.</div>
+      </template>
     </div>
     <div class="chambers--floor house">
-      <FloorAction v-for="action in houseActions" :key="action.timestamp" :action="action"/>
+      <template v-if="anyHouseActions">
+        <FloorAction v-for="action in houseActions" :key="action.timestamp" :action="action"/>
+      </template>
+      <template v-else>
+        <div class="message">No floor actions today.</div>
+      </template>
     </div>
   </section>
 </template>
@@ -58,6 +78,23 @@ export default {
   async fetch ({ store, params }) {
     await store.dispatch('getTodaysVotes')
     await store.dispatch('getTodaysFloorActions')
+  },
+  computed: {
+    anySenateVotes () {
+      return this.senateVotes.length > 0
+    },
+
+    anyHouseVotes () {
+      return this.houseVotes.length > 0
+    },
+
+    anySenateActions () {
+      return this.senateActions.length > 0
+    },
+
+    anyHouseActions () {
+      return this.houseActions.length > 0
+    }
   }
 }
 </script>
@@ -179,6 +216,14 @@ export default {
 
 .senate-header--floor {
   grid-area: s-h-floor;
+}
+
+.message {
+  text-align: center;
+  font-family: 'Merriweather';
+  font-size: 24px;
+  color: $blue;
+  padding: 16px 32px 32px 32px;
 }
 
 @media (min-width: 979px) {

@@ -51,18 +51,50 @@ const createStore = () => {
       async getTodaysFloorActions ({ commit }, params) {
         let today = moment().subtract(2, 'days').format('YYYY/MM/DD')
         axios.defaults.headers.common['X-API-Key'] = 'wy7lAERzwY95CUEKsJFmX8gCLXD2JcBYue1fSnaQ'
-        const { data: houseData } = await axios.get(`https://api.propublica.org/congress/v1/house/floor_updates/${today}.json`)
-        const { data: senateData } = await axios.get(`https://api.propublica.org/congress/v1/senate/floor_updates/${today}.json`)
+        // Get House results
+        let numResults = 20
+        let offset = 0
+        let houseFloorActions = []
+        while (numResults === 20) {
+          let req = `https://api.propublica.org/congress/v1/house/floor_updates/${today}.json?offset=${offset}`
+          let { data: houseData } = await axios.get(req)
+          numResults = houseData.results[0].num_results
+          offset += 20
+          houseFloorActions.push(...houseData.results[0].floor_actions)
+        }
+        houseFloorActions = houseFloorActions.sort((a, b) => {
+          return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+        })
 
+        // Get Senate results
+        numResults = 20
+        offset = 0
+        let senateFloorActions = []
+        while (numResults === 20) {
+          let req = `https://api.propublica.org/congress/v1/senate/floor_updates/${today}.json?offset=${offset}`
+
+          let { data: senateData } = await axios.get(req)
+          // ProPublica may send back a malformed JSON response, with strings containing unescaped newlines
+          if (typeof senateData === 'string') {
+            senateData = senateData.replace(/\n\n/g, '\\n')
+            senateData = JSON.parse(senateData)
+          }
+          numResults = senateData.results[0].num_results
+          offset += 20
+          senateFloorActions.push(...senateData.results[0].floor_actions)
+        }
+        senateFloorActions = senateFloorActions.sort((a, b) => {
+          return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+        })
         // const { data: houseData } = await axios.get(`http://localhost:3000/testdata/house_floor.json`)
         // const { data: senateData } = await axios.get(`http://localhost:3000/testdata/senate_floor.json`)
         commit('setFloorActions', {
           chamber: 'house',
-          floor_actions: houseData.results[0].floor_actions
+          floor_actions: houseFloorActions
         })
         commit('setFloorActions', {
           chamber: 'senate',
-          floor_actions: senateData.results[0].floor_actions
+          floor_actions: senateFloorActions
         })
       }
     }

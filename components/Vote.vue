@@ -142,7 +142,6 @@ export default {
   margin: 0;
   padding: 4px 6px;
 
-  font-size: 18px;
   text-transform: uppercase;
   font-weight: bold;
   color: $blue;

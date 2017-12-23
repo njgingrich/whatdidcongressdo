@@ -19,7 +19,7 @@ export default {
   computed: {
     time () {
       let d = new Date(this.action.timestamp)
-      return moment(d.getTime()).format('h:mm:ss a')
+      return moment(d.getTime()).format('h:mm a')
     }
   }
 }
@@ -39,7 +39,7 @@ export default {
 
 .floor-action {
   display: grid;
-  grid-template-columns: 120px auto;
+  grid-template-columns: 80px auto;
   grid-template-rows: auto;
   grid-template-areas: "time action";
   margin-bottom: 16px;
