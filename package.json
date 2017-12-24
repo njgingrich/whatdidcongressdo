@@ -9,6 +9,7 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate && cp CNAME docs/CNAME",
+    "generate-icons": "vsvg -s ./assets/svg-icons -t ./assets/icons",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
   },
