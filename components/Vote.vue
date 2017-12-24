@@ -26,7 +26,7 @@
         <span class="result-text">{{vote.result}}</span>
       </div>
       <div class="votes-learnmore">
-        <a :href="vote.url" class="learnmore">Read more</a>
+        <a :href="vote.url" target="_bloank" rel="noopener" class="learnmore">Read more</a>
       </div>
     </div>
   </section>
