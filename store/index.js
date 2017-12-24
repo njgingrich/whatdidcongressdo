@@ -32,7 +32,7 @@ const createStore = () => {
     },
     actions: {
       async getTodaysVotes ({ commit }, params) {
-        let today = moment().subtract(2, 'days').format('YYYY-MM-DD')
+        let today = moment().format('YYYY-MM-DD')
         axios.defaults.headers.common['X-API-Key'] = process.env.API_KEY
         const { data: houseData } = await axios.get(`https://api.propublica.org/congress/v1/house/votes/${today}/${today}.json`)
         const { data: senateData } = await axios.get(`https://api.propublica.org/congress/v1/senate/votes/${today}/${today}.json`)
@@ -47,7 +47,7 @@ const createStore = () => {
         })
       },
       async getTodaysFloorActions ({ commit }, params) {
-        let today = moment().subtract(2, 'days').format('YYYY/MM/DD')
+        let today = moment().format('YYYY/MM/DD')
         axios.defaults.headers.common['X-API-Key'] = process.env.API_KEY
         // Get House results
         let numResults = 20
