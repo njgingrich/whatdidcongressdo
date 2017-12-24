@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 module.exports = {
   /*
   ** Headers of the page
@@ -23,11 +25,15 @@ module.exports = {
       { name: 'twitter:creator', content: '@njgingrich' },
       { name: 'twitter:title', content: 'What Did Congress Do Today?' },
       { name: 'twitter:description', content: 'Find out what votes and activity has Congress done today.' },
-      { name: 'twitter:image', content: 'http://whatdidcongressdo.today/congress.jpg' }
+      { name: 'twitter:image', content: 'http://whatdidcongressdo.today/congress.jpg' },
+      { property: 'fb:app_id', content: process.env.FB_APPID }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=EB+Garamond|Merriweather' }
+    ],
+    script: [
+      { type: 'text/javascript', src: 'https://connect.facebook.net/en_US/all.js', async: 'true' }
     ]
   },
   router: {
@@ -57,5 +63,15 @@ module.exports = {
   },
   generate: {
     dir: 'docs'
+  },
+  plugins: [
+    { src: '~plugins/fb.js' }
+  ],
+  modules: [
+    '@nuxtjs/google-analytics',
+    '@nuxtjs/dotenv'
+  ],
+  'google-analytics': {
+    id: 'UA-111460974-2'
   }
 }

@@ -9,6 +9,10 @@
       <p class="content-sub-info">
         This site runs off of the <a href="https://projects.propublica.org/api-docs/congress-api/" target="_blank" rel="noopener">ProPublica Congress API</a>, and is updated approximately every hour.
       </p>
+      <section class="share">
+        <a href="#top" @click="fbPopup">Facebook</a>
+        <a href="#top" @click="twitterPopup">Tweet</a>
+      </section>
     </section>
   </section>
 </template>
@@ -18,6 +22,23 @@ import Navbar from '~/components/Navbar'
 export default {
   components: {
     Navbar
+  },
+  methods: {
+    fbPopup () {
+      // eslint-disable-next-line
+      FB.ui({
+        method: 'feed',
+        display: 'popup',
+        link: 'http://whatdidcongressdo.today',
+        caption: 'An example caption'
+      }, function (response) {})
+    },
+    twitterPopup () {
+      window.open('https://twitter.com/intent/tweet?text=Find%20out%20what%20Congress%20is%20doing%20today.&url=http://whatdidcongressdo.today', '', 'width=640,height=420')
+    }
+  },
+  mounted () {
+    this.$initFBSDK()
   }
 }
 </script>
