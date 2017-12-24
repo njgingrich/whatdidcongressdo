@@ -1,6 +1,5 @@
 <template>
-  <section class="container">
-    <Navbar/>
+  <section class="page">
     <section class="content">
       <h1 class="content-title title-text">About the Site</h1>
       <p class="content-info">
@@ -26,14 +25,10 @@
   </section>
 </template>
 <script>
-import Navbar from '~/components/Navbar'
 import '~/assets/icons/facebook'
 import '~/assets/icons/twitter'
 
 export default {
-  components: {
-    Navbar
-  },
   methods: {
     fbPopup () {
       // eslint-disable-next-line
@@ -53,18 +48,11 @@ export default {
 <style lang="scss" scoped>
 @import "~assets/styles/colors";
 
-.container {
-  display: grid;
-  grid-template-columns: auto minmax(auto, 1000px) auto;
-  grid-template-rows: 56px auto;
-  grid-template-areas:
-  ". navbar  ."
-  ". content .";
-
+.page {
   background-image: url("~assets/images/congress.jpg");
   background-position-x: 50%;
   background-size: cover;
-  height: 100vh;
+  height: calc(100vh - 56px - 120px);
 }
 
 .content {

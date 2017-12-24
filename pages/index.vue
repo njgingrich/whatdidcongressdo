@@ -1,9 +1,5 @@
 <template>
-  <section class="container">
-    <Navbar>
-      <a href="#senate" class="link-item title-text">Senate</a>
-      <a href="#house" class="link-item title-text">House</a>
-    </Navbar>
+  <section class="page">
     <header class="header">
       <h1 class="header--text title-text">What Did Congress Do Today?</h1>
     </header>
@@ -58,13 +54,11 @@
 
 <script>
 import FloorAction from '~/components/FloorAction'
-import Navbar from '~/components/Navbar'
 import Vote from '~/components/Vote'
 
 export default {
   components: {
     FloorAction,
-    Navbar,
     Vote
   },
   data () {
@@ -102,12 +96,11 @@ export default {
 <style lang="scss">
 @import "~assets/styles/colors";
 
-.container {
+.page {
   display: grid;
   grid-template-columns: 1fr 90vw 1fr;
-  grid-template-rows: 56px 100vh repeat(10, auto);
+  grid-template-rows: 100vh repeat(10, auto);
   grid-template-areas:
-    "navbar    navbar    navbar"
     "header    header    header"
     "s-head    s-head    s-head"
     "s-h-votes s-h-votes s-h-votes"
@@ -227,18 +220,17 @@ export default {
 }
 
 @media (min-width: 979px) {
-  .container {
+  .page {
     grid-template-columns: 1fr minmax(420px, 520px) 64px minmax(auto, 600px) 1fr;
-    grid-template-rows: 56px 100vh auto auto auto auto auto auto;
+    grid-template-rows: 100vh auto auto auto auto auto auto;
     grid-template-areas:
-      "navbar  navbar    navbar navbar    navbar "
-      "header  header    header header    header "
-      "s-head  s-head    s-head s-head    s-head "
-      ".       s-h-votes .      s-h-floor .      "
-      ".       s-votes   .      s-floor   .      "
-      "h-head  h-head    h-head h-head    h-head "
-      ".       h-h-votes .      h-h-floor .      "
-      ".       h-votes   .      h-floor   .      ";
+      "header  header    header header    header"
+      "s-head  s-head    s-head s-head    s-head"
+      ".       s-h-votes .      s-h-floor .     "
+      ".       s-votes   .      s-floor   .     "
+      "h-head  h-head    h-head h-head    h-head"
+      ".       h-h-votes .      h-h-floor .     "
+      ".       h-votes   .      h-floor   .     ";
   }
 
   .offset-box {
@@ -253,5 +245,9 @@ export default {
   .chambers--votes, .chambers--floor {
     padding-top: 0;
   }
+}
+
+.footer {
+  grid-area: footer;
 }
 </style>

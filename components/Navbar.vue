@@ -1,7 +1,8 @@
 <template>
   <nav class="top-navbar">
     <a href="#top" class="link-item title-text">Home</a>
-    <slot></slot>
+    <a href="#senate" class="link-item title-text">Senate</a>
+    <a href="#house" class="link-item title-text">House</a>
     <a href="about" class="link-item title-text">About</a>
     <div @click="fbPopup" class="share--item facebook">
       <svgicon name="facebook"/>
@@ -37,7 +38,6 @@ export default {
 @import "~assets/styles/colors";
 
 .top-navbar {
-  grid-area: navbar;
   display: flex;
   align-items: center;
   position: fixed;
