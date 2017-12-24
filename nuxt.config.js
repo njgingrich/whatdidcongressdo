@@ -65,7 +65,8 @@ module.exports = {
     dir: 'docs'
   },
   plugins: [
-    { src: '~plugins/fb.js' }
+    { src: '~plugins/fb.js' },
+    { src: '~plugins/svgicon.js' }
   ],
   modules: [
     '@nuxtjs/google-analytics',

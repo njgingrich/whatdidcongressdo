@@ -2,7 +2,7 @@
   <section class="container">
     <Navbar/>
     <section class="content">
-      <h1 class="content-title">About the Site</h1>
+      <h1 class="content-title title-text">About the Site</h1>
       <p class="content-info">
         I developed this site because I wanted an easy way to see what exactly Congress is doing every day, and to make it easy for others to see the process that goes on in the Senate and the House.
       </p>
@@ -10,14 +10,20 @@
         This site runs off of the <a href="https://projects.propublica.org/api-docs/congress-api/" target="_blank" rel="noopener">ProPublica Congress API</a>, and is updated approximately every hour.
       </p>
       <section class="share">
-        <a href="#top" @click="fbPopup">Facebook</a>
-        <a href="#top" @click="twitterPopup">Tweet</a>
+        <div @click="fbPopup" class="share--item facebook">
+          <svgicon name="facebook"/>
+        </div>
+        <div @click="twitterPopup" class="share--item twitter">
+          <svgicon name="twitter"/>
+        </div>
       </section>
     </section>
   </section>
 </template>
 <script>
 import Navbar from '~/components/Navbar'
+import '~/assets/icons/facebook'
+import '~/assets/icons/twitter'
 
 export default {
   components: {
@@ -71,7 +77,8 @@ export default {
 }
 
 .content-title {
-  font-size: 32px;
+  font-size: 48px;
+  text-align: center;
   margin-top: 0;
 }
 
@@ -85,5 +92,54 @@ export default {
 
 a, a:visited, a:active {
   color: $white;
+}
+
+.share {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding-top: 32px;
+
+  .share--item.facebook {
+    margin-right: 16px;
+  }
+
+  .share--item.twitter {
+    margin-left: 16px;
+  }
+}
+
+.share--item {
+  background-color: $white;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 2px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  &.facebook {
+    fill: $fb-color;
+  }
+
+  &.twitter {
+    fill: $twitter-color;
+  }
+
+  &:hover {
+    width: 50px;
+    height: 50px;
+  margin-bottom: 0px;
+  }
+}
+
+.share--item.facebook:hover {
+  background-color: $fb-color;
+  fill: $white;
+}
+
+.share--item.twitter:hover {
+  background-color: $twitter-color;
+  fill: $white;
 }
 </style>

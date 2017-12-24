@@ -3,11 +3,37 @@
     <a href="#top" class="link-item title-text">Home</a>
     <slot></slot>
     <a href="about" class="link-item title-text">About</a>
+    <div @click="fbPopup" class="share--item facebook">
+      <svgicon name="facebook"/>
+    </div>
+    <div @click="twitterPopup" class="share--item twitter">
+      <svgicon name="twitter"/>
+    </div>
   </nav>
 </template>
 <script>
+import '~/assets/icons/facebook'
+import '~/assets/icons/twitter'
+
 export default {
-  name: 'Navbar'
+  name: 'Navbar',
+  methods: {
+    fbPopup () {
+      // eslint-disable-next-line
+      FB.ui({
+        method: 'feed',
+        display: 'popup',
+        link: 'http://whatdidcongressdo.today',
+        caption: 'An example caption'
+      }, function (response) {})
+    },
+    twitterPopup () {
+      window.open('https://twitter.com/intent/tweet?text=Find%20out%20what%20Congress%20is%20doing%20today.&url=http://whatdidcongressdo.today', '', 'width=640,height=420')
+    }
+  },
+  mounted () {
+    this.$initFBSDK()
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -46,5 +72,32 @@ export default {
     background-color: $beige-light;
     color: $blue;
   }
+}
+
+.share--item {
+  background-color: $white;
+  width: 32px;
+  height: 32px;
+  margin: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  &.facebook {
+    fill: $fb-color;
+  }
+
+  &.twitter {
+    fill: $twitter-color;
+  }
+}
+
+.share--item.facebook:hover {
+  background-color: $fb-color;
+  fill: $white;
+}
+
+.share--item.twitter:hover {
+  background-color: $twitter-color;
+  fill: $white;
 }
 </style>
