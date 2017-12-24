@@ -33,7 +33,7 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=EB+Garamond|Merriweather' }
     ],
     script: [
-      { type: 'text/javascript', src: 'https://connect.facebook.net/en_US/all.js', async: 'true' }
+      { type: 'text/javascript', src: 'https://connect.facebook.net/en_US/all.js', async: 'true', body: 'true' }
     ]
   },
   router: {

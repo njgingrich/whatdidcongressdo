@@ -42,9 +42,6 @@ export default {
     twitterPopup () {
       window.open('https://twitter.com/intent/tweet?text=Find%20out%20what%20Congress%20is%20doing%20today.&url=http://whatdidcongressdo.today', '', 'width=640,height=420')
     }
-  },
-  mounted () {
-    this.$initFBSDK()
   }
 }
 </script>
