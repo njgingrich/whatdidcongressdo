@@ -20,12 +20,12 @@ module.exports = {
       { property: 'og:url', content: 'http://whatdidcongressdo.today' },
       { property: 'og:title', content: 'What Did Congress Do Today?' },
       { property: 'og:description', content: 'Find out what votes and activity has Congress done today.' },
-      { property: 'og:image', content: 'http://whatdidcongressdo.today/congress.jpg' },
+      { property: 'og:image', content: 'http://whatdidcongressdo.today/congress.1.jpg' },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:creator', content: '@njgingrich' },
       { name: 'twitter:title', content: 'What Did Congress Do Today?' },
       { name: 'twitter:description', content: 'Find out what votes and activity has Congress done today.' },
-      { name: 'twitter:image', content: 'http://whatdidcongressdo.today/congress.jpg' },
+      { name: 'twitter:image', content: 'http://whatdidcongressdo.today/congress.1.jpg' },
       { property: 'fb:app_id', content: process.env.FB_APPID }
     ],
     link: [
