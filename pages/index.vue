@@ -3,6 +3,7 @@
     <header class="header">
       <h1 class="header--text title-text">What Did Congress Do Today?</h1>
     </header>
+
     <h2 id="senate" class="chambers--text title-text senate-header">Senate</h2>
     <div class="offset-box title-text senate-header--votes">
       <span>Votes</span>
@@ -10,14 +11,19 @@
     <div class="offset-box title-text senate-header--floor">
       <span>Floor Actions</span>
     </div>
-    <div class="chambers--votes senate">
+
+    <!--div class="chambers--votes senate">
       <template v-if="anySenateVotes">
         <Vote v-for="vote in senateVotes" :key="vote.bill.bill_id" :vote="vote"/>
       </template>
       <template v-else>
         <div class="message">No votes today.</div>
       </template>
-    </div>
+    </div-->
+    <VoteDisplay class="senate"
+                 message="No votes today."
+                 :votes="senateVotes"
+                 :anyVotes="anySenateVotes"/>
     <div class="chambers--floor senate">
       <template v-if="anySenateActions">
         <FloorAction v-for="action in senateActions" :key="action.timestamp" :action="action"/>
@@ -26,6 +32,7 @@
         <div class="message">No floor actions today.</div>
       </template>
     </div>
+
     <h2 id="house" class="chambers--text title-text house-header">House</h2>
     <div class="offset-box title-text house-header--votes">
       <span>Votes</span>
@@ -33,6 +40,7 @@
     <div class="offset-box title-text house-header--floor">
       <span>Floor Actions</span>
     </div>
+
     <div class="chambers--votes house">
       <template v-if="anyHouseVotes">
         <Vote v-for="vote in houseVotes" :key="vote.bill.bill_id" :vote="vote"/>
@@ -55,23 +63,26 @@
 <script>
 import FloorAction from '~/components/FloorAction'
 import Vote from '~/components/Vote'
+import VoteDisplay from '~/components/VoteDisplay'
 
 export default {
   components: {
     FloorAction,
-    Vote
+    Vote,
+    VoteDisplay
   },
   data () {
     return {
-      houseVotes: this.$store.state.house.votes,
-      senateVotes: this.$store.state.senate.votes,
-      senateActions: this.$store.state.senate.floor_actions,
-      houseActions: this.$store.state.house.floor_actions
+      houseVotes: this.$store.state.house.today.votes,
+      senateVotes: this.$store.state.senate.today.votes,
+      senateActions: this.$store.state.senate.today.floor_actions,
+      houseActions: this.$store.state.house.today.floor_actions
     }
   },
   async fetch ({ store, params }) {
     await store.dispatch('getTodaysVotes')
     await store.dispatch('getTodaysFloorActions')
+    await store.dispatch('getCongressSession')
   },
   computed: {
     anySenateVotes () {
@@ -209,14 +220,6 @@ export default {
 
 .senate-header--floor {
   grid-area: s-h-floor;
-}
-
-.message {
-  text-align: center;
-  font-family: 'Merriweather';
-  font-size: 24px;
-  color: $blue;
-  padding: 16px 32px 32px 32px;
 }
 
 @media (min-width: 979px) {

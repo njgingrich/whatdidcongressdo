@@ -1,100 +1,243 @@
 import Vuex from 'vuex'
 import axios from 'axios'
+import cheerio from 'cheerio'
 import moment from 'moment'
+
+const baseUrl = `https://api.propublica.org/congress/v1`
+axios.defaults.headers.common['X-API-Key'] = process.env.API_KEY
 
 const createStore = () => {
   return new Vuex.Store({
     state: {
       senate: {
-        votes: {},
-        floor_actions: {}
+        today: {
+          votes: {},
+          floor_actions: {}
+        },
+        recent: {
+          date: moment().subtract(1, 'days').toISOString(),
+          votes: {},
+          floor_actions: {}
+        },
+        isInSession: false
       },
       house: {
-        votes: {},
-        floor_actions: {}
+        today: {
+          votes: {},
+          floor_actions: {}
+        },
+        recent: {
+          date: moment().subtract(1, 'days').toISOString(),
+          votes: {},
+          floor_actions: {}
+        },
+        isInSession: false
       }
     },
     mutations: {
       setVotes (state, payload) {
-        if (payload.chamber === 'house') {
-          state.house.votes = payload.votes
+        if (payload.day === 'today') {
+          if (payload.chamber === 'house') {
+            state.house.today.votes = payload.votes
+          } else {
+            state.senate.today.votes = payload.votes
+          }
         } else {
-          state.senate.votes = payload.votes
+          if (payload.chamber === 'house') {
+            state.house.recent.votes = payload.votes
+          } else {
+            state.senate.recent.votes = payload.votes
+          }
         }
       },
       setFloorActions (state, payload) {
-        if (payload.chamber === 'house') {
-          state.house.floor_actions = payload.floor_actions
+        if (payload.day === 'today') {
+          if (payload.chamber === 'house') {
+            state.house.today.floor_actions = payload.floor_actions
+          } else {
+            state.senate.today.floor_actions = payload.floor_actions
+          }
         } else {
-          state.senate.floor_actions = payload.floor_actions
+          if (payload.chamber === 'house') {
+            state.house.recent.floor_actions = payload.floor_actions
+          } else {
+            state.senate.recent.floor_actions = payload.floor_actions
+          }
+        }
+      },
+      setRecentDate (state, payload) {
+        if (payload.chamber === 'house') {
+          state.house.recent.date = payload.date
+        } else {
+          state.senate.recent.date = payload.date
+        }
+      },
+      setInSession (state, payload) {
+        if (payload.chamber === 'house') {
+          state.house.isInSession = payload.value
+        } else {
+          state.senate.isInSession = payload.value
         }
       }
     },
     actions: {
       async getTodaysVotes ({ commit }, params) {
         let today = moment().format('YYYY-MM-DD')
-        axios.defaults.headers.common['X-API-Key'] = process.env.API_KEY
-        const { data: houseData } = await axios.get(`https://api.propublica.org/congress/v1/house/votes/${today}/${today}.json`)
-        const { data: senateData } = await axios.get(`https://api.propublica.org/congress/v1/senate/votes/${today}/${today}.json`)
+        const houseVotes = await getVotesForDay(today, 'house')
+        const senateVotes = await getVotesForDay(today, 'senate')
 
         commit('setVotes', {
           chamber: 'house',
-          votes: houseData.results.votes
+          day: 'today',
+          votes: houseVotes
         })
         commit('setVotes', {
           chamber: 'senate',
-          votes: senateData.results.votes
+          day: 'today',
+          votes: senateVotes
         })
       },
       async getTodaysFloorActions ({ commit }, params) {
         let today = moment().format('YYYY/MM/DD')
-        axios.defaults.headers.common['X-API-Key'] = process.env.API_KEY
-        // Get House results
-        let numResults = 20
-        let offset = 0
-        let houseFloorActions = []
-        while (numResults === 20) {
-          let req = `https://api.propublica.org/congress/v1/house/floor_updates/${today}.json?offset=${offset}`
-          let { data: houseData } = await axios.get(req)
-          numResults = houseData.results[0].num_results
-          offset += 20
-          houseFloorActions.push(...houseData.results[0].floor_actions)
-        }
-        houseFloorActions = houseFloorActions.sort((a, b) => {
-          return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
-        })
-
-        // Get Senate results
-        numResults = 20
-        offset = 0
-        let senateFloorActions = []
-        while (numResults === 20) {
-          let req = `https://api.propublica.org/congress/v1/senate/floor_updates/${today}.json?offset=${offset}`
-
-          let { data: senateData } = await axios.get(req)
-          // ProPublica may send back a malformed JSON response, with strings containing unescaped newlines
-          if (typeof senateData === 'string') {
-            senateData = senateData.replace(/\n\n/g, '\\n')
-            senateData = JSON.parse(senateData)
-          }
-          numResults = senateData.results[0].num_results
-          offset += 20
-          senateFloorActions.push(...senateData.results[0].floor_actions)
-        }
-        senateFloorActions = senateFloorActions.sort((a, b) => {
-          return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
-        })
+        const houseFloorActions = await getActionsForDay(today, 'house')
+        const senateFloorActions = await getActionsForDay(today, 'senate')
 
         commit('setFloorActions', {
           chamber: 'house',
+          day: 'today',
           floor_actions: houseFloorActions
         })
         commit('setFloorActions', {
           chamber: 'senate',
+          day: 'today',
           floor_actions: senateFloorActions
+        })
+      },
+      async getRecentVotes ({ commit }, params) {
+        // get the most recent votes, only for the same day as the most recent item
+        // recent date is shared between votes/actions, but not between chambers
+        const houseDate = await getRecentSession('house')
+        const senateDate = await getRecentSession('senate')
+
+        const houseVotes = await getVotesForDay(houseDate.format('YYYY-MM-DD'), 'house')
+        const senateVotes = await getVotesForDay(senateDate.format('YYYY-MM-DD'), 'senate')
+
+        commit('setVotes', {
+          chamber: 'house',
+          day: 'recent',
+          votes: houseVotes
+        })
+        commit('setVotes', {
+          chamber: 'senate',
+          day: 'recent',
+          votes: senateVotes
+        })
+        commit('setRecentDate', {
+          chamber: 'house',
+          date: houseDate.toISOString()
+        })
+        commit('setRecentDate', {
+          chamber: 'senate',
+          date: senateDate.toISOString()
+        })
+      },
+      async getRecentFloorActions ({ commit }, params) {
+        // get the most recent actions, only for the same day as the most recent item
+        const houseDate = await getRecentSession('house')
+        const senateDate = await getRecentSession('senate')
+
+        const houseActions = await getActionsForDay(houseDate.format('YYYY/MM/DD'), 'house')
+        const senateActions = await getActionsForDay(senateDate.format('YYYY/MM/DD'), 'senate')
+
+        commit('setFloorActions', {
+          chamber: 'house',
+          day: 'recent',
+          floor_actions: houseActions
+        })
+        commit('setFloorActions', {
+          chamber: 'senate',
+          day: 'recent',
+          floor_actions: senateActions
+        })
+      },
+      async getCongressSession ({ commit }, params) {
+        // is Congress in session or not?
+        // set this in store as inSession boolean and display "Congress isn't in session today. _See what they most recently did_" if true
+        let today = moment().format('MMMM DD YYYY')
+        let { data } = await axios.get('https://www.congress.gov/days-in-session')
+        let $ = cheerio.load(data)
+        let houseInSession = []
+        $('.col_50_left .day-in-session a').each((i, el) => houseInSession.push($(el).attr('title')))
+        houseInSession = (houseInSession.filter(day => day === today)).length > 0
+
+        let senateInSession = []
+        $('.col_50_right .day-in-session a').each((i, el) => senateInSession.push($(el).attr('title')))
+        senateInSession = (senateInSession.filter(day => day === today)).length > 0
+
+        commit('setInSession', {
+          chamber: 'house',
+          value: houseInSession
+        })
+        commit('setInSession', {
+          chamber: 'senate',
+          value: senateInSession
         })
       }
     }
+  })
+}
+
+async function getRecentSession (chamber) {
+  const { data: voteData } = await axios.get(`${baseUrl}/${chamber}/votes/recent.json`)
+  let { data: actionData } = await axios.get(`${baseUrl}/115/${chamber}/floor_updates.json`)
+
+  // ProPublica may send back a malformed JSON response, with strings containing unescaped newlines
+  if (typeof actionData === 'string') {
+    actionData = actionData.replace(/\n\n/g, '\\n')
+    actionData = JSON.parse(actionData)
+  }
+  let recentVote = moment(voteData.results.votes[0].date)
+  let recentAction = moment(actionData.results[0].floor_actions[0].date)
+
+  // Return the more recent of the two days, if they differ
+  if (recentVote.format('X') > recentAction.format('X')) {
+    return recentVote
+  } else {
+    return recentAction
+  }
+}
+
+async function getVotesForDay (date, chamber) {
+  try {
+    const { data } = await axios.get(`${baseUrl}/${chamber}/votes/${date}/${date}.json`)
+    return data.results.votes
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+async function getActionsForDay (date, chamber) {
+  let numResults = 20
+  let offset = 0
+  let actions = []
+
+  // ProPublica provides pagination with results of 20 per page,
+  // so we offset til num_results shows we're at the last page
+  while (numResults === 20) {
+    let { data } = await axios.get(`${baseUrl}/${chamber}/floor_updates/${date}.json?offset=${offset}`)
+    // ProPublica may send back a malformed JSON response, with strings containing unescaped newlines
+    if (typeof data === 'string') {
+      data = data.replace(/\n\n/g, '\\n')
+      data = JSON.parse(data)
+    }
+    numResults = data.results[0].num_results
+    offset += 20
+    actions.push(...data.results[0].floor_actions)
+  }
+
+  // Earliest first
+  return actions.sort((a, b) => {
+    return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
   })
 }
 
