@@ -25,7 +25,7 @@ export default {
         method: 'feed',
         display: 'popup',
         link: 'http://whatdidcongressdo.today',
-        caption: 'An example caption'
+        caption: 'Find out what Congress did today.'
       }, function (response) {})
     },
     twitterPopup () {

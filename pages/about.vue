@@ -3,8 +3,20 @@
     <section class="content">
       <h1 class="content-title title-text">About the Site</h1>
       <p class="content-info">
-        I developed this site because I wanted an easy way to see what exactly Congress is doing every day, and to make it easy for others to see the process that goes on in the Senate and the House.
+        What exactly goes on in a typical day at the Senate or the House of Representatives? I had no idea, but I wanted to find out.
+        Staying informed about the political process is part of being a good citizen, but it can be hard to trawl through the Senate
+        or House official websites to get the important information. So, this site was built to pull all that information and display
+        it in an easy-to-digest format that provides the stuff people may actually care about.
       </p>
+      <section class="share title-text">
+        <p class="share--note">If you found this interesting, you can share it on Facebook or Twitter below:</p>
+        <div @click="fbPopup" class="share--item facebook">
+          <svgicon name="facebook"/>
+        </div>
+        <div @click="twitterPopup" class="share--item twitter">
+          <svgicon name="twitter"/>
+        </div>
+      </section>
       <div class="content-sub-info">
         <p>
           This site runs off of the <a href="https://projects.propublica.org/api-docs/congress-api/" target="_blank" rel="noopener">ProPublica Congress API</a>, and is updated approximately every hour.
@@ -13,14 +25,6 @@
           Main image credited to <a href="https://www.aoc.gov" target="_blank" rel="noopener">Architect of the Capitol</a>.
         </p>
       </div>
-      <section class="share">
-        <div @click="fbPopup" class="share--item facebook">
-          <svgicon name="facebook"/>
-        </div>
-        <div @click="twitterPopup" class="share--item twitter">
-          <svgicon name="twitter"/>
-        </div>
-      </section>
     </section>
   </section>
 </template>
@@ -36,7 +40,7 @@ export default {
         method: 'feed',
         display: 'popup',
         link: 'http://whatdidcongressdo.today',
-        caption: 'An example caption'
+        caption: 'Find out what Congress did today.'
       }, function (response) {})
     },
     twitterPopup () {
@@ -70,6 +74,7 @@ export default {
   font-size: 48px;
   text-align: center;
   margin-top: 0;
+  margin-bottom: 16px;
 }
 
 .content-info {
@@ -77,7 +82,7 @@ export default {
 }
 
 .content-sub-info {
-  padding-top: 16px;
+  padding-top: 32px;
   font-size: 14px;
 
   p {
@@ -91,18 +96,33 @@ a, a:visited, a:active {
 }
 
 .share {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: 1fr 1fr;
+  grid-column-gap: 48px;
+  grid-template-areas:
+    "note note"
+    "fb   twitter";
 
-  padding-top: 32px;
+  padding-top: 48px;
 
   .share--item.facebook {
-    margin-right: 16px;
+    grid-area: fb;
+    justify-self: flex-end;
   }
 
   .share--item.twitter {
-    margin-left: 16px;
+    grid-area: twitter;
+    justify-self: flex-start;
+  }
+
+  .share--note {
+    grid-area: note;
+    justify-self: center;
+    margin: 0;
+    padding: 8px;
+    font-size: 24px;
+    text-transform: initial;
   }
 }
 
@@ -125,7 +145,7 @@ a, a:visited, a:active {
   &:hover {
     width: 50px;
     height: 50px;
-  margin-bottom: 0px;
+    margin-bottom: 0px;
   }
 }
 
