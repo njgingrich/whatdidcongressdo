@@ -5,8 +5,8 @@
       <p class="content-info">
         What exactly goes on in a typical day at the Senate or the House of Representatives? I had no idea, but I wanted to find out.
         Staying informed about the political process is part of being a good citizen, but it can be hard to trawl through the Senate
-        or House official websites to get the important information. So, this site was built to pull all that information and display
-        it in an easy-to-digest format that provides the stuff people may actually care about.
+        or House official websites to get the important information. This site was built to pull that information and display it in an
+        easy-to-read format that provides the stuff people may actually care about.
       </p>
       <section class="share title-text">
         <p class="share--note">If you found this interesting, you can share it on Facebook or Twitter below:</p>
@@ -93,6 +93,13 @@ export default {
 
 a, a:visited, a:active {
   color: $white;
+  padding: 2px 3px;
+
+  &:hover {
+    color: $blue;
+    text-decoration: none;
+    background-color: $beige-light;
+  }
 }
 
 .share {
