@@ -4,102 +4,78 @@
       <h1 class="header--text title-text">What Did Congress Do Today?</h1>
     </header>
 
-    <h2 id="senate" class="chambers--text title-text senate-header">Senate</h2>
-    <div class="offset-box title-text senate-header--votes">
-      <span>Votes</span>
-    </div>
-    <div class="offset-box title-text senate-header--floor">
-      <span>Floor Actions</span>
-    </div>
+    <template v-if="senateInSession">
+      <h2 id="senate" class="chambers--text title-text senate-header">Senate</h2>
+      <div class="offset-box title-text senate-header--votes">
+        <span>Votes</span>
+      </div>
+      <div class="offset-box title-text senate-header--floor">
+        <span>Floor Actions</span>
+      </div>
 
-    <!--div class="chambers--votes senate">
-      <template v-if="anySenateVotes">
-        <Vote v-for="vote in senateVotes" :key="vote.bill.bill_id" :vote="vote"/>
-      </template>
-      <template v-else>
-        <div class="message">No votes today.</div>
-      </template>
-    </div-->
-    <VoteDisplay class="senate"
-                 message="No votes today."
-                 :votes="senateVotes"
-                 :anyVotes="anySenateVotes"/>
-    <div class="chambers--floor senate">
-      <template v-if="anySenateActions">
-        <FloorAction v-for="action in senateActions" :key="action.timestamp" :action="action"/>
-      </template>
-      <template v-else>
-        <div class="message">No floor actions today.</div>
-      </template>
-    </div>
+      <VoteDisplay class="senate"
+                  message="No votes today."
+                  :votes="senateVotes"/>
+      <FloorActionDisplay class="senate"
+                          message="No floor actions today."
+                          :actions="senateActions"/>
+    </template>
+    <template v-else>
+      <div class="senate-header no-session">
+        <p class="title-text">The Senate isn't in session today.</p>
+        <a href="recent#senate" class="recent-link">Check out what they did on their last day in session.</a>
+      </div>
+    </template>
 
-    <h2 id="house" class="chambers--text title-text house-header">House</h2>
-    <div class="offset-box title-text house-header--votes">
-      <span>Votes</span>
-    </div>
-    <div class="offset-box title-text house-header--floor">
-      <span>Floor Actions</span>
-    </div>
+    <template v-if="houseInSession">
+      <h2 id="house" class="chambers--text title-text house-header">House</h2>
+      <div class="offset-box title-text house-header--votes">
+        <span>Votes</span>
+      </div>
+      <div class="offset-box title-text house-header--floor">
+        <span>Floor Actions</span>
+      </div>
 
-    <div class="chambers--votes house">
-      <template v-if="anyHouseVotes">
-        <Vote v-for="vote in houseVotes" :key="vote.bill.bill_id" :vote="vote"/>
-      </template>
-      <template v-else>
-        <div class="message">No votes today.</div>
-      </template>
-    </div>
-    <div class="chambers--floor house">
-      <template v-if="anyHouseActions">
-        <FloorAction v-for="action in houseActions" :key="action.timestamp" :action="action"/>
-      </template>
-      <template v-else>
-        <div class="message">No floor actions today.</div>
-      </template>
-    </div>
+      <VoteDisplay class="house"
+                  message="No votes today."
+                  :votes="houseVotes"/>
+      <FloorActionDisplay class="house"
+                          message="No floor actions today."
+                          :actions="houseActions"/>
+    </template>
+    <template v-else>
+      <div class="house-header no-session">
+        <p class="title-text">The House isn't in session today.</p>
+        <a href="recent#house" class="recent-link">Check out what they did on their last day in session.</a>
+      </div>
+    </template>
+
   </section>
 </template>
 
 <script>
-import FloorAction from '~/components/FloorAction'
-import Vote from '~/components/Vote'
+import FloorActionDisplay from '~/components/FloorActionDisplay'
 import VoteDisplay from '~/components/VoteDisplay'
 
 export default {
   components: {
-    FloorAction,
-    Vote,
+    FloorActionDisplay,
     VoteDisplay
   },
   data () {
     return {
-      houseVotes: this.$store.state.house.today.votes,
       senateVotes: this.$store.state.senate.today.votes,
       senateActions: this.$store.state.senate.today.floor_actions,
-      houseActions: this.$store.state.house.today.floor_actions
+      senateInSession: this.$store.state.senate.isInSession,
+      houseVotes: this.$store.state.house.today.votes,
+      houseActions: this.$store.state.house.today.floor_actions,
+      houseInSession: this.$store.state.house.isInSession
     }
   },
   async fetch ({ store, params }) {
     await store.dispatch('getTodaysVotes')
     await store.dispatch('getTodaysFloorActions')
     await store.dispatch('getCongressSession')
-  },
-  computed: {
-    anySenateVotes () {
-      return this.senateVotes.length > 0
-    },
-
-    anyHouseVotes () {
-      return this.houseVotes.length > 0
-    },
-
-    anySenateActions () {
-      return this.senateActions.length > 0
-    },
-
-    anyHouseActions () {
-      return this.houseActions.length > 0
-    }
   }
 }
 </script>
@@ -157,14 +133,6 @@ export default {
   }
 }
 
-.chambers--votes {
-  padding-top: 16px;
-}
-
-.chambers--floor {
-  padding-top: 16px;
-}
-
 .header {
   grid-area: header;
   display: flex;
@@ -220,6 +188,31 @@ export default {
 
 .senate-header--floor {
   grid-area: s-h-floor;
+}
+
+.no-session {
+  min-height: 240px;
+  padding: 16px;
+  background-color: $blue;
+  color: $white;
+
+  .title-text {
+    font-size: 48px;
+    text-align: center;
+    text-transform: initial;
+  }
+}
+
+.recent-link {
+  color: $white;
+  padding: 2px 3px;
+  font-size: 24px;
+
+  &:hover {
+    background-color: $beige-light;
+    color: $blue;
+    text-decoration: none;
+  }
 }
 
 @media (min-width: 979px) {

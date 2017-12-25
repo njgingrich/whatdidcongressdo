@@ -1,7 +1,7 @@
 <template>
-  <div class="chambers--votes">
-    <template v-if="anyVotes">
-      <Vote v-for="vote in votes" :key="vote.bill.bill_id" :vote="vote"/>
+  <div class="chambers--floor">
+    <template v-if="anyActions">
+      <FloorAction v-for="action in actions" :key="action.timestamp" :action="action"/>
     </template>
     <template v-else>
       <div class="message">{{message}}</div>
@@ -9,20 +9,20 @@
   </div>
 </template>
 <script>
-import Vote from '~/components/Vote'
+import FloorAction from '~/components/FloorAction'
 
 export default {
-  name: 'VoteDisplay',
+  name: 'FloorActionDisplay',
   components: {
-    Vote
+    FloorAction
   },
   props: {
     message: String,
-    votes: Array
+    actions: Array
   },
   computed: {
-    anyVotes () {
-      return this.votes.length > 0
+    anyActions () {
+      return this.actions.length > 0
     }
   }
 }
@@ -38,7 +38,7 @@ export default {
   padding: 16px 32px 32px 32px;
 }
 
-.chambers--votes {
+.chambers--floor {
   padding-top: 16px;
 }
 </style>
