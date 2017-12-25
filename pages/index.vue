@@ -91,14 +91,14 @@ export default {
     "header    header    header"
     "s-head    s-head    s-head"
     "s-h-votes s-h-votes s-h-votes"
-    ".         s-votes   .     "
+    ".         s-votes   .        "
     "s-h-floor s-h-floor s-h-floor"
-    ".         s-floor   .     "
-    "h-head    h-head    h-head"
+    ".         s-floor   .        "
+    "h-head    h-head    h-head   "
     "h-h-votes h-h-votes h-h-votes"
-    ".         h-votes   .     "
+    ".         h-votes   .        "
     "h-h-floor h-h-floor h-h-floor"
-    ".         h-floor   .     ";
+    ".         h-floor   .        ";
   overflow: hidden;
 }
 

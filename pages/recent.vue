@@ -6,15 +6,18 @@
     <div id="senate" class="senate session">
       <div class="title-box title-text">The last Senate session was {{senateDateFormatted}}</div>
     </div>
+
     <VoteDisplay class="senate-votes"
                   message="No votes today."
                   :votes="senateVotes"/>
     <FloorActionDisplay class="senate-floor"
                         message="No floor actions today."
                         :actions="senateActions"/>
+
     <div id="house" class="house session">
       <div class="title-box title-text">The last House session was {{houseDateFormatted}}</div>
     </div>
+
     <VoteDisplay class="house-votes"
                   message="No votes today."
                   :votes="houseVotes"/>
