@@ -1,6 +1,6 @@
 <template>
   <footer class="footer">
-    <p>Copyright 2017 Nathan Gingrich - <a href="https://twitter.com/njgingrich" target="_blank" rel="noopener">@njgingrich</a></p>
+    <p>Copyright 2017 Nathan Gingrich  - <a href="https://twitter.com/njgingrich" target="_blank" rel="noopener">@njgingrich</a></p>
   </footer>
 </template>
 <script>
@@ -24,6 +24,12 @@ export default {
   p a, p a:visited, p a:active {
     color: $twitter-color;
     text-decoration: none;
+    padding: 3px 4px;
+
+    &:hover {
+      color: $white;
+      background-color: $twitter-color;
+    }
   }
 }
 </style>

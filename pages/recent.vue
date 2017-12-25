@@ -75,7 +75,8 @@ export default {
 
 .title-box {
   width: fit-content;
-  background-color: $beige-light;
+  background-color: $beige-dark;
+  color: $white;
   padding: 16px;
   font-size: 20px;
   transform: translateX(16px) translateY(64px);

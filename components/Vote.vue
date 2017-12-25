@@ -103,13 +103,6 @@ export default {
   &:hover {
     box-shadow: 0 8px 16px -3px rgba(0, 0, 0, 0.8);
     transform: translateY(-2px);
-
-    .votes-footer .votes-learnmore {
-      background-color: $beige-light;
-      a {
-        color: $blue;
-      }
-    }
   }
 }
 
@@ -134,8 +127,14 @@ export default {
   transform: translateX(32px);
 
   a, a:visited, a:active {
-    text-decoration: none;
     color: $white;
+    padding: 4px 6px;
+
+    &:hover {
+      background-color: $beige-light;
+      color: $blue;
+      text-decoration: none;
+    }
   }
 }
 

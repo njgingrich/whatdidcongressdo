@@ -106,8 +106,8 @@ export default {
   span {
     display: block;
     padding: 8px 16px;
-    background-color: $beige-light;
-    color: $blue;
+    background-color: $beige-dark;
+    color: $white;
     font-size: 36px;
     text-align: center;
   }
