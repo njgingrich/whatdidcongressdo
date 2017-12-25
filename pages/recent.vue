@@ -3,30 +3,36 @@
     <header class="recent-header">
       <h2 class="title-text">Recent Activity</h2>
     </header>
-    <div class="senate session">
-      <span class="title-box title-text">The last Senate session was {{senateDateFormatted}}</span>
+    <div id="senate" class="senate session">
+      <div class="title-box title-text">The last Senate session was {{senateDateFormatted}}</div>
     </div>
-    <div class="senate-votes">
-
+    <VoteDisplay class="senate-votes"
+                  message="No votes today."
+                  :votes="senateVotes"/>
+    <FloorActionDisplay class="senate-floor"
+                        message="No floor actions today."
+                        :actions="senateActions"/>
+    <div id="house" class="house session">
+      <div class="title-box title-text">The last House session was {{houseDateFormatted}}</div>
     </div>
-    <div class="senate-floor">
-
-    </div>
-    <div class="house session">
-      <span class="title-box title-text">The last House session was {{houseDateFormatted}}</span>
-    </div>
-    <div class="house-votes">
-
-    </div>
-    <div class="house-floor">
-
-    </div>
+    <VoteDisplay class="house-votes"
+                  message="No votes today."
+                  :votes="houseVotes"/>
+    <FloorActionDisplay class="house-floor"
+                        message="No floor actions today."
+                        :actions="houseActions"/>
   </section>
 </template>
 <script>
 import moment from 'moment'
+import FloorActionDisplay from '~/components/FloorActionDisplay'
+import VoteDisplay from '~/components/VoteDisplay'
 
 export default {
+  components: {
+    FloorActionDisplay,
+    VoteDisplay
+  },
   data () {
     return {
       houseVotes: this.$store.state.house.recent.votes,
@@ -68,12 +74,15 @@ export default {
 }
 
 .title-box {
+  width: fit-content;
   background-color: $beige-light;
   padding: 16px;
+  font-size: 20px;
+  transform: translateX(16px) translateY(64px);
 }
 
 .session {
-  transform: translateX(32px);
+  background-color: $blue;
 }
 
 .recent-header {
@@ -97,17 +106,21 @@ export default {
 
 .senate-votes {
   grid-area: s-votes;
+  margin-top: 32px;
 }
 
 .senate-floor {
   grid-area: s-floor;
+  margin-top: 32px;
 }
 
 .house-votes {
   grid-area: h-votes;
+  margin-top: 32px;
 }
 
 .house-floor {
   grid-area: h-floor;
+  margin-top: 32px;
 }
 </style>

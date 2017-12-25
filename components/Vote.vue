@@ -119,6 +119,7 @@ export default {
 
 .votes-footer {
   display: flex;
+  padding-top: 8px;
 }
 
 .votes-result {
