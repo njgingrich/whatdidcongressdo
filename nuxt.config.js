@@ -29,10 +29,11 @@ module.exports = {
       { property: 'fb:app_id', content: process.env.FB_APPID }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=EB+Garamond|Merriweather' }
+      // { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=EB+Garamond|Merriweather' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
     script: [
+      // { type: 'text/javascript', src: 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js' },
       { type: 'text/javascript', src: 'https://connect.facebook.net/en_US/all.js', async: 'true', body: 'true' }
     ]
   },
@@ -66,13 +67,19 @@ module.exports = {
   },
   plugins: [
     { src: '~plugins/fb.js' },
+    { src: '~plugins/webfont.js', ssr: false },
     { src: '~plugins/svgicon.js' }
   ],
   modules: [
     '@nuxtjs/google-analytics',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/component-cache'
   ],
   'google-analytics': {
     id: 'UA-111460974-2'
+  },
+  'component-cache': {
+    max: 10000,
+    maxAge: 1000 * 60 * 60
   }
 }
