@@ -2,6 +2,12 @@
 # yarn lockfile v1
 
 
+"@nuxtjs/component-cache@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/component-cache/-/component-cache-1.1.1.tgz#d94aa450e1b0df0451a2e938262234b534df9dfd"
+  dependencies:
+    lru-cache "^4.1.1"
+
 "@nuxtjs/dotenv@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@nuxtjs/dotenv/-/dotenv-1.1.0.tgz#18b4246fcbdf2c4c51fce03ed485fdc44b100c4c"
@@ -5877,6 +5883,10 @@ watchpack@^1.4.0:
     async "^2.1.2"
     chokidar "^1.7.0"
     graceful-fs "^4.1.2"
+
+webfontloader@^1.6.28:
+  version "1.6.28"
+  resolved "https://registry.yarnpkg.com/webfontloader/-/webfontloader-1.6.28.tgz#db786129253cb6e8eae54c2fb05f870af6675bae"
 
 webpack-bundle-analyzer@^2.9.0:
   version "2.9.1"
