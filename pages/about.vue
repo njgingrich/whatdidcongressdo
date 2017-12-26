@@ -93,7 +93,7 @@ export default {
 
 a, a:visited, a:active {
   color: $white;
-  padding: 2px 3px;
+  padding: 2px;
 
   &:hover {
     color: $blue;

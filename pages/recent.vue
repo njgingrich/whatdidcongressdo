@@ -89,6 +89,7 @@ export default {
 
 .session {
   background-color: $blue;
+  padding-top: 56px;
 }
 
 .recent-header {
@@ -148,7 +149,7 @@ export default {
     color: $white;
     padding: 16px;
     font-size: 20px;
-    transform: translateX(16px) translateY(64px);
+    transform: translateX(16px);
   }
 }
 </style>
