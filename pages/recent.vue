@@ -66,23 +66,25 @@ export default {
 .page {
   overflow: hidden;
   display: grid;
-  grid-template-columns: 1fr minmax(420px, 520px) 64px minmax(auto, 600px) 1fr;
-  grid-template-rows: 160px 100px auto 100px auto;
+
+  grid-template-columns: 1fr 90vw 1fr;
+  grid-template-rows: repeat(7, auto);
   grid-template-areas:
-    "header header  header header  header"
-    "senate senate  senate senate  senate"
-    ".      s-votes .      s-floor .     "
-    "house  house   house  house   house "
-    ".      h-votes .      h-floor .     ";
+    "header header  header"
+    "senate senate  senate"
+    ".      s-votes .     "
+    ".      s-floor .     "
+    "house  house   house "
+    ".      h-votes .     "
+    ".      h-floor .     ";
+  overflow: hidden;
 }
 
 .title-box {
-  width: fit-content;
   background-color: $beige-dark;
   color: $white;
   padding: 16px;
   font-size: 20px;
-  transform: translateX(16px) translateY(64px);
 }
 
 .session {
@@ -126,5 +128,27 @@ export default {
 .house-floor {
   grid-area: h-floor;
   margin-top: 32px;
+}
+
+@media screen and (min-width: 979px) {
+  .page {
+    grid-template-columns: 1fr minmax(420px, 520px) 64px minmax(auto, 600px) 1fr;
+    grid-template-rows: 160px 100px auto 100px auto;
+    grid-template-areas:
+      "header header  header header  header"
+      "senate senate  senate senate  senate"
+      ".      s-votes .      s-floor .     "
+      "house  house   house  house   house "
+      ".      h-votes .      h-floor .     ";
+  }
+
+  .title-box {
+    width: fit-content;
+    background-color: $beige-dark;
+    color: $white;
+    padding: 16px;
+    font-size: 20px;
+    transform: translateX(16px) translateY(64px);
+  }
 }
 </style>

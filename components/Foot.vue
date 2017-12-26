@@ -1,6 +1,6 @@
 <template>
   <footer class="footer">
-    <p>Copyright 2017 Nathan Gingrich  - <a href="https://twitter.com/njgingrich" target="_blank" rel="noopener">@njgingrich</a></p>
+    <p>© 2017<a href="https://twitter.com/njgingrich" target="_blank" rel="noopener">@njgingrich</a></p>
   </footer>
 </template>
 <script>
@@ -13,13 +13,20 @@ export default {
 
 .footer {
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
   padding-bottom: 16px;
 
   background-color: $blue;
   color: $white;
   font-weight: bold;
+  font-size: 14px;
+  font-family: 'EB Garamond';
+
+  p {
+    margin-bottom: 0;
+  }
 
   p a, p a:visited, p a:active {
     color: $twitter-color;
