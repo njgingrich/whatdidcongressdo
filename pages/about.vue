@@ -56,13 +56,13 @@ export default {
   background-image: url("~assets/images/congress.jpg");
   background-position-x: 50%;
   background-size: cover;
-  height: calc(100vh - 56px - 120px);
+  height: auto;
 }
 
 .content {
   grid-area: content;
   align-self: start;
-  margin: 64px;
+  margin: 16px 8px;
   padding: 32px;
   background-color: $blue;
   color: $white;
@@ -71,7 +71,7 @@ export default {
 }
 
 .content-title {
-  font-size: 48px;
+  font-size: 32px;
   text-align: center;
   margin-top: 0;
   margin-bottom: 16px;
@@ -83,7 +83,7 @@ export default {
 
 .content-sub-info {
   padding-top: 32px;
-  font-size: 14px;
+  font-size: 12px;
 
   p {
     margin-top: 8px;
@@ -111,7 +111,7 @@ a, a:visited, a:active {
     "note note"
     "fb   twitter";
 
-  padding-top: 48px;
+  padding-top: 16px;
 
   .share--item.facebook {
     grid-area: fb;
@@ -127,8 +127,8 @@ a, a:visited, a:active {
     grid-area: note;
     justify-self: center;
     margin: 0;
-    padding: 8px;
-    font-size: 24px;
+    padding: 0 0 16px 0;
+    font-size: 18px;
     text-transform: initial;
   }
 }
@@ -164,5 +164,32 @@ a, a:visited, a:active {
 .share--item.twitter:hover {
   background-color: $twitter-color;
   fill: $white;
+}
+
+@media screen and (min-width: 979px) {
+  .page {
+    height: calc(100vh - 56px - 120px);
+  }
+
+  .content {
+    margin: 64px;
+  }
+
+  .content-title {
+    font-size: 48px;
+  }
+
+  .content-sub-info {
+    font-size: 14px;
+  }
+
+  .share {
+    padding-top: 48px;
+
+    .share--note {
+      padding: 8px;
+      font-size: 24px;
+    }
+  }
 }
 </style>
