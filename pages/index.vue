@@ -215,7 +215,7 @@ export default {
   }
 }
 
-@media (min-width: 979px) {
+@media screen and (min-width: 979px) {
   .page {
     grid-template-columns: 1fr minmax(420px, 520px) 64px minmax(auto, 600px) 1fr;
     grid-template-rows: 100vh auto auto auto auto auto auto;

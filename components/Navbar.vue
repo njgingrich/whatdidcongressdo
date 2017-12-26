@@ -50,16 +50,9 @@ export default {
   background-color: $blue;
 }
 
-@media (min-width: 979px) {
-  .top-navbar {
-    padding-left: 32px;
-    padding-right: 32px;
-  }
-}
-
 .link-item {
-  font-size: 20px;
-  padding: 8px 16px;
+  font-size: 14px;
+  padding: 8px 8px;
 
   &:first-child {
     margin-right: auto;
@@ -73,8 +66,8 @@ export default {
 
 .share--item {
   background-color: $white;
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   margin: 8px;
   transition: all 0.2s ease;
   cursor: pointer;
@@ -96,5 +89,22 @@ export default {
 .share--item.twitter:hover {
   background-color: $twitter-color;
   fill: $white;
+}
+
+@media (min-width: 979px) {
+  .top-navbar {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .link-item {
+    font-size: 20px;
+    padding: 8px 16px;
+  }
+
+  .share--item {
+    width: 32px;
+    height: 32px;
+  }
 }
 </style>
