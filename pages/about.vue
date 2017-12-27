@@ -27,6 +27,9 @@
         <p>
           The source code for the site is available on GitHub <a href="https://www.github.com/njgingrich/whatdidcongressdo" target="_blank" rel="noopener">here.</a>
         </p>
+        <p>
+          All times are in Eastern Standard Time (as Washington, D.C. is in EST).
+        </p>
       </div>
     </section>
   </section>
