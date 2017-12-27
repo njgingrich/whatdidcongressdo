@@ -4,7 +4,7 @@
       <h2 class="title-text">Recent Activity</h2>
     </header>
     <div id="senate" class="senate session">
-      <div class="title-box title-text">The last Senate session was {{senateDateFormatted}}</div>
+      <div class="title-box title-text">{{senateDateFormatted}}</div>
     </div>
 
     <VoteDisplay class="senate-votes"
@@ -15,7 +15,7 @@
                         :actions="senateActions"/>
 
     <div id="house" class="house session">
-      <div class="title-box title-text">The last House session was {{houseDateFormatted}}</div>
+      <div class="title-box title-text">{{houseDateFormatted}}</div>
     </div>
 
     <VoteDisplay class="house-votes"
@@ -38,9 +38,11 @@ export default {
   },
   data () {
     return {
+      houseInSession: this.$store.state.house.isInSession,
       houseVotes: this.$store.state.house.recent.votes,
       houseActions: this.$store.state.house.recent.floor_actions,
       houseDate: this.$store.state.house.recent.date,
+      senateInSession: this.$store.state.senate.isInSession,
       senateActions: this.$store.state.senate.recent.floor_actions,
       senateVotes: this.$store.state.senate.recent.votes,
       senateDate: this.$store.state.senate.recent.date
@@ -64,10 +66,16 @@ export default {
   },
   computed: {
     houseDateFormatted () {
-      return moment(this.houseDate).tz('America/New_York').format('dddd, MMMM Do')
+      if (this.houseInSession) {
+        return `The House was in session today.`
+      }
+      return `The last House session was ${moment(this.houseDate).tz('America/New_York').format('dddd, MMMM Do')}`
     },
     senateDateFormatted () {
-      return moment(this.senateDate).tz('America/New_York').format('dddd, MMMM Do')
+      if (this.senateInSession) {
+        return `The Senate was in session today.`
+      }
+      return `The last Senate session was ${moment(this.senateDate).tz('America/New_York').format('dddd, MMMM Do')}`
     }
   }
 }

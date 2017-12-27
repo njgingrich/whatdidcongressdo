@@ -11,7 +11,7 @@ const createStore = () => {
       senate: {
         today: {
           votes: {},
-          floor_actions: {}
+          floor_actions: {} // action: { action: {}, sub_actions: { action[] } }
         },
         recent: {
           date: moment().tz('America/New_York').subtract(1, 'days').toISOString(),
@@ -159,6 +159,18 @@ const createStore = () => {
         const houseActions = await getActionsForDay(houseDate.format('YYYY/MM/DD'), 'house')
         const senateActions = await getActionsForDay(senateDate.format('YYYY/MM/DD'), 'senate')
 
+        // let fSenateActions = senateActions.filter(action => action.description.toLowerCase().includes('the senate'))
+        // let lastMainIx = -1
+        // for (let i = 0; i < senateActions.length; i++) {
+        //   let action = senateActions[i]
+        //   if (action.description.toLowerCase().includes('the senate')) {
+        //     lastMainIx = i
+        //     continue
+        //   }
+
+        //   senateActions[lastMainIx].sub_actions.push(action)
+        // }
+
         commit('setFloorActions', {
           chamber: 'house',
           day: 'recent',
@@ -250,7 +262,25 @@ async function getActionsForDay (date, chamber) {
 
   // Earliest first
   return actions.sort((a, b) => {
-    return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+    // Move actions at the same time to put the headers first
+    const aIsMain = a.description.toLowerCase().includes(`the ${chamber}`)
+    const bIsMain = b.description.toLowerCase().includes(`the ${chamber}`)
+    const sameTime = moment(a.timestamp).format('hh:mm') === moment(b.timestamp).format('hh:mm')
+    const dateCompare = new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+
+    if (sameTime) {
+      if (aIsMain && bIsMain) {
+        return dateCompare
+      } else if (aIsMain) {
+        return -1
+      } else if (bIsMain) {
+        return 1
+      } else {
+        return dateCompare
+      }
+    } else {
+      return dateCompare
+    }
   })
 }
 
