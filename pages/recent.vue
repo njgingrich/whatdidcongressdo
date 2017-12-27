@@ -64,10 +64,10 @@ export default {
   },
   computed: {
     houseDateFormatted () {
-      return moment(this.houseDate).local().format('dddd, MMMM Do')
+      return moment(this.houseDate).tz('America/New_York').format('dddd, MMMM Do')
     },
     senateDateFormatted () {
-      return moment(this.senateDate).local().format('dddd, MMMM Do')
+      return moment(this.senateDate).tz('America/New_York').format('dddd, MMMM Do')
     }
   }
 }
