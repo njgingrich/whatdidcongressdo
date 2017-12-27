@@ -159,17 +159,18 @@ const createStore = () => {
         const houseActions = await getActionsForDay(houseDate.format('YYYY/MM/DD'), 'house')
         const senateActions = await getActionsForDay(senateDate.format('YYYY/MM/DD'), 'senate')
 
-        // let fSenateActions = senateActions.filter(action => action.description.toLowerCase().includes('the senate'))
-        // let lastMainIx = -1
-        // for (let i = 0; i < senateActions.length; i++) {
-        //   let action = senateActions[i]
-        //   if (action.description.toLowerCase().includes('the senate')) {
-        //     lastMainIx = i
-        //     continue
-        //   }
+        let fSenateActions = senateActions.filter(action => action.description.toLowerCase().includes('the senate'))
+        let lastMainIx = -1
+        for (let i = 0; i < senateActions.length; i++) {
+          let action = senateActions[i]
+          if (action.description.toLowerCase().includes('the senate')) {
+            action.sub_actions = []
+            lastMainIx = i
+            continue
+          }
 
-        //   senateActions[lastMainIx].sub_actions.push(action)
-        // }
+          senateActions[lastMainIx].sub_actions.push(action)
+        }
 
         commit('setFloorActions', {
           chamber: 'house',
@@ -179,7 +180,7 @@ const createStore = () => {
         commit('setFloorActions', {
           chamber: 'senate',
           day: 'recent',
-          floor_actions: senateActions
+          floor_actions: fSenateActions
         })
       },
 
@@ -254,28 +255,7 @@ async function getActionsForDay (date, chamber) {
     actions.push(...data.results[0].floor_actions)
   }
 
-  // Earliest first
-  return actions.sort((a, b) => {
-    // Move actions at the same time to put the headers first
-    const aIsMain = a.description.toLowerCase().includes(`the ${chamber}`)
-    const bIsMain = b.description.toLowerCase().includes(`the ${chamber}`)
-    const sameTime = moment(a.timestamp).format('hh:mm') === moment(b.timestamp).format('hh:mm')
-    const dateCompare = new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
-
-    if (sameTime) {
-      if (aIsMain && bIsMain) {
-        return dateCompare
-      } else if (aIsMain) {
-        return -1
-      } else if (bIsMain) {
-        return 1
-      } else {
-        return dateCompare
-      }
-    } else {
-      return dateCompare
-    }
-  })
+  return actions
 }
 
 export default createStore
