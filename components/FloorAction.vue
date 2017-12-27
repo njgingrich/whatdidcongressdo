@@ -9,7 +9,7 @@
   </section>
 </template>
 <script>
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 export default {
   name: 'FloorAction',

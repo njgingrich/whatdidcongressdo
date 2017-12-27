@@ -174,6 +174,7 @@ const createStore = () => {
       async getCongressSession ({ commit }) {
         const houseSession = await getRecentSession('house')
         const senateSession = await getRecentSession('senate')
+        console.log(`recent house: ${houseSession.format('dddd, MMMM Do YYYY, h:mm:ss a')}, recent senate: ${senateSession.format('dddd, MMMM Do YYYY, h:mm:ss a')}`)
         const houseInSession = moment().tz('America/New_York').format('YYYY-MM-DD') === houseSession.format('YYYY-MM-DD')
         const senateInSession = moment().tz('America/New_York').format('YYYY-MM-DD') === senateSession.format('YYYY-MM-DD')
 
@@ -203,8 +204,8 @@ async function getRecentSession (chamber) {
     actionData = actionData.replace(/\n\n/g, '\\n')
     actionData = JSON.parse(actionData)
   }
-  let recentVote = moment(voteData.results.votes[0].date).tz('America/New_York')
-  let recentAction = moment(actionData.results[0].floor_actions[0].date).tz('America/New_York')
+  let recentVote = moment(voteData.results.votes[0].date).utc()
+  let recentAction = moment(actionData.results[0].floor_actions[0].date).utc()
 
   // Return the more recent of the two days, if they differ
   if (recentVote.format('X') > recentAction.format('X')) {
