@@ -21,7 +21,7 @@
                           :actions="senateActions"/>
     </template>
     <template v-else>
-      <div class="senate-header no-session">
+      <div id="senate" class="senate-header no-session">
         <p class="title-text">The Senate isn't in session today.</p>
         <a href="recent#senate" class="recent-link">Check out what they did on their last day in session.</a>
       </div>
@@ -44,7 +44,7 @@
                           :actions="houseActions"/>
     </template>
     <template v-else>
-      <div class="house-header no-session">
+      <div id="house" class="house-header no-session">
         <p class="title-text">The House isn't in session today.</p>
         <a href="recent#house" class="recent-link">Check out what they did on their last day in session.</a>
       </div>
