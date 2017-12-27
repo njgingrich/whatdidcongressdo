@@ -161,18 +161,10 @@ const createStore = () => {
         })
       },
       async getCongressSession ({ commit }, params) {
-        // is Congress in session or not?
-        // set this in store as inSession boolean and display "Congress isn't in session today. _See what they most recently did_" if true
-        let today = moment().format('MMMM DD YYYY')
-        let { data } = await axios.get('https://www.congress.gov/days-in-session')
-        let $ = cheerio.load(data)
-        let houseInSession = []
-        $('.col_50_left .day-in-session a').each((i, el) => houseInSession.push($(el).attr('title')))
-        houseInSession = (houseInSession.filter(day => day === today)).length > 0
-
-        let senateInSession = []
-        $('.col_50_right .day-in-session a').each((i, el) => senateInSession.push($(el).attr('title')))
-        senateInSession = (senateInSession.filter(day => day === today)).length > 0
+        const houseSession = await getRecentSession('house')
+        const senateSession = await getRecentSession('senate')
+        const houseInSession = moment().format('YYYY-MM-DD') === houseSession.format('YYYY-MM-DD')
+        const senateInSession = moment().format('YYYY-MM-DD') === senateSession.format('YYYY-MM-DD')
 
         commit('setInSession', {
           chamber: 'house',
