@@ -67,18 +67,21 @@ export default {
 .nav-left {
   display: flex;
   grid-area: left;
+  align-items: center;
 }
 
 .nav-center {
   display: flex;
   grid-area: center;
   justify-content: center;
+  align-items: center;
 }
 
 .nav-right {
   display: flex;
   grid-area: right;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .link-item {
