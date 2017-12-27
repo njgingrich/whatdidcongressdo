@@ -15,6 +15,16 @@
  * @license  MIT
  */
 
+//! moment-timezone.js
+
+//! version : 0.5.14
+
+//! Copyright (c) JS Foundation and other contributors
+
+//! license : MIT
+
+//! github.com/moment/moment-timezone
+
 /*!
  * Vue.js v2.4.4
  * (c) 2014-2017 Evan You
