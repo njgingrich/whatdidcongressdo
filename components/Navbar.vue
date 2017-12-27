@@ -1,14 +1,21 @@
 <template>
   <nav class="top-navbar">
-    <a href="#top" class="link-item title-text">Home</a>
-    <a href="#senate" class="link-item title-text">Senate</a>
-    <a href="#house" class="link-item title-text">House</a>
-    <a href="about" class="link-item title-text">About</a>
-    <div @click="fbPopup" class="share--item facebook">
-      <svgicon name="facebook"/>
+    <div class="nav-left">
+      <a href="#top" class="link-item title-text">Home</a>
     </div>
-    <div @click="twitterPopup" class="share--item twitter">
-      <svgicon name="twitter"/>
+
+    <div class="nav-center">
+      <a v-for="link in navLinks" :key="link.name" :href="link.link" class="link-item title-text">{{link.name}}</a>
+    </div>
+
+    <div class="nav-right">
+      <a href="about" class="link-item title-text">About</a>
+      <div @click="fbPopup" class="share--item facebook">
+        <svgicon name="facebook"/>
+      </div>
+      <div @click="twitterPopup" class="share--item twitter">
+        <svgicon name="twitter"/>
+      </div>
     </div>
   </nav>
 </template>
@@ -18,6 +25,11 @@ import '~/assets/icons/twitter'
 
 export default {
   name: 'Navbar',
+  data () {
+    return {
+      navLinks: this.$store.state.navLinks
+    }
+  },
   methods: {
     fbPopup () {
       // eslint-disable-next-line
@@ -38,8 +50,10 @@ export default {
 @import "~assets/styles/colors";
 
 .top-navbar {
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: auto;
+  grid-template-areas: "left center right";
   position: fixed;
   z-index: 1000;
   width: 100%;
@@ -50,13 +64,26 @@ export default {
   background-color: $blue;
 }
 
+.nav-left {
+  display: flex;
+  grid-area: left;
+}
+
+.nav-center {
+  display: flex;
+  grid-area: center;
+  justify-content: center;
+}
+
+.nav-right {
+  display: flex;
+  grid-area: right;
+  justify-content: flex-end;
+}
+
 .link-item {
   font-size: 14px;
   padding: 8px 8px;
-
-  &:first-child {
-    margin-right: auto;
-  }
 
   &:hover {
     background-color: $beige-light;
@@ -91,15 +118,23 @@ export default {
   fill: $white;
 }
 
-@media (min-width: 979px) {
+@media screen and (min-width: 400px) {
   .top-navbar {
-    padding-left: 32px;
-    padding-right: 32px;
+    grid-template-columns: 1fr 30% 1fr;
   }
+}
 
+@media screen and (min-width: 650px) {
   .link-item {
     font-size: 20px;
     padding: 8px 16px;
+  }
+}
+
+@media screen and (min-width: 979px) {
+  .top-navbar {
+    padding-left: 32px;
+    padding-right: 32px;
   }
 
   .share--item {

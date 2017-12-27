@@ -76,6 +76,18 @@ export default {
     await store.dispatch('getTodaysVotes')
     await store.dispatch('getTodaysFloorActions')
     await store.dispatch('getCongressSession')
+    await store.dispatch('setNavLinks', {
+      links: [
+        {
+          link: '#senate',
+          name: 'Senate'
+        },
+        {
+          link: '#house',
+          name: 'House'
+        }
+      ]
+    })
   }
 }
 </script>

@@ -31,7 +31,8 @@ const createStore = () => {
           floor_actions: {}
         },
         isInSession: false
-      }
+      },
+      navLinks: []
     },
     mutations: {
       setVotes (state, payload) {
@@ -49,6 +50,7 @@ const createStore = () => {
           }
         }
       },
+
       setFloorActions (state, payload) {
         if (payload.day === 'today') {
           if (payload.chamber === 'house') {
@@ -64,6 +66,7 @@ const createStore = () => {
           }
         }
       },
+
       setRecentDate (state, payload) {
         if (payload.chamber === 'house') {
           state.house.recent.date = payload.date
@@ -71,16 +74,21 @@ const createStore = () => {
           state.senate.recent.date = payload.date
         }
       },
+
       setInSession (state, payload) {
         if (payload.chamber === 'house') {
           state.house.isInSession = payload.value
         } else {
           state.senate.isInSession = payload.value
         }
+      },
+
+      setLinks (state, payload) {
+        state.navLinks = payload.links
       }
     },
     actions: {
-      async getTodaysVotes ({ commit }, params) {
+      async getTodaysVotes ({ commit }) {
         let today = moment().tz('America/New_York').format('YYYY-MM-DD')
         const houseVotes = await getVotesForDay(today, 'house')
         const senateVotes = await getVotesForDay(today, 'senate')
@@ -96,7 +104,8 @@ const createStore = () => {
           votes: senateVotes
         })
       },
-      async getTodaysFloorActions ({ commit }, params) {
+
+      async getTodaysFloorActions ({ commit }) {
         let today = moment().tz('America/New_York').format('YYYY/MM/DD')
         const houseFloorActions = await getActionsForDay(today, 'house')
         const senateFloorActions = await getActionsForDay(today, 'senate')
@@ -112,7 +121,8 @@ const createStore = () => {
           floor_actions: senateFloorActions
         })
       },
-      async getRecentVotes ({ commit }, params) {
+
+      async getRecentVotes ({ commit }) {
         // get the most recent votes, only for the same day as the most recent item
         // recent date is shared between votes/actions, but not between chambers
         const houseDate = await getRecentSession('house')
@@ -140,7 +150,8 @@ const createStore = () => {
           date: senateDate.toISOString()
         })
       },
-      async getRecentFloorActions ({ commit }, params) {
+
+      async getRecentFloorActions ({ commit }) {
         // get the most recent actions, only for the same day as the most recent item
         const houseDate = await getRecentSession('house')
         const senateDate = await getRecentSession('senate')
@@ -159,7 +170,8 @@ const createStore = () => {
           floor_actions: senateActions
         })
       },
-      async getCongressSession ({ commit }, params) {
+
+      async getCongressSession ({ commit }) {
         const houseSession = await getRecentSession('house')
         const senateSession = await getRecentSession('senate')
         const houseInSession = moment().tz('America/New_York').format('YYYY-MM-DD') === houseSession.format('YYYY-MM-DD')
@@ -173,6 +185,10 @@ const createStore = () => {
           chamber: 'senate',
           value: senateInSession
         })
+      },
+
+      setNavLinks ({ commit }, params) {
+        commit('setLinks', { links: params.links })
       }
     }
   })
