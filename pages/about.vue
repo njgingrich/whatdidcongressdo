@@ -24,6 +24,9 @@
         <p>
           Main image credited to <a href="https://www.aoc.gov" target="_blank" rel="noopener">Architect of the Capitol</a>.
         </p>
+        <p>
+          The source code for the site is available on GitHub <a href="https://www.github.com/njgingrich/whatdidcongressdo" target="_blank" rel="noopener">here.</a>
+        </p>
       </div>
     </section>
   </section>
