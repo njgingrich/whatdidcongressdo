@@ -52,10 +52,10 @@ export default {
   },
   computed: {
     houseDateFormatted () {
-      return moment(this.houseDate).format('dddd, MMMM Do')
+      return moment(this.houseDate).local().format('dddd, MMMM Do')
     },
     senateDateFormatted () {
-      return moment(this.senateDate).format('dddd, MMMM Do')
+      return moment(this.senateDate).local().format('dddd, MMMM Do')
     }
   }
 }

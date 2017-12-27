@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
 import axios from 'axios'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 const baseUrl = `https://api.propublica.org/congress/v1`
 axios.defaults.headers.common['X-API-Key'] = process.env.API_KEY
@@ -14,7 +14,7 @@ const createStore = () => {
           floor_actions: {}
         },
         recent: {
-          date: moment().subtract(1, 'days').toISOString(),
+          date: moment().tz('America/New_York').subtract(1, 'days').toISOString(),
           votes: {},
           floor_actions: {}
         },
@@ -26,7 +26,7 @@ const createStore = () => {
           floor_actions: {}
         },
         recent: {
-          date: moment().subtract(1, 'days').toISOString(),
+          date: moment().tz('America/New_York').subtract(1, 'days').toISOString(),
           votes: {},
           floor_actions: {}
         },
@@ -81,7 +81,7 @@ const createStore = () => {
     },
     actions: {
       async getTodaysVotes ({ commit }, params) {
-        let today = moment().format('YYYY-MM-DD')
+        let today = moment().tz('America/New_York').format('YYYY-MM-DD')
         const houseVotes = await getVotesForDay(today, 'house')
         const senateVotes = await getVotesForDay(today, 'senate')
 
@@ -97,7 +97,7 @@ const createStore = () => {
         })
       },
       async getTodaysFloorActions ({ commit }, params) {
-        let today = moment().format('YYYY/MM/DD')
+        let today = moment().tz('America/New_York').format('YYYY/MM/DD')
         const houseFloorActions = await getActionsForDay(today, 'house')
         const senateFloorActions = await getActionsForDay(today, 'senate')
 
@@ -162,8 +162,8 @@ const createStore = () => {
       async getCongressSession ({ commit }, params) {
         const houseSession = await getRecentSession('house')
         const senateSession = await getRecentSession('senate')
-        const houseInSession = moment().format('YYYY-MM-DD') === houseSession.format('YYYY-MM-DD')
-        const senateInSession = moment().format('YYYY-MM-DD') === senateSession.format('YYYY-MM-DD')
+        const houseInSession = moment().tz('America/New_York').format('YYYY-MM-DD') === houseSession.format('YYYY-MM-DD')
+        const senateInSession = moment().tz('America/New_York').format('YYYY-MM-DD') === senateSession.format('YYYY-MM-DD')
 
         commit('setInSession', {
           chamber: 'house',
@@ -187,8 +187,8 @@ async function getRecentSession (chamber) {
     actionData = actionData.replace(/\n\n/g, '\\n')
     actionData = JSON.parse(actionData)
   }
-  let recentVote = moment(voteData.results.votes[0].date)
-  let recentAction = moment(actionData.results[0].floor_actions[0].date)
+  let recentVote = moment(voteData.results.votes[0].date).tz('America/New_York')
+  let recentAction = moment(actionData.results[0].floor_actions[0].date).tz('America/New_York')
 
   // Return the more recent of the two days, if they differ
   if (recentVote.format('X') > recentAction.format('X')) {
