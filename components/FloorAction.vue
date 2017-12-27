@@ -5,6 +5,9 @@
     </div>
     <div class="action">
       <span>{{action.description}}</span>
+      <ul v-for="sa in action.sub_actions" :key="sa.timestamp">
+        <li>{{sa.timestamp}}::{{sa.description}}</li>
+      </ul>
     </div>
   </section>
 </template>
