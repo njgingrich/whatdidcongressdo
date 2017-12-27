@@ -1,6 +1,5 @@
 import Vuex from 'vuex'
 import axios from 'axios'
-import cheerio from 'cheerio'
 import moment from 'moment'
 
 const baseUrl = `https://api.propublica.org/congress/v1`
