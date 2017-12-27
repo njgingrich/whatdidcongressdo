@@ -174,9 +174,14 @@ const createStore = () => {
       async getCongressSession ({ commit }) {
         const houseSession = await getRecentSession('house')
         const senateSession = await getRecentSession('senate')
+<<<<<<< HEAD
         console.log(`recent house: ${houseSession.format('dddd, MMMM Do YYYY, h:mm:ss a')}, recent senate: ${senateSession.format('dddd, MMMM Do YYYY, h:mm:ss a')}`)
         const houseInSession = moment().tz('America/New_York').format('YYYY-MM-DD') === houseSession.format('YYYY-MM-DD')
         const senateInSession = moment().tz('America/New_York').format('YYYY-MM-DD') === senateSession.format('YYYY-MM-DD')
+=======
+        const houseInSession = moment().tz('America/New_York').format('YYYY-MM-DD') === houseSession.tz('America/New_York').format('YYYY-MM-DD')
+        const senateInSession = moment().tz('America/New_York').format('YYYY-MM-DD') === senateSession.tz('America/New_York').format('YYYY-MM-DD')
+>>>>>>> 183a476... session check compares tz vs tz
 
         commit('setInSession', {
           chamber: 'house',

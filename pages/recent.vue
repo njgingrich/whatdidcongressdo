@@ -19,10 +19,10 @@
     </div>
 
     <VoteDisplay class="house-votes"
-                  message="No votes today."
+                  message="No votes."
                   :votes="houseVotes"/>
     <FloorActionDisplay class="house-floor"
-                        message="No floor actions today."
+                        message="No floor actions."
                         :actions="houseActions"/>
   </section>
 </template>
