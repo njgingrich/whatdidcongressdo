@@ -174,8 +174,8 @@ const createStore = () => {
       async getCongressSession ({ commit }) {
         const houseSession = await getRecentSession('house')
         const senateSession = await getRecentSession('senate')
-        const houseInSession = moment().tz('America/New_York').format('YYYY-MM-DD') === houseSession.format('YYYY-MM-DD')
-        const senateInSession = moment().tz('America/New_York').format('YYYY-MM-DD') === senateSession.format('YYYY-MM-DD')
+        const houseInSession = moment().tz('America/New_York').format('YYYY-MM-DD') === houseSession.tz('America/New_York').format('YYYY-MM-DD')
+        const senateInSession = moment().tz('America/New_York').format('YYYY-MM-DD') === senateSession.tz('America/New_York').format('YYYY-MM-DD')
 
         commit('setInSession', {
           chamber: 'house',
