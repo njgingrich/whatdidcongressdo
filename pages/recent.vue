@@ -27,7 +27,7 @@
   </section>
 </template>
 <script>
-import moment from 'moment'
+import moment from 'moment-timezone'
 import FloorActionDisplay from '~/components/FloorActionDisplay'
 import VoteDisplay from '~/components/VoteDisplay'
 
