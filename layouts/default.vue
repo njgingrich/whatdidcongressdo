@@ -53,6 +53,7 @@ a.link-item, a.link-item:visited, a.link-item:active {
 
 .container {
   display: grid;
+  min-height: 100vh;
   grid-template-columns: 1fr;
   grid-template-rows: 56px auto minmax(120px, auto);
   grid-template-areas:
