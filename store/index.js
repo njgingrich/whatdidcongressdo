@@ -222,8 +222,8 @@ async function getRecentSession (chamber) {
     actionData = actionData.replace(/\n\n/g, '\\n')
     actionData = JSON.parse(actionData)
   }
-  let recentVote = moment(voteData.results.votes[0].date).utc()
-  let recentAction = moment(actionData.results[0].floor_actions[0].date).utc()
+  let recentVote = moment.tz(voteData.results.votes[0].date, 'America/New_York')
+  let recentAction = moment.tz(actionData.results[0].floor_actions[0].date, 'America/New_York')
 
   // Return the more recent of the two days, if they differ
   if (recentVote.format('X') > recentAction.format('X')) {
