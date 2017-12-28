@@ -158,29 +158,10 @@ const createStore = () => {
 
         const houseActions = await getActionsForDay(houseDate.format('YYYY/MM/DD'), 'house')
         const senateActions = await getActionsForDay(senateDate.format('YYYY/MM/DD'), 'senate')
-        const senateBillUrl = `https://www.congress.gov/bill/115th-congress/senate-bill`
-        const houseBillUrl = `https://www.congress.gov/bill/115th-congress/house-bill`
-        const nominationUrl = `https://www.congress.gov/nomination/115th-congress`
-        const senateResolutionUrl = `https://www.congress.gov/bill/115th-congress/senate-resolution`
 
         // Add rich-text links for bills, resolutions, etc.
-        senateActions.forEach(action => {
-          const inject = (match, type) => {
-            let url
-            switch (type) {
-              case 'senate-bill': url = senateBillUrl; break
-              case 'house-bill': url = houseBillUrl; break
-              case 'senate-res': url = senateResolutionUrl; break
-              case 'nomination': url = nominationUrl; break
-            }
-            const id = match.match(/\d+/)
-            return `<a href="${url}/${id}" target="_blank" rel="noopener" class="senate-bill">${match}</a>`
-          }
-          action.description = action.description.replace(/(S|S.)\s\d+/g, (match) => inject(match, 'senate-bill'))
-          action.description = action.description.replace(/(H.R.|HR)\s*\d+/g, (match) => inject(match, 'house-bill'))
-          action.description = action.description.replace(/S\sRes.\s\d+/g, (match) => inject(match, 'senate-res'))
-          action.description = action.description.replace(/PN\s\d+/g, (match) => inject(match, 'nomination'))
-        })
+        senateActions.forEach(action => injectLinks(action))
+        houseActions.forEach(action => injectLinks(action))
 
         // Convert list of senate actions into actions and sub-actions (like legislative actions)
         let fSenateActions = senateActions.filter(action => action.description.toLowerCase().includes('the senate'))
@@ -280,6 +261,28 @@ async function getActionsForDay (date, chamber) {
   }
 
   return actions
+}
+
+const senateBillUrl = `https://www.congress.gov/bill/115th-congress/senate-bill`
+const houseBillUrl = `https://www.congress.gov/bill/115th-congress/house-bill`
+const nominationUrl = `https://www.congress.gov/nomination/115th-congress`
+const senateResolutionUrl = `https://www.congress.gov/bill/115th-congress/senate-resolution`
+function injectLinks (action) {
+  const inject = (match, type) => {
+    let url
+    switch (type) {
+      case 'senate-bill': url = senateBillUrl; break
+      case 'house-bill': url = houseBillUrl; break
+      case 'senate-res': url = senateResolutionUrl; break
+      case 'nomination': url = nominationUrl; break
+    }
+    const id = match.match(/\d+/)
+    return `<a href="${url}/${id}" target="_blank" rel="noopener" class="action-link ${type}">${match}</a>`
+  }
+  action.description = action.description.replace(/(S|S.)\s\d+/g, (match) => inject(match, 'senate-bill'))
+  action.description = action.description.replace(/(H.R.|HR|H. Res.)\s*\d+/g, (match) => inject(match, 'house-bill'))
+  action.description = action.description.replace(/S\sRes.\s\d+/g, (match) => inject(match, 'senate-res'))
+  action.description = action.description.replace(/PN\s\d+/g, (match) => inject(match, 'nomination'))
 }
 
 export default createStore
