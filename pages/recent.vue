@@ -69,13 +69,13 @@ export default {
       if (this.houseInSession) {
         return `The House was in session today.`
       }
-      return `The last House session was ${moment(this.houseDate).format('dddd, MMMM Do')}`
+      return `The last House session was ${moment(this.houseDate).tz('America/New_York').format('dddd, MMMM Do')}`
     },
     senateDateFormatted () {
       if (this.senateInSession) {
         return `The Senate was in session today.`
       }
-      return `The last Senate session was ${moment(this.senateDate).format('dddd, MMMM Do')}`
+      return `The last Senate session was ${moment(this.senateDate).tz('America/New_York').format('dddd, MMMM Do')}`
     }
   }
 }
