@@ -4,9 +4,9 @@
       <span>{{time}}</span>
     </div>
     <div class="action">
-      <span>{{action.description}}</span>
-      <ul v-for="sa in action.sub_actions" :key="sa.timestamp">
-        <li class="sub-action">{{sa.description}}</li>
+      <span v-html="action.description"></span>
+      <ul class="sub-actions">
+        <li v-for="sa in action.sub_actions" :key="sa.timestamp" class="sub-action" v-html="sa.description"></li>
       </ul>
     </div>
   </section>
@@ -66,6 +66,7 @@ export default {
 }
 
 .sub-action {
+  padding: 4px 0;
   font-size: 14px;
   list-style-type: square;
 }
