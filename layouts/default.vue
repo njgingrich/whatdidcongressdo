@@ -73,4 +73,20 @@ a.link-item, a.link-item:visited, a.link-item:active {
 .page {
   grid-area: page;
 }
+
+// Global styles
+.action-link {
+  color: $blue;
+  padding: 1px;
+  text-decoration: underline;
+
+  &:hover {
+    background-color: $beige-light;
+    text-decoration: none;
+  }
+}
+
+a {
+  text-decoration-skip: ink;
+}
 </style>

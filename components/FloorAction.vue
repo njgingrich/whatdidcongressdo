@@ -69,5 +69,7 @@ export default {
   padding: 4px 0;
   font-size: 14px;
   list-style-type: square;
+
+  color: $blue;
 }
 </style>
