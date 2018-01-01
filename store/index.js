@@ -259,7 +259,7 @@ async function getActionsForDay (date, chamber) {
     offset += 20
     actions.push(...data.results[0].floor_actions)
   }
-
+  actions.reverse()
   return actions
 }
 
