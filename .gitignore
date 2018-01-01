@@ -7,4 +7,8 @@ npm-debug.log
 # Nuxt build
 .nuxt
 
+<<<<<<< HEAD
 *.env
+=======
+.env
+>>>>>>> 98b3534b4f652da1037b11676caaf0cbf95f7ef8

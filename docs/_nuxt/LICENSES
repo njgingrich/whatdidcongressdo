@@ -1,9 +1,12 @@
-/*!
- * Determine if an object is a Buffer
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
- */
+//! moment-timezone.js
+
+//! version : 0.5.14
+
+//! Copyright (c) JS Foundation and other contributors
+
+//! license : MIT
+
+//! github.com/moment/moment-timezone
 
 //! moment-timezone.js
 
