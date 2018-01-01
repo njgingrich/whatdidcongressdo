@@ -263,26 +263,39 @@ async function getActionsForDay (date, chamber) {
   return actions
 }
 
-const senateBillUrl = `https://www.congress.gov/bill/115th-congress/senate-bill`
-const houseBillUrl = `https://www.congress.gov/bill/115th-congress/house-bill`
-const nominationUrl = `https://www.congress.gov/nomination/115th-congress`
-const senateResolutionUrl = `https://www.congress.gov/bill/115th-congress/senate-resolution`
 function injectLinks (action) {
-  const inject = (match, type) => {
-    let url
-    switch (type) {
-      case 'senate-bill': url = senateBillUrl; break
-      case 'house-bill': url = houseBillUrl; break
-      case 'senate-res': url = senateResolutionUrl; break
-      case 'nomination': url = nominationUrl; break
-    }
+  const injectLink = (match, type, url) => {
     const id = match.match(/\d+/)
     return `<a href="${url}/${id}" target="_blank" rel="noopener" class="action-link ${type}">${match}</a>`
   }
-  action.description = action.description.replace(/(S|S.)\s\d+/g, (match) => inject(match, 'senate-bill'))
-  action.description = action.description.replace(/(H.R.|HR|H. Res.)\s*\d+/g, (match) => inject(match, 'house-bill'))
-  action.description = action.description.replace(/S\sRes.\s\d+/g, (match) => inject(match, 'senate-res'))
-  action.description = action.description.replace(/PN\s\d+/g, (match) => inject(match, 'nomination'))
+
+  actionTypes.forEach(type => {
+    action.description = action.description.replace(type.regex, match => injectLink(match, type.name, type.url))
+  })
 }
+
+const actionTypes = [
+  {
+    name: 'senate-bill',
+    regex: /(S|S.)\s\d+/g,
+    url: `https://www.congress.gov/bill/115th-congress/senate-bill`
+  }, {
+    name: 'house-bill',
+    regex: /(H.R.|HR)\s*\d+/g,
+    url: `https://www.congress.gov/bill/115th-congress/house-bill`
+  }, {
+    name: 'senate-res',
+    regex: /S\sRes.\s\d+/g,
+    url: `https://www.congress.gov/bill/115th-congress/senate-resolution`
+  }, {
+    name: 'house-res',
+    regex: /H. Res./g,
+    url: `https://www.congress.gov/bill/115th-congress/house-resolution`
+  }, {
+    name: 'nomination',
+    regex: /PN\s\d+/g,
+    url: `https://www.congress.gov/nomination/115th-congress`
+  }
+]
 
 export default createStore
