@@ -174,7 +174,9 @@ const createStore = () => {
             continue
           }
 
-          senateActions[lastMainIx].sub_actions.push(action)
+          if (lastMainIx !== -1) {
+            senateActions[lastMainIx].sub_actions.push(action)
+          }
         }
 
         commit('setFloorActions', {
@@ -259,18 +261,18 @@ async function getActionsForDay (date, chamber) {
     offset += 20
     actions.push(...data.results[0].floor_actions)
   }
-  actions.reverse()
-  return actions
+
+  return actions.reverse()
 }
 
 function injectLinks (action) {
-  const injectLink = (match, type, url) => {
+  const inject = (match, type, url) => {
     const id = match.match(/\d+/)
     return `<a href="${url}/${id}" target="_blank" rel="noopener" class="action-link ${type}">${match}</a>`
   }
 
   actionTypes.forEach(type => {
-    action.description = action.description.replace(type.regex, match => injectLink(match, type.name, type.url))
+    action.description = action.description.replace(type.regex, match => inject(match, type, type.url))
   })
 }
 
