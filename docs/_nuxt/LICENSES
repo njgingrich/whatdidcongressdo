@@ -1,17 +1,4 @@
 /*!
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
- * @license  MIT
- */
-
-/*!
->>>>>>> 92209aa... static generation on aws
-=======
->>>>>>> 09352c5... static generation
  * Determine if an object is a Buffer
  *
  * @author   Feross Aboukhadijeh <https://feross.org>
