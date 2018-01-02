@@ -111,11 +111,11 @@ export default {
   height: 100%;
 
   &.senate {
-    grid-row: 3 / 4;
+    grid-row: 3 / 5;
   }
 
   &.house {
-    grid-row: 5 / -1;
+    grid-row: 6 / -1;
   }
 }
 
@@ -187,6 +187,16 @@ export default {
     padding: 16px;
     font-size: 20px;
     transform: translateX(16px);
+  }
+
+  .background {
+    &.senate {
+      grid-row: 3 / 4;
+    }
+
+    &.house {
+      grid-row: 5 / -1;
+    }
   }
 }
 </style>

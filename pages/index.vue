@@ -12,7 +12,7 @@
       <div class="offset-box title-text senate-header--floor">
         <span>Floor Actions</span>
       </div>
-
+      <div class="background senate"></div>
       <VoteDisplay class="senate"
                   message="No votes today."
                   :votes="senateVotes"/>
@@ -35,7 +35,7 @@
       <div class="offset-box title-text house-header--floor">
         <span>Floor Actions</span>
       </div>
-
+      <div class="background house"></div>
       <VoteDisplay class="house"
                   message="No votes today."
                   :votes="houseVotes"/>
@@ -115,6 +115,21 @@ export default {
   overflow: hidden;
 
   @include svg-bg;
+}
+
+.background {
+  grid-column: 1 / -1;
+  background-color: $white;
+  width: 100%;
+  height: 100%;
+
+  &.senate {
+    grid-row: 3 / 6;
+  }
+
+  &.house {
+    grid-row: 8 / -1;
+  }
 }
 
 .offset-box {
@@ -254,6 +269,16 @@ export default {
 
   .chambers--votes, .chambers--floor {
     padding-top: 0;
+  }
+
+  .background {
+    &.senate {
+      grid-row: 3 / 4;
+    }
+
+    &.house {
+      grid-row: 6 / -1;
+    }
   }
 }
 
