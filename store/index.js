@@ -291,7 +291,7 @@ const actionTypes = [
     url: `https://www.congress.gov/bill/115th-congress/senate-resolution`
   }, {
     name: 'house-res',
-    regex: /H. Res./g,
+    regex: /H.\sRes.\s\d+/g,
     url: `https://www.congress.gov/bill/115th-congress/house-resolution`
   }, {
     name: 'nomination',
