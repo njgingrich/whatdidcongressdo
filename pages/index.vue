@@ -192,7 +192,6 @@ export default {
   font-size: 72px;
   text-align: center;
   color: $white;
-  background-color: $blue;
 }
 
 .house-header {
