@@ -107,21 +107,20 @@ const createStore = () => {
 
       async getTodaysFloorActions ({ commit }) {
         let today = moment().tz('America/New_York').format('YYYY/MM/DD')
-        const houseFloorActions = await getActionsForDay(today, 'house')
-        const senateFloorActions = await getActionsForDay(today, 'senate')
+        const hA = await getActionsForDay(today, 'house')
+        const sA = await getActionsForDay(today, 'senate')
 
-        senateFloorActions.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
-        houseFloorActions.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
+        let { senateActions, houseActions } = formatActions(sA, hA)
 
         commit('setFloorActions', {
           chamber: 'house',
           day: 'today',
-          floor_actions: houseFloorActions
+          floor_actions: houseActions
         })
         commit('setFloorActions', {
           chamber: 'senate',
           day: 'today',
-          floor_actions: senateFloorActions
+          floor_actions: senateActions
         })
       },
 
@@ -159,30 +158,10 @@ const createStore = () => {
         const houseDate = await getRecentSession('house')
         const senateDate = await getRecentSession('senate')
 
-        let houseActions = await getActionsForDay(houseDate.format('YYYY/MM/DD'), 'house')
-        let senateActions = await getActionsForDay(senateDate.format('YYYY/MM/DD'), 'senate')
+        let hA = await getActionsForDay(houseDate.format('YYYY/MM/DD'), 'house')
+        let sA = await getActionsForDay(senateDate.format('YYYY/MM/DD'), 'senate')
 
-        // Add rich-text links for bills, resolutions, etc.
-        senateActions.forEach(action => injectLinks(action))
-        houseActions.forEach(action => injectLinks(action))
-
-        // Convert list of senate actions into actions and sub-actions (like legislative actions)
-        let fSenateActions = senateActions.filter(action => action.description.toLowerCase().includes('the senate'))
-        let lastMainIx = -1
-        for (let i = 0; i < senateActions.length; i++) {
-          let action = senateActions[i]
-          if (action.description.toLowerCase().includes('the senate')) {
-            action.sub_actions = []
-            lastMainIx = i
-            continue
-          }
-
-          if (lastMainIx !== -1) {
-            senateActions[lastMainIx].sub_actions.push(action)
-          }
-        }
-        fSenateActions.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
-        houseActions.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
+        let { senateActions, houseActions } = formatActions(sA, hA)
 
         commit('setFloorActions', {
           chamber: 'house',
@@ -192,7 +171,7 @@ const createStore = () => {
         commit('setFloorActions', {
           chamber: 'senate',
           day: 'recent',
-          floor_actions: fSenateActions
+          floor_actions: senateActions
         })
       },
 
@@ -268,6 +247,35 @@ async function getActionsForDay (date, chamber) {
   }
 
   return actions
+}
+
+function formatActions (senate, house) {
+  // Add rich-text links for bills, resolutions, etc.
+  senate.forEach(action => injectLinks(action))
+  house.forEach(action => injectLinks(action))
+
+  // Convert list of senate actions into actions and sub-actions (like legislative actions)
+  let fSenate = senate.filter(action => action.description.toLowerCase().includes('the senate'))
+  let lastMainIx = -1
+  for (let i = 0; i < senate.length; i++) {
+    let action = senate[i]
+    if (action.description.toLowerCase().includes('the senate')) {
+      action.sub_actions = []
+      lastMainIx = i
+      continue
+    }
+
+    if (lastMainIx !== -1) {
+      senate[lastMainIx].sub_actions.push(action)
+    }
+  }
+  fSenate.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
+  house.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
+
+  return {
+    senateActions: fSenate,
+    houseActions: house
+  }
 }
 
 function injectLinks (action) {
