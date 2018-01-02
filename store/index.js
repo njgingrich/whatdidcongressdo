@@ -156,8 +156,8 @@ const createStore = () => {
         const houseDate = await getRecentSession('house')
         const senateDate = await getRecentSession('senate')
 
-        const houseActions = await getActionsForDay(houseDate.format('YYYY/MM/DD'), 'house')
-        const senateActions = await getActionsForDay(senateDate.format('YYYY/MM/DD'), 'senate')
+        let houseActions = await getActionsForDay(houseDate.format('YYYY/MM/DD'), 'house')
+        let senateActions = await getActionsForDay(senateDate.format('YYYY/MM/DD'), 'senate')
 
         // Add rich-text links for bills, resolutions, etc.
         senateActions.forEach(action => injectLinks(action))
@@ -178,6 +178,8 @@ const createStore = () => {
             senateActions[lastMainIx].sub_actions.push(action)
           }
         }
+        fSenateActions = fSenateActions.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
+        houseActions = houseActions.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
 
         commit('setFloorActions', {
           chamber: 'house',
@@ -262,7 +264,7 @@ async function getActionsForDay (date, chamber) {
     actions.push(...data.results[0].floor_actions)
   }
 
-  return actions.reverse()
+  return actions
 }
 
 function injectLinks (action) {
