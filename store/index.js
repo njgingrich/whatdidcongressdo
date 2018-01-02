@@ -174,13 +174,9 @@ const createStore = () => {
             continue
           }
 
-<<<<<<< HEAD
-          senateActions[lastMainIx].sub_actions.push(action)
-=======
           if (lastMainIx !== -1) {
             senateActions[lastMainIx].sub_actions.push(action)
           }
->>>>>>> 98b3534b4f652da1037b11676caaf0cbf95f7ef8
         }
 
         commit('setFloorActions', {
@@ -266,33 +262,6 @@ async function getActionsForDay (date, chamber) {
     actions.push(...data.results[0].floor_actions)
   }
 
-<<<<<<< HEAD
-  return actions
-}
-
-const senateBillUrl = `https://www.congress.gov/bill/115th-congress/senate-bill`
-const houseBillUrl = `https://www.congress.gov/bill/115th-congress/house-bill`
-const nominationUrl = `https://www.congress.gov/nomination/115th-congress`
-const senateResolutionUrl = `https://www.congress.gov/bill/115th-congress/senate-resolution`
-function injectLinks (action) {
-  const inject = (match, type) => {
-    let url
-    switch (type) {
-      case 'senate-bill': url = senateBillUrl; break
-      case 'house-bill': url = houseBillUrl; break
-      case 'senate-res': url = senateResolutionUrl; break
-      case 'nomination': url = nominationUrl; break
-    }
-    const id = match.match(/\d+/)
-    return `<a href="${url}/${id}" target="_blank" rel="noopener" class="action-link ${type}">${match}</a>`
-  }
-  action.description = action.description.replace(/(S|S.)\s\d+/g, (match) => inject(match, 'senate-bill'))
-  action.description = action.description.replace(/(H.R.|HR|H. Res.)\s*\d+/g, (match) => inject(match, 'house-bill'))
-  action.description = action.description.replace(/S\sRes.\s\d+/g, (match) => inject(match, 'senate-res'))
-  action.description = action.description.replace(/PN\s\d+/g, (match) => inject(match, 'nomination'))
-}
-
-=======
   return actions.reverse()
 }
 
@@ -331,5 +300,4 @@ const actionTypes = [
   }
 ]
 
->>>>>>> 98b3534b4f652da1037b11676caaf0cbf95f7ef8
 export default createStore
