@@ -110,6 +110,9 @@ const createStore = () => {
         const houseFloorActions = await getActionsForDay(today, 'house')
         const senateFloorActions = await getActionsForDay(today, 'senate')
 
+        senateFloorActions.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
+        houseFloorActions.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
+
         commit('setFloorActions', {
           chamber: 'house',
           day: 'today',
@@ -178,8 +181,8 @@ const createStore = () => {
             senateActions[lastMainIx].sub_actions.push(action)
           }
         }
-        fSenateActions = fSenateActions.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
-        houseActions = houseActions.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
+        fSenateActions.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
+        houseActions.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
 
         commit('setFloorActions', {
           chamber: 'house',
