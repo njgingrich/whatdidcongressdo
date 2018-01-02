@@ -17,20 +17,30 @@
           <svgicon name="twitter"/>
         </div>
       </section>
-      <div class="content-sub-info">
-        <p>
-          This site runs off of the <a href="https://projects.propublica.org/api-docs/congress-api/" target="_blank" rel="noopener">ProPublica Congress API</a>, and is updated approximately every hour.
-        </p>
-        <p>
-          Main image credited to <a href="https://www.aoc.gov" target="_blank" rel="noopener">Architect of the Capitol</a>.
-        </p>
-        <p>
-          The source code for the site is available on GitHub <a href="https://www.github.com/njgingrich/whatdidcongressdo" target="_blank" rel="noopener">here.</a>
-        </p>
-        <p>
-          All times are in Eastern Standard Time (as Washington, D.C. is in EST).
-        </p>
-      </div>
+      <section class="attribution">
+        <h3 class="attribution--title">Attribution</h3>
+        <div class="attribution--info">
+          <p>
+            The source code for the site is available on GitHub
+            <a href="https://www.github.com/njgingrich/whatdidcongressdo" target="_blank" rel="noopener">here.</a>
+          </p>
+          <p>
+            This site runs off of the
+            <a href="https://projects.propublica.org/api-docs/congress-api/" target="_blank" rel="noopener">ProPublica Congress API</a>,
+            and is updated approximately every hour.
+          </p>
+          <p>
+            Main image credited to <a href="https://www.aoc.gov" target="_blank" rel="noopener">Architect of the Capitol</a>.
+          </p>
+          <p>
+            The SVG background is from <a href="http://www.heropatterns.com/" target="_blank" rel="noopener">heropatterns.com</a>,
+            licensed under <a href="https://creativecommons.org/licenses/by/4.0/legalcode" target="_blank" rel="noopener">CC 4.0.</a>
+          </p>
+          <p>
+            All times are in Eastern Standard Time (as Washington, D.C. is in EST).
+          </p>
+        </div>
+      </section>
     </section>
   </section>
 </template>
@@ -57,6 +67,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "~assets/styles/colors";
+@import "~assets/styles/mixins";
 
 .page {
   background-image: url("~assets/images/congress.jpg");
@@ -65,12 +76,26 @@ export default {
   height: auto;
 }
 
+.attribution--title {
+  margin-bottom: 0;
+}
+
+.attribution--info {
+  font-size: 14px;
+
+  p {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+}
+
 .content {
   grid-area: content;
   align-self: start;
-  margin: 16px 8px;
+  margin: 16px 32px;
   padding: 32px;
-  background-color: $blue;
+  @include svg-bg;
+
   color: $white;
 
   font-family: 'Merriweather';
@@ -85,16 +110,6 @@ export default {
 
 .content-info {
   font-size: 16px;
-}
-
-.content-sub-info {
-  padding-top: 32px;
-  font-size: 12px;
-
-  p {
-    margin-top: 8px;
-    margin-bottom: 8px;
-  }
 }
 
 a, a:visited, a:active {
@@ -116,8 +131,6 @@ a, a:visited, a:active {
   grid-template-areas:
     "note note"
     "fb   twitter";
-
-  padding-top: 16px;
 
   .share--item.facebook {
     grid-area: fb;
@@ -154,12 +167,6 @@ a, a:visited, a:active {
   &.twitter {
     fill: $twitter-color;
   }
-
-  &:hover {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 0px;
-  }
 }
 
 .share--item.facebook:hover {
@@ -178,7 +185,7 @@ a, a:visited, a:active {
   }
 
   .content {
-    margin: 64px;
+    margin: 32px;
   }
 
   .content-title {
@@ -189,13 +196,9 @@ a, a:visited, a:active {
     font-size: 14px;
   }
 
-  .share {
-    padding-top: 48px;
-
-    .share--note {
-      padding: 8px;
-      font-size: 24px;
-    }
+  .share .share--note {
+    padding: 8px;
+    font-size: 24px;
   }
 }
 </style>

@@ -94,6 +94,7 @@ export default {
 
 <style lang="scss">
 @import "~assets/styles/colors";
+@import "~assets/styles/mixins";
 
 .page {
   display: grid;
@@ -112,6 +113,8 @@ export default {
     "h-h-floor h-h-floor h-h-floor"
     ".         h-floor   .        ";
   overflow: hidden;
+
+  @include svg-bg;
 }
 
 .offset-box {
@@ -205,7 +208,6 @@ export default {
 .no-session {
   min-height: 240px;
   padding: 16px;
-  background-color: $blue;
   color: $white;
 
   .title-text {

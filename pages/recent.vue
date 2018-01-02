@@ -6,6 +6,7 @@
     <div id="senate" class="senate session">
       <div class="title-box title-text">{{senateDateFormatted}}</div>
     </div>
+    <div class="background senate"></div>
 
     <VoteDisplay class="senate-votes"
                   message="No votes today."
@@ -18,6 +19,7 @@
       <div class="title-box title-text">{{houseDateFormatted}}</div>
     </div>
 
+    <div class="background house"></div>
     <VoteDisplay class="house-votes"
                   message="No votes."
                   :votes="houseVotes"/>
@@ -82,10 +84,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "~assets/styles/colors";
+@import "~assets/styles/mixins";
 
 .page {
   overflow: hidden;
   display: grid;
+  @include svg-bg;
 
   grid-template-columns: 1fr 90vw 1fr;
   grid-template-rows: repeat(7, auto);
@@ -100,6 +104,21 @@ export default {
   overflow: hidden;
 }
 
+.background {
+  grid-column: 1 / -1;
+  background-color: $white;
+  width: 100%;
+  height: 100%;
+
+  &.senate {
+    grid-row: 3 / 4;
+  }
+
+  &.house {
+    grid-row: 5 / -1;
+  }
+}
+
 .title-box {
   background-color: $beige-dark;
   color: $white;
@@ -108,13 +127,11 @@ export default {
 }
 
 .session {
-  background-color: $blue;
   padding-top: 56px;
 }
 
 .recent-header {
   grid-area: header;
-  background-color: $blue;
   color: $white;
 
   h2 {
