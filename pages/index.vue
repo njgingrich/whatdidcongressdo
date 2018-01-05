@@ -124,7 +124,7 @@ export default {
   height: 100%;
 
   &.senate {
-    grid-row: 3 / 6;
+    grid-row: 3 / 7;
   }
 
   &.house {
@@ -272,7 +272,7 @@ export default {
 
   .background {
     &.senate {
-      grid-row: 3 / 4;
+      grid-row: 3 / 5;
     }
 
     &.house {
