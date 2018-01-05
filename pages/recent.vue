@@ -53,6 +53,7 @@ export default {
   async fetch ({store, params}) {
     await store.dispatch('getRecentVotes')
     await store.dispatch('getRecentFloorActions')
+    await store.dispatch('getCongressSession')
     await store.dispatch('setNavLinks', {
       links: [
         {
