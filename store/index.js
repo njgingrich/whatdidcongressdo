@@ -199,22 +199,34 @@ const createStore = () => {
 }
 
 async function getRecentSession (chamber) {
-  const { data: voteData } = await axios.get(`${baseUrl}/${chamber}/votes/recent.json`)
-  let { data: actionData } = await axios.get(`${baseUrl}/115/${chamber}/floor_updates.json`)
+  try {
+    let { data: voteData } = await axios.get(`${baseUrl}/${chamber}/votes/recent.json`)
+    let { data: actionData } = await axios.get(`${baseUrl}/115/${chamber}/floor_updates.json`)
 
-  // ProPublica may send back a malformed JSON response, with strings containing unescaped newlines
-  if (typeof actionData === 'string') {
-    actionData = actionData.replace(/\n\n/g, '\\n')
-    actionData = JSON.parse(actionData)
-  }
-  let recentVote = moment.tz(voteData.results.votes[0].date, 'America/New_York')
-  let recentAction = moment.tz(actionData.results[0].floor_actions[0].date, 'America/New_York')
+    // ProPublica may send back a malformed JSON response, with strings containing unescaped newlines
+    // Votes may also be missing values
+    if (typeof actionData === 'string') {
+      actionData = actionData.replace(/\n\n/g, '\\n')
+      actionData = JSON.parse(actionData)
+    }
+    if (typeof voteData === 'string') {
+      voteData = voteData.replace(/(("yes": |"no": |"present": ),|("not_voting": )),/g, (match, p1) => {
+        return `${p1} 0`
+      })
+      voteData = JSON.parse(voteData)
+    }
 
-  // Return the more recent of the two days, if they differ
-  if (recentVote.format('X') > recentAction.format('X')) {
-    return recentVote
-  } else {
-    return recentAction
+    let recentVote = moment.tz(voteData.results.votes[0].date, 'America/New_York')
+    let recentAction = moment.tz(actionData.results[0].floor_actions[0].date, 'America/New_York')
+
+    // Return the more recent of the two days, if they differ
+    if (recentVote.format('X') > recentAction.format('X')) {
+      return recentVote
+    } else {
+      return recentAction
+    }
+  } catch (err) {
+    console.error(err)
   }
 }
 
@@ -269,10 +281,8 @@ function formatActions (senate, house) {
       senate[lastMainIx].sub_actions.push(action)
     }
   }
-  console.log('before')
   fSenate.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
   house.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
-  console.log('after')
 
   return {
     senateActions: fSenate,
