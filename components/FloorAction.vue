@@ -21,7 +21,8 @@ export default {
   },
   computed: {
     time () {
-      let d = new Date(this.action.timestamp)
+      const validStr = this.action.timestamp.substr(0, this.action.timestamp.length - 6)
+      let d = new Date(validStr)
       return moment(d.getTime()).format('h:mm a')
     }
   }
@@ -59,7 +60,6 @@ export default {
 
   &:hover {
     box-shadow: 0 4px 12px -3px rgba(0, 0, 0, 0.8);
-    transform: translateY(-1px);
     border-left: 28px solid $blue;
     margin-left: -28px;
   }

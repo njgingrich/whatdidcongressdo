@@ -269,8 +269,10 @@ function formatActions (senate, house) {
       senate[lastMainIx].sub_actions.push(action)
     }
   }
+  console.log('before')
   fSenate.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
   house.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
+  console.log('after')
 
   return {
     senateActions: fSenate,

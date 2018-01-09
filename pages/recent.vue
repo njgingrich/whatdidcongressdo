@@ -87,22 +87,45 @@ export default {
 @import "~assets/styles/colors";
 @import "~assets/styles/mixins";
 
+// If we don't support Grid, add a flexbox fallback that "mostly" works
 .page {
-  overflow: hidden;
-  display: grid;
   @include svg-bg;
+  display: flex;
+  flex-direction: column;
+}
 
-  grid-template-columns: 1fr 90vw 1fr;
-  grid-template-rows: repeat(7, auto);
-  grid-template-areas:
-    "header header  header"
-    "senate senate  senate"
-    ".      s-votes .     "
-    ".      s-floor .     "
-    "house  house   house "
-    ".      h-votes .     "
-    ".      h-floor .     ";
-  overflow: hidden;
+@supports (display: grid) {
+  .page {
+    overflow: hidden;
+    display: grid;
+
+    grid-template-columns: 1fr 90vw 1fr;
+    grid-template-rows: repeat(7, auto);
+    grid-template-areas:
+      "header header  header"
+      "senate senate  senate"
+      ".      s-votes .     "
+      ".      s-floor .     "
+      "house  house   house "
+      ".      h-votes .     "
+      ".      h-floor .     ";
+    overflow: hidden;
+  }
+
+  .chambers--votes {
+    background: 0;
+  }
+
+  .chambers--floor {
+    background: 0;
+  }
+}
+
+.chambers--votes {
+  background: $white;
+}
+.chambers--floor {
+  background: $white;
 }
 
 .background {
@@ -170,15 +193,17 @@ export default {
 }
 
 @media screen and (min-width: 979px) {
-  .page {
-    grid-template-columns: 1fr minmax(420px, 520px) 64px minmax(auto, 600px) 1fr;
-    grid-template-rows: 160px 100px auto 100px auto;
-    grid-template-areas:
-      "header header  header header  header"
-      "senate senate  senate senate  senate"
-      ".      s-votes .      s-floor .     "
-      "house  house   house  house   house "
-      ".      h-votes .      h-floor .     ";
+  @supports (display: grid) {
+    .page {
+      grid-template-columns: 1fr minmax(420px, 520px) 64px minmax(auto, 600px) 1fr;
+      grid-template-rows: 160px 100px auto 100px auto;
+      grid-template-areas:
+        "header header  header header  header"
+        "senate senate  senate senate  senate"
+        ".      s-votes .      s-floor .     "
+        "house  house   house  house   house "
+        ".      h-votes .      h-floor .     ";
+    }
   }
 
   .title-box {
