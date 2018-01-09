@@ -102,7 +102,6 @@ export default {
 
   &:hover {
     box-shadow: 0 8px 16px -3px rgba(0, 0, 0, 0.8);
-    transform: translateY(-2px);
   }
 }
 
