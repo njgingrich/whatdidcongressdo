@@ -1,6 +1,6 @@
 # What is Congress Doing Today?
 
-[What Is Congress Doing Today?](http://whatiscongressdoing.today) is a site to show the daily activity of the House and the Senate of the U.S. Government.
+[What Did Congress Do Today?](http://whatdidcongressdo.today) is a site to show the daily activity of the House and the Senate of the U.S. Government.
 
 ## About
 
