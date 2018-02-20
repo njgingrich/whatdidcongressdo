@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
 import axios from 'axios'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 const baseUrl = `https://api.propublica.org/congress/v1`
 axios.defaults.headers.common['X-API-Key'] = process.env.API_KEY
@@ -11,10 +11,10 @@ const createStore = () => {
       senate: {
         today: {
           votes: {},
-          floor_actions: {}
+          floor_actions: {} // action: { action: {}, sub_actions: { action[] } }
         },
         recent: {
-          date: moment().subtract(1, 'days').toISOString(),
+          date: moment().tz('America/New_York').subtract(1, 'days').toISOString(),
           votes: {},
           floor_actions: {}
         },
@@ -26,12 +26,13 @@ const createStore = () => {
           floor_actions: {}
         },
         recent: {
-          date: moment().subtract(1, 'days').toISOString(),
+          date: moment().tz('America/New_York').subtract(1, 'days').toISOString(),
           votes: {},
           floor_actions: {}
         },
         isInSession: false
-      }
+      },
+      navLinks: []
     },
     mutations: {
       setVotes (state, payload) {
@@ -49,6 +50,7 @@ const createStore = () => {
           }
         }
       },
+
       setFloorActions (state, payload) {
         if (payload.day === 'today') {
           if (payload.chamber === 'house') {
@@ -64,6 +66,7 @@ const createStore = () => {
           }
         }
       },
+
       setRecentDate (state, payload) {
         if (payload.chamber === 'house') {
           state.house.recent.date = payload.date
@@ -71,17 +74,22 @@ const createStore = () => {
           state.senate.recent.date = payload.date
         }
       },
+
       setInSession (state, payload) {
         if (payload.chamber === 'house') {
           state.house.isInSession = payload.value
         } else {
           state.senate.isInSession = payload.value
         }
+      },
+
+      setLinks (state, payload) {
+        state.navLinks = payload.links
       }
     },
     actions: {
-      async getTodaysVotes ({ commit }, params) {
-        let today = moment().format('YYYY-MM-DD')
+      async getTodaysVotes ({ commit }) {
+        let today = moment().tz('America/New_York').format('YYYY-MM-DD')
         const houseVotes = await getVotesForDay(today, 'house')
         const senateVotes = await getVotesForDay(today, 'senate')
 
@@ -96,23 +104,27 @@ const createStore = () => {
           votes: senateVotes
         })
       },
-      async getTodaysFloorActions ({ commit }, params) {
-        let today = moment().format('YYYY/MM/DD')
-        const houseFloorActions = await getActionsForDay(today, 'house')
-        const senateFloorActions = await getActionsForDay(today, 'senate')
+
+      async getTodaysFloorActions ({ commit }) {
+        let today = moment().tz('America/New_York').format('YYYY/MM/DD')
+        const hA = await getActionsForDay(today, 'house')
+        const sA = await getActionsForDay(today, 'senate')
+
+        let { senateActions, houseActions } = formatActions(sA, hA)
 
         commit('setFloorActions', {
           chamber: 'house',
           day: 'today',
-          floor_actions: houseFloorActions
+          floor_actions: houseActions
         })
         commit('setFloorActions', {
           chamber: 'senate',
           day: 'today',
-          floor_actions: senateFloorActions
+          floor_actions: senateActions
         })
       },
-      async getRecentVotes ({ commit }, params) {
+
+      async getRecentVotes ({ commit }) {
         // get the most recent votes, only for the same day as the most recent item
         // recent date is shared between votes/actions, but not between chambers
         const houseDate = await getRecentSession('house')
@@ -140,13 +152,16 @@ const createStore = () => {
           date: senateDate.toISOString()
         })
       },
-      async getRecentFloorActions ({ commit }, params) {
+
+      async getRecentFloorActions ({ commit }) {
         // get the most recent actions, only for the same day as the most recent item
         const houseDate = await getRecentSession('house')
         const senateDate = await getRecentSession('senate')
 
-        const houseActions = await getActionsForDay(houseDate.format('YYYY/MM/DD'), 'house')
-        const senateActions = await getActionsForDay(senateDate.format('YYYY/MM/DD'), 'senate')
+        let hA = await getActionsForDay(houseDate.format('YYYY/MM/DD'), 'house')
+        let sA = await getActionsForDay(senateDate.format('YYYY/MM/DD'), 'senate')
+
+        let { senateActions, houseActions } = formatActions(sA, hA)
 
         commit('setFloorActions', {
           chamber: 'house',
@@ -159,11 +174,12 @@ const createStore = () => {
           floor_actions: senateActions
         })
       },
-      async getCongressSession ({ commit }, params) {
+
+      async getCongressSession ({ commit }) {
         const houseSession = await getRecentSession('house')
         const senateSession = await getRecentSession('senate')
-        const houseInSession = moment().format('YYYY-MM-DD') === houseSession.format('YYYY-MM-DD')
-        const senateInSession = moment().format('YYYY-MM-DD') === senateSession.format('YYYY-MM-DD')
+        const houseInSession = moment().tz('America/New_York').format('YYYY-MM-DD') === houseSession.tz('America/New_York').format('YYYY-MM-DD')
+        const senateInSession = moment().tz('America/New_York').format('YYYY-MM-DD') === senateSession.tz('America/New_York').format('YYYY-MM-DD')
 
         commit('setInSession', {
           chamber: 'house',
@@ -173,28 +189,44 @@ const createStore = () => {
           chamber: 'senate',
           value: senateInSession
         })
+      },
+
+      setNavLinks ({ commit }, params) {
+        commit('setLinks', { links: params.links })
       }
     }
   })
 }
 
 async function getRecentSession (chamber) {
-  const { data: voteData } = await axios.get(`${baseUrl}/${chamber}/votes/recent.json`)
-  let { data: actionData } = await axios.get(`${baseUrl}/115/${chamber}/floor_updates.json`)
+  try {
+    let { data: voteData } = await axios.get(`${baseUrl}/${chamber}/votes/recent.json`)
+    let { data: actionData } = await axios.get(`${baseUrl}/115/${chamber}/floor_updates.json`)
 
-  // ProPublica may send back a malformed JSON response, with strings containing unescaped newlines
-  if (typeof actionData === 'string') {
-    actionData = actionData.replace(/\n\n/g, '\\n')
-    actionData = JSON.parse(actionData)
-  }
-  let recentVote = moment(voteData.results.votes[0].date)
-  let recentAction = moment(actionData.results[0].floor_actions[0].date)
+    // ProPublica may send back a malformed JSON response, with strings containing unescaped newlines
+    // Votes may also be missing values
+    if (typeof actionData === 'string') {
+      actionData = actionData.replace(/\n\n/g, '\\n')
+      actionData = JSON.parse(actionData)
+    }
+    if (typeof voteData === 'string') {
+      voteData = voteData.replace(/(("yes": |"no": |"present": ),|("not_voting": )),/g, (match, p1) => {
+        return `${p1} 0`
+      })
+      voteData = JSON.parse(voteData)
+    }
 
-  // Return the more recent of the two days, if they differ
-  if (recentVote.format('X') > recentAction.format('X')) {
-    return recentVote
-  } else {
-    return recentAction
+    let recentVote = moment.tz(voteData.results.votes[0].date, 'America/New_York')
+    let recentAction = moment.tz(actionData.results[0].floor_actions[0].date, 'America/New_York')
+
+    // Return the more recent of the two days, if they differ
+    if (recentVote.format('X') > recentAction.format('X')) {
+      return recentVote
+    } else {
+      return recentAction
+    }
+  } catch (err) {
+    console.error(err)
   }
 }
 
@@ -226,10 +258,71 @@ async function getActionsForDay (date, chamber) {
     actions.push(...data.results[0].floor_actions)
   }
 
-  // Earliest first
-  return actions.sort((a, b) => {
-    return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+  return actions
+}
+
+function formatActions (senate, house) {
+  // Add rich-text links for bills, resolutions, etc.
+  senate.forEach(action => injectLinks(action))
+  house.forEach(action => injectLinks(action))
+
+  // Convert list of senate actions into actions and sub-actions (like legislative actions)
+  let fSenate = senate.filter(action => action.description.toLowerCase().includes('the senate'))
+  let lastMainIx = -1
+  for (let i = 0; i < senate.length; i++) {
+    let action = senate[i]
+    if (action.description.toLowerCase().includes('the senate')) {
+      action.sub_actions = []
+      lastMainIx = i
+      continue
+    }
+
+    if (lastMainIx !== -1) {
+      senate[lastMainIx].sub_actions.push(action)
+    }
+  }
+  fSenate.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
+  house.sort((a, b) => moment(a.timestamp).valueOf() - moment(b.timestamp).valueOf())
+
+  return {
+    senateActions: fSenate,
+    houseActions: house
+  }
+}
+
+function injectLinks (action) {
+  const inject = (match, type, url) => {
+    const id = match.match(/\d+/)
+    return `<a href="${url}/${id}" target="_blank" rel="noopener" class="action-link ${type}">${match}</a>`
+  }
+
+  actionTypes.forEach(type => {
+    action.description = action.description.replace(type.regex, match => inject(match, type, type.url))
   })
 }
+
+const actionTypes = [
+  {
+    name: 'senate-bill',
+    regex: /(S|S.)\s\d+/g,
+    url: `https://www.congress.gov/bill/115th-congress/senate-bill`
+  }, {
+    name: 'house-bill',
+    regex: /(H.R.|HR)\s*\d+/g,
+    url: `https://www.congress.gov/bill/115th-congress/house-bill`
+  }, {
+    name: 'senate-res',
+    regex: /S\sRes.\s\d+/g,
+    url: `https://www.congress.gov/bill/115th-congress/senate-resolution`
+  }, {
+    name: 'house-res',
+    regex: /H.\sRes.\s\d+/g,
+    url: `https://www.congress.gov/bill/115th-congress/house-resolution`
+  }, {
+    name: 'nomination',
+    regex: /PN\s\d+/g,
+    url: `https://www.congress.gov/nomination/115th-congress`
+  }
+]
 
 export default createStore

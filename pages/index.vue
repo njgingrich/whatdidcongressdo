@@ -12,7 +12,7 @@
       <div class="offset-box title-text senate-header--floor">
         <span>Floor Actions</span>
       </div>
-
+      <div class="background senate"></div>
       <VoteDisplay class="senate"
                   message="No votes today."
                   :votes="senateVotes"/>
@@ -21,7 +21,7 @@
                           :actions="senateActions"/>
     </template>
     <template v-else>
-      <div class="senate-header no-session">
+      <div id="senate" class="senate-header no-session">
         <p class="title-text">The Senate isn't in session today.</p>
         <a href="recent#senate" class="recent-link">Check out what they did on their last day in session.</a>
       </div>
@@ -35,7 +35,7 @@
       <div class="offset-box title-text house-header--floor">
         <span>Floor Actions</span>
       </div>
-
+      <div class="background house"></div>
       <VoteDisplay class="house"
                   message="No votes today."
                   :votes="houseVotes"/>
@@ -44,7 +44,7 @@
                           :actions="houseActions"/>
     </template>
     <template v-else>
-      <div class="house-header no-session">
+      <div id="house" class="house-header no-session">
         <p class="title-text">The House isn't in session today.</p>
         <a href="recent#house" class="recent-link">Check out what they did on their last day in session.</a>
       </div>
@@ -76,12 +76,25 @@ export default {
     await store.dispatch('getTodaysVotes')
     await store.dispatch('getTodaysFloorActions')
     await store.dispatch('getCongressSession')
+    await store.dispatch('setNavLinks', {
+      links: [
+        {
+          link: '#senate',
+          name: 'Senate'
+        },
+        {
+          link: '#house',
+          name: 'House'
+        }
+      ]
+    })
   }
 }
 </script>
 
 <style lang="scss">
 @import "~assets/styles/colors";
+@import "~assets/styles/mixins";
 
 .page {
   display: grid;
@@ -100,6 +113,23 @@ export default {
     "h-h-floor h-h-floor h-h-floor"
     ".         h-floor   .        ";
   overflow: hidden;
+
+  @include svg-bg;
+}
+
+.background {
+  grid-column: 1 / -1;
+  background-color: $white;
+  width: 100%;
+  height: 100%;
+
+  &.senate {
+    grid-row: 3 / 7;
+  }
+
+  &.house {
+    grid-row: 8 / -1;
+  }
 }
 
 .offset-box {
@@ -162,7 +192,6 @@ export default {
   font-size: 72px;
   text-align: center;
   color: $white;
-  background-color: $blue;
 }
 
 .house-header {
@@ -193,7 +222,6 @@ export default {
 .no-session {
   min-height: 240px;
   padding: 16px;
-  background-color: $blue;
   color: $white;
 
   .title-text {
@@ -240,6 +268,16 @@ export default {
 
   .chambers--votes, .chambers--floor {
     padding-top: 0;
+  }
+
+  .background {
+    &.senate {
+      grid-row: 3 / 5;
+    }
+
+    &.house {
+      grid-row: 6 / -1;
+    }
   }
 }
 

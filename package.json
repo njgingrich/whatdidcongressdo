@@ -20,6 +20,7 @@
     "axios": "^0.17.1",
     "dotenv": "^4.0.0",
     "moment": "^2.20.1",
+    "moment-timezone": "^0.5.14",
     "nuxt": "^1.0.0-rc11",
     "webfontloader": "^1.6.28"
   },

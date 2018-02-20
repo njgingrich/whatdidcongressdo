@@ -4,12 +4,15 @@
       <span>{{time}}</span>
     </div>
     <div class="action">
-      <span>{{action.description}}</span>
+      <span v-html="action.description"></span>
+      <ul class="sub-actions">
+        <li v-for="sa in action.sub_actions" :key="sa.timestamp" class="sub-action" v-html="sa.description"></li>
+      </ul>
     </div>
   </section>
 </template>
 <script>
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 export default {
   name: 'FloorAction',
@@ -18,7 +21,8 @@ export default {
   },
   computed: {
     time () {
-      let d = new Date(this.action.timestamp)
+      const validStr = this.action.timestamp.substr(0, this.action.timestamp.length - 6)
+      let d = new Date(validStr)
       return moment(d.getTime()).format('h:mm a')
     }
   }
@@ -56,9 +60,16 @@ export default {
 
   &:hover {
     box-shadow: 0 4px 12px -3px rgba(0, 0, 0, 0.8);
-    transform: translateY(-1px);
     border-left: 28px solid $blue;
     margin-left: -28px;
   }
+}
+
+.sub-action {
+  padding: 4px 0;
+  font-size: 14px;
+  list-style-type: square;
+
+  color: $blue;
 }
 </style>

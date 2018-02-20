@@ -4,8 +4,9 @@
       <h2 class="title-text">Recent Activity</h2>
     </header>
     <div id="senate" class="senate session">
-      <div class="title-box title-text">The last Senate session was {{senateDateFormatted}}</div>
+      <div class="title-box title-text">{{senateDateFormatted}}</div>
     </div>
+    <div class="background senate"></div>
 
     <VoteDisplay class="senate-votes"
                   message="No votes today."
@@ -15,19 +16,20 @@
                         :actions="senateActions"/>
 
     <div id="house" class="house session">
-      <div class="title-box title-text">The last House session was {{houseDateFormatted}}</div>
+      <div class="title-box title-text">{{houseDateFormatted}}</div>
     </div>
 
+    <div class="background house"></div>
     <VoteDisplay class="house-votes"
-                  message="No votes today."
+                  message="No votes."
                   :votes="houseVotes"/>
     <FloorActionDisplay class="house-floor"
-                        message="No floor actions today."
+                        message="No floor actions."
                         :actions="houseActions"/>
   </section>
 </template>
 <script>
-import moment from 'moment'
+import moment from 'moment-timezone'
 import FloorActionDisplay from '~/components/FloorActionDisplay'
 import VoteDisplay from '~/components/VoteDisplay'
 
@@ -38,9 +40,11 @@ export default {
   },
   data () {
     return {
+      houseInSession: this.$store.state.house.isInSession,
       houseVotes: this.$store.state.house.recent.votes,
       houseActions: this.$store.state.house.recent.floor_actions,
       houseDate: this.$store.state.house.recent.date,
+      senateInSession: this.$store.state.senate.isInSession,
       senateActions: this.$store.state.senate.recent.floor_actions,
       senateVotes: this.$store.state.senate.recent.votes,
       senateDate: this.$store.state.senate.recent.date
@@ -49,35 +53,94 @@ export default {
   async fetch ({store, params}) {
     await store.dispatch('getRecentVotes')
     await store.dispatch('getRecentFloorActions')
+    await store.dispatch('getCongressSession')
+    await store.dispatch('setNavLinks', {
+      links: [
+        {
+          link: 'recent#senate',
+          name: 'Senate'
+        },
+        {
+          link: 'recent#house',
+          name: 'House'
+        }
+      ]
+    })
   },
   computed: {
     houseDateFormatted () {
-      return moment(this.houseDate).format('dddd, MMMM Do')
+      if (this.houseInSession) {
+        return `The House was in session today.`
+      }
+      return `The last House session was ${moment(this.houseDate).tz('America/New_York').format('dddd, MMMM Do')}`
     },
     senateDateFormatted () {
-      return moment(this.senateDate).format('dddd, MMMM Do')
+      if (this.senateInSession) {
+        return `The Senate was in session today.`
+      }
+      return `The last Senate session was ${moment(this.senateDate).tz('America/New_York').format('dddd, MMMM Do')}`
     }
   }
 }
 </script>
 <style lang="scss" scoped>
 @import "~assets/styles/colors";
+@import "~assets/styles/mixins";
 
+// If we don't support Grid, add a flexbox fallback that "mostly" works
 .page {
-  overflow: hidden;
-  display: grid;
+  @include svg-bg;
+  display: flex;
+  flex-direction: column;
+}
 
-  grid-template-columns: 1fr 90vw 1fr;
-  grid-template-rows: repeat(7, auto);
-  grid-template-areas:
-    "header header  header"
-    "senate senate  senate"
-    ".      s-votes .     "
-    ".      s-floor .     "
-    "house  house   house "
-    ".      h-votes .     "
-    ".      h-floor .     ";
-  overflow: hidden;
+@supports (display: grid) {
+  .page {
+    overflow: hidden;
+    display: grid;
+
+    grid-template-columns: 1fr 90vw 1fr;
+    grid-template-rows: repeat(7, auto);
+    grid-template-areas:
+      "header header  header"
+      "senate senate  senate"
+      ".      s-votes .     "
+      ".      s-floor .     "
+      "house  house   house "
+      ".      h-votes .     "
+      ".      h-floor .     ";
+    overflow: hidden;
+  }
+
+  .chambers--votes {
+    background: 0;
+  }
+
+  .chambers--floor {
+    background: 0;
+  }
+}
+
+.chambers--votes {
+  background: $white;
+}
+.chambers--floor {
+  background: $white;
+}
+
+.background {
+  grid-column: 1 / -1;
+  background-color: $white;
+  width: 100%;
+  height: 100%;
+
+  &.senate {
+    grid-row: 3 / 5;
+  }
+
+  &.house {
+    grid-row: 6 / -1;
+  }
 }
 
 .title-box {
@@ -88,13 +151,11 @@ export default {
 }
 
 .session {
-  background-color: $blue;
   padding-top: 56px;
 }
 
 .recent-header {
   grid-area: header;
-  background-color: $blue;
   color: $white;
 
   h2 {
@@ -132,15 +193,17 @@ export default {
 }
 
 @media screen and (min-width: 979px) {
-  .page {
-    grid-template-columns: 1fr minmax(420px, 520px) 64px minmax(auto, 600px) 1fr;
-    grid-template-rows: 160px 100px auto 100px auto;
-    grid-template-areas:
-      "header header  header header  header"
-      "senate senate  senate senate  senate"
-      ".      s-votes .      s-floor .     "
-      "house  house   house  house   house "
-      ".      h-votes .      h-floor .     ";
+  @supports (display: grid) {
+    .page {
+      grid-template-columns: 1fr minmax(420px, 520px) 64px minmax(auto, 600px) 1fr;
+      grid-template-rows: 160px 100px auto 100px auto;
+      grid-template-areas:
+        "header header  header header  header"
+        "senate senate  senate senate  senate"
+        ".      s-votes .      s-floor .     "
+        "house  house   house  house   house "
+        ".      h-votes .      h-floor .     ";
+    }
   }
 
   .title-box {
@@ -150,6 +213,16 @@ export default {
     padding: 16px;
     font-size: 20px;
     transform: translateX(16px);
+  }
+
+  .background {
+    &.senate {
+      grid-row: 3 / 4;
+    }
+
+    &.house {
+      grid-row: 5 / -1;
+    }
   }
 }
 </style>
