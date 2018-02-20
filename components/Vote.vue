@@ -26,7 +26,7 @@
         <span class="result-text">{{vote.result}}</span>
       </div>
       <div class="votes-learnmore">
-        <a :href="vote.url" target="_bloank" rel="noopener" class="learnmore">Read more</a>
+        <a :href="vote.url" target="_blank" rel="noopener" class="learnmore">Read more</a>
       </div>
     </div>
   </section>
@@ -149,7 +149,7 @@ export default {
 
 @media (min-width: 979px) {
   .result-text {
-    font-size: 24px;
+    font-size: 20px;
   }
 }
 </style>
