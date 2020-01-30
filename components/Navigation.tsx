@@ -1,12 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
+import { HoverLink } from '../styles/util';
 
 const TopNav = styled.nav`
   width: 100%;
   height: 60px;
   position: fixed;
+  z-index: 10;
   top: 0;
+  background-color: ${({ theme }) => theme.colors.blue_800};
 
   ul {
     display: flex;
@@ -22,24 +25,13 @@ const TopNav = styled.nav`
 
 const NavItem = styled.li`
   margin: ${({ theme }) => theme.space[1]}px;
+`
 
-  a, a:active, a:visited {
-    display: block;
-    padding: ${({ theme }) => `${theme.space[0]}px ${theme.space[1]}px`};
-
-    text-decoration: none;
-    font-family: 'Public Sans Bold';
-    font-size: ${({ theme }) => theme.fontSizes.large}px;
-    color: ${({ theme }) => theme.colors.white};
-  }
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.white};
-
-    a {
-      color: ${({ theme }) => theme.colors.blue_700};
-    }
-  }
+const NavLink = styled(HoverLink)`
+  padding: ${({ theme }) => `${theme.space[0]}px ${theme.space[1]}px`};
+  text-decoration: none;
+  font-family: 'Public Sans Bold';
+  font-size: ${({ theme }) => theme.fontSizes.large}px;
 `
 
 const RightAlignedLi = styled(NavItem)`
@@ -52,22 +44,22 @@ export default function Navigation() {
       <ul>
         <NavItem>
           <Link href='/'>
-            <a>Home</a>
+            <NavLink>Home</NavLink>
           </Link>
         </NavItem>
         <NavItem>
           <Link href='/house'>
-            <a>House</a>
+            <NavLink>House</NavLink>
           </Link>
         </NavItem>
         <NavItem>
           <Link href='/senate'>
-            <a>Senate</a>
+            <NavLink>Senate</NavLink>
           </Link>
         </NavItem>
         <RightAlignedLi>
           <Link href='/about'>
-            <a>About</a>
+            <NavLink>About</NavLink>
           </Link>
         </RightAlignedLi>
       </ul>
