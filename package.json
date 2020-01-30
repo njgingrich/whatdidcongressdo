@@ -16,6 +16,7 @@
     "propublica-congress-sdk": "0.2.11",
     "react": "16.9.0",
     "react-dom": "16.9.0",
+    "react-query": "^0.3.24",
     "styled-components": "^4.3.2"
   },
   "devDependencies": {

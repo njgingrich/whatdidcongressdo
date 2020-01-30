@@ -1,27 +1,29 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import fetch from 'isomorphic-unfetch'
+import { useQuery } from 'react-query';
 
-export default function HousePage({ votes }) {
+const baseUrl = process.env.NODE_ENV === 'production'
+? 'https://whatdidcongressdo.today'
+: 'http://localhost:34567'
+const url = `${baseUrl}/getVotesForDate?date=${(new Date()).getTime()}&chamber=house`;
+
+async function fetchHouseVotes() {
+  try {
+    const res = await fetch(url, { headers: { accept: "Accept: application/json" } });
+    const json = await res.json();
+    return json.votes;
+  } catch {
+    return [];
+  }
+}
+
+export default function HousePage() {
+  const { data, isLoading, error } = useQuery('houseVotes', fetchHouseVotes);
+
   return (
     <Fragment>
       <h1>House</h1>
-      {votes.map(vote => vote.toString())}
+      {(data || []).map(vote => vote.toString())}
     </Fragment>
   )
-}
-HousePage.getInitialProps = async () => {
-  const baseUrl = process.env.NODE_ENV === 'production'
-    ? 'https://whatdidcongressdo.today'
-    : 'http://localhost:34567'
-
-  try {
-    const url = `${baseUrl}/getVotesForDate?date=${(new Date()).getTime()}&chamber=house`;
-    const res = await fetch(url, { headers: { accept: "Accept: application/json" } });
-    const json = await res.json();
-    return {
-      votes: json.votes,
-    };
-  } catch (e) {
-    return { votes: [] };
-  }
 }
