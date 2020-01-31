@@ -1,7 +1,9 @@
-import React, { Fragment } from 'react'
-import Head from 'next/head'
-import styled from 'styled-components'
-import Link from 'next/link';
+import React, { Fragment } from "react";
+import Head from "next/head";
+import styled from "styled-components";
+import Link from "next/link";
+import RightArrow from "../components/RightArrow";
+import { HoverLink } from "../styles/util";
 
 const Title = styled.h1`
   grid-column: 2 / 3;
@@ -9,15 +11,15 @@ const Title = styled.h1`
 
   margin: 0;
   font-size: 64px;
-  font-family: 'Public Sans Bold';
+  font-family: "Public Sans Bold";
   text-transform: capitalize;
   text-align: center;
   color: ${({ theme }) => theme.colors.white};
-`
+`;
 
 const Container = styled.main`
   display: grid;
-  grid-template-rows: 50vh 12rem 1fr;
+  grid-template-rows: calc(70vh - 2rem - 60px) min-content;
   grid-template-columns: 1fr auto 1fr;
   margin: 2rem;
   height: calc(100vh - 60px);
@@ -31,7 +33,7 @@ const Container = styled.main`
     grid-template-rows: 12rem 12rem 1fr;
     grid-template-columns: 5fr auto 2fr;
   }
-`
+`;
 
 const Content = styled.section`
   grid-column: 2 / 3;
@@ -51,21 +53,41 @@ const Content = styled.section`
     font-size: 20px;
     font-weight: bold;
   }
-`
+`;
 
 const ButtonContainer = styled.div`
-  display: flex;
-  
+  display: grid;
+  grid-template-columns: 10rem 10rem;
+  justify-items: flex-start;
+
   a {
     font-size: 24px;
     font-weight: bold;
-    margin-right: 2rem;
     text-decoration: underline;
 
     color: ${({ theme }) => theme.colors.white};
 
     &:active {
       color: ${({ theme }) => theme.colors.white};
+    }
+  }
+`;
+
+const A = styled(HoverLink)`
+  cursor: pointer;
+  padding: 0.25rem;
+
+  svg {
+    margin-top: 3px;
+  }
+
+  span {
+    margin-right: 0.25rem;
+  }
+
+  &:hover {
+    svg {
+      stroke: ${({ theme }) => theme.colors.blue_500};
     }
   }
 `
@@ -83,12 +105,22 @@ const Home = () => (
           every day in both the Senate and the House of Representatives.
         </p>
         <ButtonContainer>
-          <Link href="/house"><a>House ></a></Link>
-          <Link href="/senate"><a>Senate ></a></Link>
+          <Link href="/house">
+            <A>
+              <span>House</span>
+              <RightArrow />
+            </A>
+          </Link>
+          <Link href="/senate">
+            <A>
+              <span>Senate</span>
+              <RightArrow />
+            </A>
+          </Link>
         </ButtonContainer>
       </Content>
     </Container>
   </Fragment>
-)
+);
 
-export default Home
+export default Home;

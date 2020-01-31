@@ -16,3 +16,20 @@ export const HoverLink = styled.a`
     color: ${({ theme }) => theme.colors.blue_500};
   }
 `;
+
+export const Container = styled.main`
+  margin: ${({ theme }) => `${theme.space[0]}rem auto`};
+  max-width: calc(100% - 8rem);
+`;
+
+export const Pane = styled.section`
+  background-color: ${({ theme }) => theme.colors.white};
+  padding: ${({ theme }) => `${theme.space[2]}px`};
+`;
+
+export const VotePane = styled(Pane)`
+  display: grid;
+  grid-template-rows: ${({ theme }) => `${theme.space[4]}px auto`};
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: ${({ theme }) => `${theme.space[3]}px`};
+`;
