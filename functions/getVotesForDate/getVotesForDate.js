@@ -33,6 +33,27 @@ exports.handler = async function(event, context) {
   }
 };
 
+exports.formatResponse = function(response) {
+  const votes = response.results.votes;
+  return votes.map(v => ({
+    roll_call: v.roll_call,
+    url: v.url,
+    bill: v.bill,
+    amendment: v.amendment,
+    vote_type: v.vote_type,
+    question: v.question,
+    description: v.description,
+    date: new Date(`${v.date} ${v.time}`).toISOString(),
+    results: {
+      democratic: v.democratic,
+      republican: v.republican,
+      independent: v.independent,
+      total: v.total,
+      result: v.result
+    }
+  }));
+};
+
 exports.handler = async function(event, context) {
   return util.makeRequest(event, context, async () => {
     const date = event.queryStringParameters.date
@@ -48,7 +69,7 @@ exports.handler = async function(event, context) {
 
       return {
         statusCode: 200,
-        body: JSON.stringify(response.results)
+        body: JSON.stringify(formatResponse(response))
       };
     } catch (err) {
       return {

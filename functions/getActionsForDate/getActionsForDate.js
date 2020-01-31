@@ -22,6 +22,10 @@ function checkOrigin(origin) {
   return false;
 }
 
+exports.formatResponse = function(response) {
+  return response.results;
+};
+
 exports.handler = async function(event, context) {
   if (request.method === "OPTIONS") {
     const origin =
@@ -68,7 +72,7 @@ exports.handler = async function(event, context) {
 
     return {
       statusCode: 200,
-      body: JSON.stringify(response.results),
+      body: JSON.stringify(formatResponse(response)),
       headers
     };
   } catch (e) {
