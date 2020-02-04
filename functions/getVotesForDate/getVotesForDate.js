@@ -43,7 +43,7 @@ exports.formatResponse = function(response) {
     vote_type: v.vote_type,
     question: v.question,
     description: v.description,
-    date: new Date(`${v.date} ${v.time}`).toISOString(),
+    timestamp: new Date(`${v.date} ${v.time}`).toISOString(),
     results: {
       democratic: v.democratic,
       republican: v.republican,

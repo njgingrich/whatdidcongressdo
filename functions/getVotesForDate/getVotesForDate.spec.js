@@ -20,7 +20,7 @@ test("it correctly formats a valid response", () => {
       vote_type: "2/3 YEA-AND-NAY",
       question: "On Motion to Suspend the Rules and Pass",
       description: "No Human Trafficking on Our Roads Act",
-      date: new Date("2017-12-21 17:11:00").toISOString(),
+      timestamp: new Date("2017-12-21 17:11:00").toISOString(),
       results: {
         democratic: {
           yes: 172,
@@ -68,7 +68,7 @@ test("it correctly formats a valid response", () => {
       question: "On Passage",
       description:
         "Making further supplemental appropriations for the fiscal year ending September 30, 2018, for disaster assistance for Hurricanes Harvey, Irma, and Maria, and calendar year 2017 wildfires, and for other purposes",
-      date: new Date("2017-12-21 17:01:00").toISOString(),
+      timestamp: new Date("2017-12-21 17:01:00").toISOString(),
       results: {
         democratic: {
           yes: 69,
@@ -116,7 +116,7 @@ test("it correctly formats a valid response", () => {
       question: "On Motion to Concur in the Senate Amendment with an Amendment",
       description:
         "Department of Homeland Security Blue Campaign Authorization Act of 2017",
-      date: new Date("2017-12-21 16:53:00").toISOString(),
+      timestamp: new Date("2017-12-21 16:53:00").toISOString(),
       results: {
         democratic: {
           yes: 14,
@@ -162,7 +162,7 @@ test("it correctly formats a valid response", () => {
       vote_type: "YEA-AND-NAY",
       question: "On Approving the Journal",
       description: "",
-      date: new Date("2017-12-21 14:26:00").toISOString(),
+      timestamp: new Date("2017-12-21 14:26:00").toISOString(),
       results: {
         democratic: {
           yes: 66,
@@ -210,7 +210,7 @@ test("it correctly formats a valid response", () => {
       vote_type: "2/3 YEA-AND-NAY",
       question: "On Motion to Suspend the Rules and Pass",
       description: "Jobs for Our Heroes Act",
-      date: new Date("2017-12-21 14:19:00").toISOString(),
+      timestamp: new Date("2017-12-21 14:19:00").toISOString(),
       results: {
         democratic: {
           yes: 187,
@@ -257,7 +257,7 @@ test("it correctly formats a valid response", () => {
       description:
         "Providing for consideration of the Senate Amendment to H.R. 1370, the Department of Homeland Security Blue Campaign Authorization Act of 2017; and providing for consideration of H.R. 4667, making further supplemental appropriations for FY 2018, for disaster assistance for Hurricanes and Wildfires in calendar year 2017",
       vote_type: "RECORDED VOTE",
-      date: new Date("2017-12-21 14:10:00").toISOString(),
+      timestamp: new Date("2017-12-21 14:10:00").toISOString(),
       results: {
         democratic: {
           yes: 0,
@@ -304,7 +304,7 @@ test("it correctly formats a valid response", () => {
       description:
         "Providing for consideration of the Senate Amendment to H.R. 1370, the Department of Homeland Security Blue Campaign Authorization Act of 2017; and providing for consideration of H.R. 4667, making further supplemental appropriations for FY 2018, for disaster assistance for Hurricanes and Wildfires in calendar year 2017",
       vote_type: "YEA-AND-NAY",
-      date: new Date("2017-12-21 14:02:00").toISOString(),
+      timestamp: new Date("2017-12-21 14:02:00").toISOString(),
       results: {
         democratic: {
           yes: 0,

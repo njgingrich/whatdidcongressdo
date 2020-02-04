@@ -9,9 +9,9 @@ export default function RightArrow() {
       height="18px"
       viewBox="0 0 24 24"
       stroke="#FFF"
-      stroke-width="3"
-      stroke-linecap="square"
-      stroke-linejoin="miter"
+      strokeWidth="3"
+      strokeLinecap="square"
+      strokeLinejoin="miter"
       fill="none"
       color="#FFF"
     >

@@ -23,7 +23,13 @@ function checkOrigin(origin) {
 }
 
 exports.formatResponse = function(response) {
-  return response.results;
+  const actions =
+    (response && response.results && response.results.floor_actions) || [];
+
+  return actions.map(a => ({
+    ...a,
+    timestamp: new Date(a.timestamp.substring(0, 19))
+  }));
 };
 
 exports.handler = async function(event, context) {

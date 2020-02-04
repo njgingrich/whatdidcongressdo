@@ -9,6 +9,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@types/jest": "^25.1.1",
     "@types/styled-components": "^4.1.18",
     "@zeit/next-sass": "^1.0.1",
     "isomorphic-unfetch": "^3.0.0",
@@ -21,9 +22,11 @@
     "styled-components": "^4.3.2"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-typescript": "^7.8.3",
     "@types/node": "^12.7.2",
     "@types/react": "^16.9.2",
     "jest": "^25.1.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.7.5"
   }
 }
