@@ -1,16 +1,22 @@
-import houseActions from "../static/testing/house_floor.json";
-import houseVotes from "../static/testing/house.json";
-import { formatResponse as formatVotes } from "../functions/getVotesForDate/getVotesForDate";
-import { formatResponse as formatActions } from "../functions/getActionsForDate/getActionsForDate";
+export type BucketResult = {
+  type: 'action' | 'vote';
+  data: any;
+}
 
-const votes = formatVotes(houseVotes);
-const actions = formatActions(houseActions);
+export type Buckets = {
+  [key: string]: BucketResult[];
+}
 
-export function bucketActivities(actions, votes) {
-  const buckets = Array(24).fill(null).map(() => new Array()); // 1 for every hour
+export function bucketActivities(actions, votes): Buckets {
+  console.log('actions:', actions)
+  const buckets: Buckets = {};
 
   (actions || []).forEach(action => {
-    const hour = action.timestamp.getHours();
+    const hour = new Date(action.timestamp).getHours();
+    if (buckets[hour] == undefined) {
+      buckets[hour] = [];
+    }
+
     buckets[hour].push({
       type: "action",
       data: action
@@ -18,12 +24,25 @@ export function bucketActivities(actions, votes) {
   });
 
   (votes || []).forEach(vote => {
-    const hour = vote.timestamp.getHours();
+    const hour = new Date(vote.timestamp).getHours();
+    if (buckets[hour] == undefined) {
+      buckets[hour] = [];
+    }
+
     buckets[hour].push({
       type: "vote",
       data: vote
     });
   });
+
+  Object.keys(buckets).forEach((hour) => {
+    const activities = buckets[hour]
+    buckets[hour] = activities.sort((a: any, b: any) => {
+      const timeA = a.data.timestamp
+      const timeB = b.data.timestamp
+      return timeA.getTime() - timeB.getTime()
+    })
+  })
 
   return buckets;
 }

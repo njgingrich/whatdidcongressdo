@@ -1,8 +1,8 @@
 import { bucketActivities } from "./getActivitiesForDate";
 
 it("should return empty buckets with no data", () => {
-  expect(bucketActivities([], [])).toStrictEqual(Array(24).fill([]));
-  expect(bucketActivities(undefined, undefined)).toStrictEqual(Array(24).fill([]));
+  expect(bucketActivities([], [])).toStrictEqual({});
+  expect(bucketActivities(undefined, undefined)).toStrictEqual({});
 });
 
 it("should bucket data correctly", () => {
@@ -23,34 +23,11 @@ it("should bucket data correctly", () => {
       timestamp: new Date("2017-12-21 09:10:57")
     }
   ];
+
   const buckets = bucketActivities(actions, votes);
-  expect(buckets.map(v => v.length))
-    .toStrictEqual([
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      2,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ]);
+  expect(Object.keys(buckets).length).toEqual(1);
+  expect(buckets[9].length).toEqual(2);
   expect(buckets[9][0].data).toStrictEqual(actions[0]);
   expect(buckets[9][1].data).toStrictEqual(votes[0]);
 });
+

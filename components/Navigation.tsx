@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import Link from 'next/link'
 import { HoverLink } from '../styles/util';
 
 const TopNav = styled.nav`
@@ -43,24 +42,24 @@ export default function Navigation() {
     <TopNav>
       <ul>
         <NavItem>
-          <Link href='/'>
-            <NavLink>Home</NavLink>
-          </Link>
+          <NavLink href='/'>
+            Home
+          </NavLink>
         </NavItem>
         <NavItem>
-          <Link href='/house'>
-            <NavLink>House</NavLink>
-          </Link>
+          <NavLink href='/house'>
+            House
+          </NavLink>
         </NavItem>
         <NavItem>
-          <Link href='/senate'>
-            <NavLink>Senate</NavLink>
-          </Link>
+          <NavLink href='/senate'>
+            Senate
+          </NavLink>
         </NavItem>
         <RightAlignedLi>
-          <Link href='/about'>
-            <NavLink>About</NavLink>
-          </Link>
+          <NavLink href='/about'>
+            About
+          </NavLink>
         </RightAlignedLi>
       </ul>
     </TopNav>

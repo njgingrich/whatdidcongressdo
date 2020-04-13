@@ -24,8 +24,11 @@ function checkOrigin(origin) {
 
 exports.formatResponse = function(response) {
   const actions =
-    (response && response.results && response.results.floor_actions) || [];
-
+    (response &&
+      response.results &&
+      response.results[0] &&
+      response.results[0].floor_actions) ||
+    [];
   return actions.map(a => ({
     ...a,
     timestamp: new Date(a.timestamp.substring(0, 19))
