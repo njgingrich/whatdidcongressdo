@@ -1,0 +1,194 @@
+{
+  "status": "OK",
+  "copyright": " Copyright (c) 2022 Pro Publica Inc. All Rights Reserved.",
+  "results": [
+    {
+      "chamber": "House",
+
+      "num_results": 20,
+      "offset": 0,
+      "floor_actions": [
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-14 11:05:50 -0500",
+          "date": "2022-01-14",
+          "action_id": "H61000",
+          "description": "The Speaker announced that the House do now adjourn pursuant to section 11(b) of H. Res. 188. The next meeting is scheduled for 12:00 p.m. on January 18, 2022.",
+          "bill_ids": ["hres188-117"]
+        },
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-14 11:05:31 -0500",
+          "date": "2022-01-14",
+          "action_id": "H2C000",
+          "description": "PLEDGE OF ALLEGIANCE - The Chair led the House in reciting the Pledge of Allegiance to the Flag.",
+          "bill_ids": []
+        },
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-14 11:05:16 -0500",
+          "date": "2022-01-14",
+          "action_id": "H8D000",
+          "description": "SPEAKER'S APPROVAL OF THE JOURNAL - Pursuant to section 11(a) of H. Res. 188, the Journal of the last day's proceedings was approved.",
+          "bill_ids": ["hres188-117"]
+        },
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-14 11:03:33 -0500",
+          "date": "2022-01-14",
+          "action_id": "H21000",
+          "description": "Today's prayer was offered by the House Chaplain, Chaplain Margaret Grun Kibben.",
+          "bill_ids": []
+        },
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-14 11:03:08 -0500",
+          "date": "2022-01-14",
+          "action_id": "H22000",
+          "description": "The Speaker designated the Honorable Andre Carson to act as Speaker pro tempore for today.",
+          "bill_ids": []
+        },
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-14 11:00:00 -0500",
+          "date": "2022-01-14",
+          "action_id": "H20100",
+          "description": "The House convened, starting a new legislative day.",
+          "bill_ids": []
+        },
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-13 14:29:50 -0500",
+          "date": "2022-01-13",
+          "action_id": "H61000",
+          "description": "The Speaker announced that the House do now adjourn pursuant to section 11(b) of H. Res. 188. The next meeting is scheduled for 11:00 a.m. on January 14, 2022.",
+          "bill_ids": ["hres188-117"]
+        },
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-13 12:48:56 -0500",
+          "date": "2022-01-13",
+          "action_id": "H8D000",
+          "description": "SPECIAL ORDER SPEECHES - The House has concluded all anticipated legislative business and has proceeded to Special Order speeches.",
+          "bill_ids": []
+        },
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-13 12:48:07 -0500",
+          "date": "2022-01-13",
+          "action_id": "H24400",
+          "description": "The House received a communication from Honorable Theodore E. Deutch, Chairman and the Honorable Jackie Walorski, Ranking Member - Committee on Ethics. The Chairman and Ranking Member of the Committee on Ethics notified the House that on November 30, 2021, and on December 3, 2021, the Committee on Ethics received a notice of a fine imposed upon Representative Marjorie Taylor Greene by the Sergeant at Arms pursuant to House Resolution 38 and House Rule II, clause 3(g) and that Representative Greene did not file an appeal with the Committee prior to the expiration of the time period specified in clause 3(g)(3)(B) of House Rule II.",
+          "bill_ids": []
+        },
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-13 12:47:45 -0500",
+          "date": "2022-01-13",
+          "action_id": "H24400",
+          "description": "The House received a communication from Honorable Theodore E. Deutch, Chairman and the Honorable Jackie Walorski, Ranking Member - Committee on Ethics. The Chairman and Ranking Member of the Committee on Ethics notified the House that on November 30, 2021, the Committee on Ethics received notice of a fine imposed upon Representative Lauren Boebert by the Sergeant at Arms pursuant to House Resolution 38 and House Rule II, clause 3(g) and that Representative Boebert did not file an appeal with the Committee prior to the expiration of the time period specified in clause 3(g)(3)(B) of House Rule II.",
+          "bill_ids": []
+        },
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-13 12:47:30 -0500",
+          "date": "2022-01-13",
+          "action_id": "H24400",
+          "description": "The House received a communication from Honorable Theodore E. Deutch, Chairman and the Honorable Jackie Walorski, Ranking Member - Committee on Ethics. The Chairman and Ranking Member of the Committee on Ethics notified the House that on November 30, 2021, the Committee on Ethics received notice of a fine imposed upon Representative Mariannette Miller-Meeks by the Sergeant at Arms pursuant to House Resolution 38 and House Rule II, clause 3(g) and that Representative Miller-Meeks did not file an appeal with the Committee prior to the expiration of the time period specified in clause 3(g)(3)(B) of House Rule II.",
+          "bill_ids": []
+        },
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-13 12:45:20 -0500",
+          "date": "2022-01-13",
+          "action_id": "H24400",
+          "description": "The House received a communication from Honorable Theodore E. Deutch, Chairman and the Honorable Jackie Walorski, Ranking Member - Committee on Ethics. The Chairman and Ranking Member of the Committee on Ethics notified the House that on Nov. 4, 8, 9, 18, and 30, 2021, the Committee on Ethics received notice of fines imposed upon Representative Andrew Clyde by the Sergeant at Arms pursuant to House Resolution 38 and House Rule II, clause 3(g) and on Nov. 30, 2021, the Committee received an appeal from Rep. Clyde of the above fines imposed pursuant to H. Res. 38 and House Rule II, clause 3(g). The appeal was received after the Committee adopted its written rules and a majority of the Committee did not agree to the appeal. On Dec. 3, 2021, the Committee received notice of three fines imposed upon Rep. Clyde by the Sergeant at Arms pursuant to House Resolution 38 and House Rule II, clause 3(g) and that Representative Clyde did not file an appeal with the Committee prior to the expiration.",
+          "bill_ids": []
+        },
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-13 12:23:26 -0500",
+          "date": "2022-01-13",
+          "action_id": "H8D000",
+          "description": "ONE MINUTE SPEECHES - The House resumed with one minute speeches.",
+          "bill_ids": []
+        },
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-13 12:22:45 -0500",
+          "date": "2022-01-13",
+          "action_id": "H24200",
+          "description": "The House received a message from the Senate. The Senate passed S. 2201 and S. 2520.",
+          "bill_ids": ["s2201-117", "s2520-117"]
+        },
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-13 12:21:04 -0500",
+          "date": "2022-01-13",
+          "action_id": "H8D000",
+          "description": "ONE MINUTE SPEECHES - The House proceeded with further one minute speeches.",
+          "bill_ids": []
+        },
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-13 11:34:00 -0500",
+          "date": "2022-01-13",
+          "action_id": "H8D000",
+          "description": "COLLOQUY ON THE HOUSE SCHEDULE - The Chair recognized Mr. Scalise for the purpose of engaging in a colloquy with Mr. Hoyer on the expectations regarding the legislative schedule for the House during the upcoming week.",
+          "bill_ids": []
+        },
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-13 11:28:52 -0500",
+          "date": "2022-01-13",
+          "action_id": "H8D000",
+          "description": "ASSUMING FIRST SPONSORSHIP - Mr. Calvert asked unanimous consent that he may hereafter be considered as the first sponsor of H.R. 4394, a bill originally introduced by Representative Nunes, for the purpose of adding cosponsors and requesting reprintings pursuant to clause 7 of rule XII. Agreed to without objection.",
+          "bill_ids": ["hr4394-117"]
+        },
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-13 11:28:51 -0500",
+          "date": "2022-01-13",
+          "action_id": "H41931",
+          "description": "Motion to reconsider laid on the table Agreed to without objection.",
+          "bill_ids": []
+        },
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-13 11:28:50 -0500",
+          "date": "2022-01-13",
+          "action_id": "H41610",
+          "description": "On motion that the House agree with an amendment to the Senate amendment Agreed to by the Yeas and Nays: (Roll no. 9).",
+          "bill_ids": []
+        },
+        {
+          "congress": "117",
+          "chamber": "House",
+          "timestamp": "2022-01-13 11:28:49 -0500",
+          "date": "2022-01-13",
+          "action_id": "H41610",
+          "description": "On motion that the House agree with an amendment to the Senate amendment Agreed to by the Yeas and Nays: 220 - 203 (Roll no. 9).",
+          "bill_ids": []
+        }
+      ]
+    }
+  ]
+}

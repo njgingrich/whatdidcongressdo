@@ -1,0 +1,159 @@
+import { Link } from "remix";
+
+export default function Index() {
+  return (
+    <div className="page-container">
+      <section className="page-topper page-full-width">
+        <img src="images/capitol_dome.jpg" className="lead-img" />
+      </section>
+      <section className="section-chambers">
+        <div className="chamber-card">
+            <h2>Today in the House</h2>
+            <ul className="chamber-card--links">
+              <li className="chamber-card--links__item">
+                <Link to="house/committees">Committee schedules</Link>
+                <span>There are three committee sessions today.</span>
+              </li>
+              <li className="chamber-card--links__item">
+                <Link to="house/floor">Floor proceedings</Link>
+                <span>The House is in session as of 2:48 PM (EST).</span>
+              </li>
+              <li className="chamber-card--links__item">
+                <Link to="house/votes">Recent votes</Link>
+                <span>The last House vote was on December 15.</span>
+              </li>
+              <li className="chamber-card--links__item">
+                <Link to="house/floor">Recent bills</Link>
+                <span>No bills have been introduced or acted on today.</span>
+              </li>
+            </ul>
+          </div>
+          <div className="chamber-card">
+            <h2>Today in the Senate</h2>
+            <ul className="chamber-card--links">
+              <li className="chamber-card--links__item">
+                <Link to="senate/committees">Scheduled hearings</Link>
+                <span>There are five hearings scheduled today.</span>
+              </li>
+              <li className="chamber-card--links__item">
+                <Link to="senate/floor">Floor proceedings</Link>
+                <span>The Senate is in session as of 1:15 PM (EST).</span>
+              </li>
+              <li className="chamber-card--links__item">
+                <Link to="senate/votes">Recent votes</Link>
+                <span>The Senate voted 60-31 in favor of  PN1321.</span>
+              </li>
+              <li className="chamber-card--links__item">
+                <Link to="senate/floor">Recent bills</Link>
+                <span>S.3464 was introduced by Rand Paul yesterday.</span>
+              </li>
+            </ul>
+          </div>
+      </section>
+      <section className="section-info">
+        <h2>See everything your representatives do.</h2>
+        <p>It can be hard to find out what exactly goes on in the depths of the U.S. Capitol every day. Bills are introduced, resolutions are voted on, and  committees hold hearings on anything from cabinet nominations to oversight of the executive branch. What Did Congress Do Today? makes all this information readily available.</p>
+      </section>
+      <section className="section-panels">
+        <div className="info-panels">
+          <div className="info-panels--panel">
+            <div className="info-panels--panel__icon">
+              <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M29.3334 33.1608C27.0778 32.8212 25.3334 30.8194 25.3334 28.3846C25.3334 27.0906 25.8191 25.8738 26.7001 24.9577C26.9605 24.6873 26.9605 24.2484 26.7001 23.9789C26.4397 23.7085 26.0176 23.7085 25.7575 23.9789C24.6239 25.1565 24.0001 26.7209 24.0001 28.3847C24.0001 31.5835 26.3418 34.196 29.3335 34.5455V36L32.0001 33.9231L29.3335 31.8462L29.3334 33.1608Z" fill="currentColor"/>
+                <path d="M30.6667 23.6079C32.9223 23.9475 34.6667 25.9494 34.6667 28.3841C34.6667 29.6781 34.181 30.8949 33.3 31.811C33.0396 32.0814 33.0396 32.5203 33.3 32.7898C33.5604 33.0602 33.9825 33.0602 34.2426 32.7898C35.3762 31.6122 36 30.0478 36 28.3841C36 25.1852 33.6584 22.5728 30.6666 22.2232V20.7687L28 22.8456L30.6666 24.9225L30.6667 23.6079Z" fill="currentColor"/>
+                <path d="M32.0001 4.15381C32.0001 3.38918 31.403 2.76921 30.6667 2.76921H28.0001V2.0769C28.0001 0.931798 27.1028 0 26.0001 0C24.8973 0 24.0001 0.931798 24.0001 2.0769V2.76921H22.6667V2.0769C22.6667 0.931798 21.7694 0 20.6667 0C19.564 0 18.6667 0.931798 18.6667 2.0769V2.76921H13.3334V2.0769C13.3334 0.931798 12.4361 0 11.3334 0C10.2307 0 9.33335 0.931798 9.33335 2.0769V2.76921H8.00002V2.0769C8.00002 0.931798 7.10272 0 6.00001 0C4.89731 0 4.00001 0.931798 4.00001 2.0769V2.76921H1.33334C0.597022 2.76921 0 3.38918 0 4.15381V30.4613C0 31.2259 0.597022 31.8459 1.33334 31.8459H19.3334C19.7015 31.8459 20 31.5359 20 31.1536C20 30.7713 19.7015 30.4616 19.3337 30.4613H1.33363V9.69222H30.667V17.3079C30.6673 17.6902 30.9655 17.9998 31.3337 17.9998C31.7019 17.9998 32.0004 17.6899 32.0004 17.3075L32.0001 4.15381ZM25.3334 2.0769C25.3334 1.6946 25.6319 1.3846 26.0001 1.3846C26.3682 1.3846 26.6667 1.6946 26.6667 2.0769V5.53841H25.3334V2.0769ZM20 2.0769C20 1.6946 20.2986 1.3846 20.6667 1.3846C21.0349 1.3846 21.3334 1.6946 21.3334 2.0769V5.53841H20V2.0769ZM10.6667 2.0769C10.6667 1.6946 10.9652 1.3846 11.3334 1.3846C11.7015 1.3846 12 1.6946 12 2.0769V5.53841H10.6667V2.0769ZM5.33335 2.0769C5.33335 1.6946 5.63186 1.3846 6.00001 1.3846C6.36817 1.3846 6.66668 1.6946 6.66668 2.0769V5.53841H5.33335V2.0769ZM1.33334 8.30762V4.15381H4.00001V5.53841C4.00001 6.30304 4.59703 6.92302 5.33335 6.92302H6.66668C7.403 6.92302 8.00002 6.30304 8.00002 5.53841V4.15381H9.33335V5.53841C9.33335 6.30304 9.93038 6.92302 10.6667 6.92302H12C12.7363 6.92302 13.3334 6.30304 13.3334 5.53841V4.15381H18.6667V5.53841C18.6667 6.30304 19.2637 6.92302 20 6.92302H21.3334C22.0697 6.92302 22.6667 6.30304 22.6667 5.53841V4.15381H24.0001V5.53841C24.0001 6.30304 24.5971 6.92302 25.3334 6.92302H26.6667C27.403 6.92302 28.0001 6.30304 28.0001 5.53841V4.15381H30.6667V8.30762H1.33334Z" fill="currentColor"/>
+                <path d="M26 13.846H5.99998C5.63183 13.846 5.33331 14.156 5.33331 14.5383V25.6151C5.33331 25.9975 5.63183 26.3074 5.99998 26.3074H19.3333C19.7015 26.3074 20 25.9975 20 25.6151V20.769H26C26.3682 20.769 26.6667 20.459 26.6667 20.0767V14.5383C26.6667 14.156 26.3682 13.846 26 13.846ZM7.52837 16.4125C7.26795 16.1421 7.26795 15.7038 7.52837 15.4337C7.78879 15.1633 8.21081 15.1633 8.47092 15.4337L9.3331 16.3287L10.195 15.4337C10.4554 15.1633 10.8774 15.1633 11.1375 15.4337C11.3979 15.7041 11.3979 16.1424 11.1375 16.4125L10.2756 17.3075L11.1375 18.2025C11.3979 18.473 11.3979 18.9112 11.1375 19.1813C10.8771 19.4518 10.4551 19.4518 10.195 19.1813L9.3331 18.2863L8.47123 19.1813C8.21081 19.4518 7.78879 19.4518 7.52867 19.1813C7.26825 18.9109 7.26825 18.4726 7.52867 18.2025L8.39054 17.3075L7.52837 16.4125ZM11.9998 24.9227H6.6665V20.7689H11.9998V24.9227ZM18.6665 24.9227H13.3332V20.7689H18.6665V24.9227ZM18.6665 19.3843H13.3332V15.2305H18.6665V19.3843ZM25.3332 19.3843H19.9999V15.2305H25.3332V19.3843Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 className="info-panels--panel__title">
+              Keep up-to-date
+            </h3>
+            <p className="info-panels--panel__text">
+              Get quick insight into the details of the House and Senate each day, without combing through the hard-to-use official government sites.
+            </p>
+          </div>
+          <div className="info-panels--divider"></div>
+          <div className="info-panels--panel">
+            <div className="info-panels--panel__icon">
+              <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M18.914 11.9291C17.9361 12.4148 17.1161 13.2686 16.4521 14.2991L14.7802 14.4266L11.3428 11.9473L4.59892 11.9291C1.51626 13.4609 0 18.6507 0 21.5039C0 23.0545 2.54502 23.0545 2.54502 21.5039C2.54502 20.0337 3.16272 16.6609 4.56581 14.9987C4.52595 18.6321 3.56396 22.5215 3.56396 22.5215H4.88309L3.76754 34.7402C3.63112 36.2873 6.16933 36.4765 6.30643 34.9322L7.43854 22.5223H7.98298L9.11203 34.9322C9.24906 36.4765 11.7873 36.2877 11.6503 34.7402L10.5378 22.5215H11.8541C11.8541 22.5215 10.8088 18.3158 10.8487 14.5682L13.6143 16.5641C13.8749 16.753 14.1888 16.8362 14.4963 16.8118L15.2489 16.755C14.6244 18.4458 14.3145 20.2133 14.3145 21.5032C14.3145 23.0537 16.8595 23.0537 16.8595 21.5032C16.8595 20.4097 17.2016 18.2627 17.9542 16.5511C18.3576 16.5204 18.6507 16.3576 18.8401 16.1313C18.6513 19.3959 17.8782 22.5215 17.8782 22.5215H19.1975L18.0816 34.7402C17.9452 36.2873 20.4834 36.4765 20.6205 34.9322L21.7527 22.5223H22.2971L23.4261 34.9322C23.5632 36.4765 26.1014 36.2876 25.9644 34.7402L24.8525 22.5215H26.1683C26.1683 22.5215 25.123 18.3158 25.1628 14.5682L27.9285 16.5641C28.1891 16.7529 28.503 16.8362 28.8105 16.8117L32.2607 16.5516C33.792 16.4433 33.7545 14.4344 32.4241 14.2148V8.50595H36V0H27.4209V8.50595H30.9962V14.2807L29.0944 14.4258L25.657 11.9464L18.9138 11.9283L18.914 11.9291ZM7.70905 5.09888C9.34938 5.09888 10.6786 6.33049 10.6786 7.85034C10.6786 9.36967 9.34938 10.6012 7.70905 10.6012C6.06621 10.6012 4.73641 9.3696 4.73641 7.85034C4.73641 6.33049 6.06621 5.09888 7.70905 5.09888ZM30.1394 3.92835L30.9211 4.91223L33.5186 2.89473L34.2337 3.68636L30.7274 6.4088L29.2412 4.5379L30.139 3.92808L30.1394 3.92835ZM22.0241 5.09888C23.6639 5.09888 24.993 6.33049 24.993 7.85034C24.993 9.36967 23.6638 10.6012 22.0241 10.6012C20.3807 10.6012 19.0514 9.3696 19.0514 7.85034C19.0514 6.33049 20.3807 5.09888 22.0241 5.09888Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 className="info-panels--panel__title">
+              Participate in democracy
+            </h3>
+            <p className="info-panels--panel__text">
+              See how your representatives and  senators vote on bills, and what resolutions they introduce. 
+            </p>
+          </div>
+          <div className="info-panels--divider"></div>
+          <div className="info-panels--panel">
+            <div className="info-panels--panel__icon">
+              <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24.6161 24.0276V12.0137C24.6161 11.6799 24.3654 11.4297 24.031 11.4297H11.9946C11.6602 11.4297 11.4095 11.6799 11.4095 12.0137V24.0276C11.4095 24.3614 11.6602 24.6116 11.9946 24.6116H24.031C24.3654 24.6116 24.6161 24.3614 24.6161 24.0276V24.0276ZM23.4459 16.811H22.4011L20.4368 14.892C20.3114 14.7668 20.1861 14.7252 20.0188 14.7252H18.5142C18.2635 14.0161 17.553 13.5156 16.7589 13.5572C15.7977 13.5988 15.0453 14.4334 15.0873 15.3927C15.129 16.3521 15.9651 17.1031 16.9263 17.0612C17.6367 17.0196 18.2638 16.5607 18.4726 15.8932H19.6844L21.6487 17.8122C21.774 17.9373 21.8994 17.9789 22.0667 17.9789H23.4459V23.402L12.5797 23.4017V19.2302H13.8336L15.7978 21.1492C15.9232 21.2744 16.0486 21.316 16.2159 21.316H17.5534C17.8041 22.0251 18.5146 22.5256 19.3087 22.484C20.2699 22.4424 21.0223 21.6078 20.9803 20.6484C20.9386 19.6891 20.1025 18.9381 19.1413 18.98C18.3892 19.0216 17.8038 19.5224 17.5951 20.148H16.5502L14.586 18.229C14.4606 18.1038 14.3353 18.0622 14.1679 18.0622H12.5797V12.5976H23.4459V16.811ZM17.4276 15.4344C17.4276 15.7265 17.1769 15.9768 16.8842 15.9768C16.5498 15.9768 16.2991 15.7682 16.2991 15.4344C16.2991 15.1423 16.5082 14.8504 16.8425 14.8504C17.1349 14.8504 17.4276 15.0587 17.4276 15.4344ZM18.5978 20.6488C18.5978 20.315 18.8485 20.0648 19.1412 20.0648C19.4339 20.0648 19.6846 20.2734 19.6846 20.6072C19.6846 20.8993 19.4756 21.1912 19.1412 21.1912C18.8905 21.1909 18.6395 20.9825 18.5978 20.6488Z" fill="currentColor"/>
+                <path d="M7.60633 3.67061C7.06293 3.12823 6.18544 3.96276 6.77055 4.50484L7.48099 5.21396L6.72887 5.92337C6.18547 6.46576 7.02156 7.34161 7.56465 6.7576L8.69314 5.63122C8.94385 5.38097 8.94385 5.00561 8.69314 4.79699L7.60633 3.67061Z" fill="currentColor"/>
+                <path d="M2.84192 3.6706L1.71373 4.79699C1.46302 5.04723 1.46302 5.42259 1.71373 5.63121L2.84222 6.7576C3.38562 7.29998 4.26311 6.46545 3.67801 5.92337L2.96727 5.21396L3.67771 4.50484C4.2631 3.96274 3.38531 3.12824 2.84193 3.67061L2.84192 3.6706Z" fill="currentColor"/>
+                <path d="M5.30771 3.96276L4.09586 6.09016C3.67781 6.79928 4.76462 7.38325 5.14069 6.67416L6.35254 4.54676C6.72861 3.87925 5.68378 3.29523 5.30771 3.96276Z" fill="currentColor"/>
+                <path d="M17.3859 6.00672V8.46784L16.3828 9.46908C15.7977 10.0115 16.6755 10.8873 17.2186 10.3452L17.9707 9.59452L18.6812 10.3452C19.2246 10.9292 20.102 10.095 19.559 9.51102L18.5978 8.50978V5.46465C18.5978 5.13089 18.3471 4.88066 18.0127 4.88066H10.7826V0.583997C10.7826 0.250238 10.5319 0 10.1975 0H0.585088C0.250706 0 0 0.250246 0 0.583997V10.1785C0 10.5122 0.250713 10.7625 0.585088 10.7625H10.1975C10.5319 10.7625 10.7826 10.5122 10.7826 10.1785V6.00696L17.3859 6.00672ZM9.5706 9.59423H1.1702V1.20949H9.6124V9.59423H9.5706Z" fill="currentColor"/>
+                <path d="M35.4823 25.2374H25.8699C25.5355 25.2374 25.2848 25.4877 25.2848 25.8214V30.0346L18.6398 30.0349V27.5737L19.6429 26.5725C20.228 26.0301 19.3502 25.1543 18.8071 25.6963L18.013 26.489L17.3025 25.7383C16.7591 25.1543 15.8816 25.9885 16.4247 26.5725L17.3859 27.5737V30.6189C17.3859 30.9526 17.6366 31.2029 17.971 31.2029H25.2011V35.416C25.2011 35.7498 25.4518 36 25.7862 36H35.3986C35.733 36 35.9837 35.7498 35.9837 35.416V25.8215C36.0676 25.4878 35.8166 25.2376 35.4823 25.2376L35.4823 25.2374ZM34.8555 34.8319H26.4551V26.4472H34.8973L34.8555 34.8319Z" fill="currentColor"/>
+                <path d="M32.3478 32.329C32.5985 32.5792 32.9746 32.5792 33.1836 32.329L34.3121 31.2026C34.5628 30.9523 34.5628 30.577 34.3121 30.3683L33.1836 29.242C32.6402 28.6996 31.7627 29.5341 32.3478 30.0762L33.0583 30.7853L32.3478 31.4944C32.0971 31.7034 32.0971 32.0787 32.3478 32.329Z" fill="currentColor"/>
+                <path d="M28.4193 32.329C28.9627 32.8714 29.8402 32.0368 29.2551 31.4947L28.5446 30.7856L29.2551 30.0765C29.7985 29.5341 28.9624 28.6583 28.4193 29.2423L27.2908 30.3687C27.0401 30.6189 27.0401 30.9943 27.2908 31.2029L28.4193 32.329Z" fill="currentColor"/>
+                <path d="M30.7179 32.2456L31.9297 30.1182C32.3478 29.4506 31.303 28.8251 30.8849 29.5342L29.6731 31.6616C29.2553 32.3288 30.3001 32.9131 30.7179 32.2456Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 className="info-panels--panel__title">
+              Built on public data
+            </h3>
+            <p className="info-panels--panel__text">
+              This site is built on public data from ProPublica and the Congress API, images from the Architect of the Capitol, and other sources.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section className="page-full-edge section-callout section-callout--house" data-align="right">
+        <img src="images/house.jpg" className="section-callout--image" />
+        <div className="section-callout--background" />
+        <div className="section-callout--content">
+          <h2 className="section-callout--header">House of Representatives</h2>
+          <p className="section-callout--body">
+            The U.S. House of Representatives makes and passes federal laws. The larger of Congress’s two chambers, it is currently fixed at 435 voting representatives. Each representative is elected by a congressional district for a two-year term.
+          </p>
+          <ul className="section-callout--links">
+            <li className="section-callout--links__item">
+              <a href="https://www.house.gov/the-house-explained" target="_blank" rel="noopener noreferer">
+                Learn more about the House
+              </a>
+            </li>
+            <li className="section-callout--links__item">
+              <a href="https://www.house.gov/leadership" target="_blank" rel="noopener noreferer">
+                Meet the House leadership
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section className="page-full-edge section-callout" data-align="left">
+        <div className="section-callout--background" />
+        <div className="section-callout--content">
+          <h2 className="section-callout--header">Senate</h2>
+          <p className="section-callout--body">
+            The U.S. Senate has a wide array of roles, from voting on bills, to investigations, impeachment, and declarations of war. Each state elects two senators, who serve six-year terms.
+          </p>
+          <ul className="section-callout--links">
+            <li className="section-callout--links__item">
+              <a href="https://www.house.gov/the-house-explained" target="_blank" rel="noopener noreferer">
+                Learn more about the Senate
+              </a>
+            </li>
+            <li className="section-callout--links__item">
+              <a href="https://www.house.gov/leadership" target="_blank" rel="noopener noreferer">
+                Meet the Senate leadership
+              </a>
+            </li>
+          </ul>
+        </div>
+        <img src="images/capitol_drawing.jpg" className="section-callout--image" />
+      </section>
+    </div>
+  );
+}

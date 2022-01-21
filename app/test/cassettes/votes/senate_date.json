@@ -1,0 +1,68 @@
+{
+  "status": "OK",
+  "copyright": "Copyright (c) 2022 Pro Publica Inc. All Rights Reserved.",
+  "results": {
+    "chamber": "Senate",
+
+    "start_date": "2022-01-13",
+    "end_date": "2022-01-13",
+    "num_results": 1,
+    "votes": [
+      {
+        "congress": 117,
+        "chamber": "Senate",
+        "session": 2,
+        "roll_call": 8,
+        "source": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1172/vote_117_2_00008.xml",
+        "url": "https://www.senate.gov/legislative/LIS/roll_call_lists/roll_call_vote_cfm.cfm?congress=117&session=2&vote=00008",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/senate/sessions/2/votes/8.json",
+        "bill": {
+          "bill_id": "s3436-117",
+          "number": "S.3436",
+          "sponsor_id": "C001098",
+          "api_uri": "https://api.propublica.org/congress/v1/117/bills/s3436.json",
+          "title": "A bill to require the imposition of sanctions with respect to entities responsible for the planning, construction, or operation of the Nord Stream 2 pipeline and their corporate officers and to apply congressional review under the Countering America's Adversaries Through Sanctions Act to the removal of sanctions relating to Nord Stream 2, and for other purposes.",
+          "latest_action": "Under the order of 12/18/21, not having achieved 60 votes in the affirmative, failed of passage in Senate by Yea-Nay Vote. 55 - 44. Record Vote Number: 8."
+        },
+        "amendment": {},
+        "question": "On Passage of the Bill",
+        "question_text": "On Passage of the Bill S. 3436",
+        "description": "A bill to require the imposition of sanctions with respect to entities responsible for the planning, construction, or operation of the Nord Stream 2 pipeline and their corporate officers and to apply congressional review under the Countering America's Adversaries Through Sanctions Act to the removal of sanctions relating to Nord Stream 2, and for other purposes.",
+        "vote_type": "3/5",
+        "date": "2022-01-13",
+        "time": "14:55:00",
+        "result": "Bill Defeated",
+        "tie_breaker": "",
+        "tie_breaker_vote": "",
+        "document_number": "3436",
+        "document_title": "A bill to require the imposition of sanctions with respect to entities responsible for the planning, construction, or operation of the Nord Stream 2 pipeline and their corporate officers and to apply congressional review under the Countering America&#39;s Adversaries Through Sanctions Act to the removal of sanctions relating to Nord Stream 2, and for other purposes.",
+        "democratic": {
+          "yes": 6,
+          "no": 41,
+          "present": 0,
+          "not_voting": 1,
+          "majority_position": "No"
+        },
+        "republican": {
+          "yes": 49,
+          "no": 1,
+          "present": 0,
+          "not_voting": 0,
+          "majority_position": "Yes"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 2,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 55,
+          "no": 44,
+          "present": 0,
+          "not_voting": 1
+        }
+      }
+    ]
+  }
+}

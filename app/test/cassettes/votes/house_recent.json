@@ -1,0 +1,1032 @@
+{
+  "status": "OK",
+  "copyright": "Copyright (c) 2022 Pro Publica Inc. All Rights Reserved.",
+  "results": {
+    "chamber": "House",
+    "offset": 0,
+
+    "num_results": 20,
+    "votes": [
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 2,
+        "roll_call": 9,
+        "source": "http://clerk.house.gov/evs/2022/roll009.xml",
+        "url": "http://clerk.house.gov/evs/2022/roll009.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/2/votes/9.json",
+        "bill": {
+          "bill_id": "hr5746-117",
+          "number": "H.R.5746",
+          "sponsor_id": "B001292",
+          "api_uri": "https://api.propublica.org/congress/v1/117/bills/hr5746.json",
+          "title": "To amend title 51, United States Code, to extend the authority of the National Aeronautics and Space Administration to enter into leases of non-excess property of the Administration.",
+          "latest_action": "Message on House action received in Senate and at desk: House amendment to Senate amendment."
+        },
+        "amendment": {},
+        "question": "On Motion to Concur in the Senate Amendment With An Amendment",
+        "question_text": "",
+        "description": "NASA Enhanced Use Leasing Extension Act of 2021",
+        "vote_type": "YEA-AND-NAY",
+        "date": "2022-01-13",
+        "time": "11:25:00",
+        "result": "Passed",
+        "democratic": {
+          "yes": 220,
+          "no": 0,
+          "present": 0,
+          "not_voting": 1,
+          "majority_position": "Yes"
+        },
+        "republican": {
+          "yes": 0,
+          "no": 203,
+          "present": 0,
+          "not_voting": 9,
+          "majority_position": "No"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 220,
+          "no": 203,
+          "present": 0,
+          "not_voting": 10
+        }
+      },
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 2,
+        "roll_call": 8,
+        "source": "http://clerk.house.gov/evs/2022/roll008.xml",
+        "url": "http://clerk.house.gov/evs/2022/roll008.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/2/votes/8.json",
+        "bill": {
+          "bill_id": "hres868-117",
+          "number": "H.RES.868",
+          "sponsor_id": null,
+          "api_uri": null,
+          "title": null,
+          "latest_action": null
+        },
+        "amendment": {},
+        "question": "On Agreeing to the Resolution",
+        "question_text": "",
+        "description": "Providing for consideration of the Senate amendment to the bill (H.R. 5746) to amend title 51, United States Code, to extend the authority of the National Aeronautics and Space Administration to enter into leases of non-excess property of the Adminstration",
+        "vote_type": "YEA-AND-NAY",
+        "date": "2022-01-12",
+        "time": "23:25:00",
+        "result": "Passed",
+        "democratic": {
+          "yes": 220,
+          "no": 0,
+          "present": 0,
+          "not_voting": 1,
+          "majority_position": "Yes"
+        },
+        "republican": {
+          "yes": 0,
+          "no": 202,
+          "present": 0,
+          "not_voting": 10,
+          "majority_position": "No"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 220,
+          "no": 202,
+          "present": 0,
+          "not_voting": 11
+        }
+      },
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 2,
+        "roll_call": 7,
+        "source": "http://clerk.house.gov/evs/2022/roll007.xml",
+        "url": "http://clerk.house.gov/evs/2022/roll007.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/2/votes/7.json",
+        "bill": {
+          "bill_id": "hres868-117",
+          "number": "H.RES.868",
+          "sponsor_id": null,
+          "api_uri": null,
+          "title": null,
+          "latest_action": null
+        },
+        "amendment": {},
+        "question": "On Ordering the Previous Question",
+        "question_text": "",
+        "description": "Providing for consideration of the Senate amendment to the bill (H.R. 5746) to amend title 51, United States Code, to extend the authority of the National Aeronautics and Space Administration to enter into leases of non-excess property of the Adminstration",
+        "vote_type": "YEA-AND-NAY",
+        "date": "2022-01-12",
+        "time": "23:02:00",
+        "result": "Passed",
+        "democratic": {
+          "yes": 220,
+          "no": 0,
+          "present": 0,
+          "not_voting": 1,
+          "majority_position": "Yes"
+        },
+        "republican": {
+          "yes": 0,
+          "no": 201,
+          "present": 0,
+          "not_voting": 11,
+          "majority_position": "No"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 220,
+          "no": 201,
+          "present": 0,
+          "not_voting": 12
+        }
+      },
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 2,
+        "roll_call": 6,
+        "source": "http://clerk.house.gov/evs/2022/roll006.xml",
+        "url": "http://clerk.house.gov/evs/2022/roll006.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/2/votes/6.json",
+        "bill": {
+          "bill_id": "hr1836-117",
+          "number": "H.R.1836",
+          "sponsor_id": "L000593",
+          "api_uri": "https://api.propublica.org/congress/v1/117/bills/hr1836.json",
+          "title": "To amend title 38, United States Code, to ensure that the time during which members of the Armed Forces serve on active duty for training qualifies for educational assistance under the Post-9/11 Educational Assistance Program of the Department of Veterans Affairs, and for other purposes.",
+          "latest_action": "Received in the Senate and Read twice and referred to the Committee on Veterans&#39; Affairs."
+        },
+        "amendment": {},
+        "question": "On Passage",
+        "question_text": "",
+        "description": "Guard and Reserve GI Bill Parity Act",
+        "vote_type": "YEA-AND-NAY",
+        "date": "2022-01-12",
+        "time": "16:20:00",
+        "result": "Passed",
+        "democratic": {
+          "yes": 219,
+          "no": 0,
+          "present": 0,
+          "not_voting": 2,
+          "majority_position": "Yes"
+        },
+        "republican": {
+          "yes": 68,
+          "no": 135,
+          "present": 0,
+          "not_voting": 9,
+          "majority_position": "No"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 287,
+          "no": 135,
+          "present": 0,
+          "not_voting": 11
+        }
+      },
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 2,
+        "roll_call": 5,
+        "source": "http://clerk.house.gov/evs/2022/roll005.xml",
+        "url": "http://clerk.house.gov/evs/2022/roll005.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/2/votes/5.json",
+        "bill": {
+          "bill_id": "hr1836-117",
+          "number": "H.R.1836",
+          "sponsor_id": "L000593",
+          "api_uri": "https://api.propublica.org/congress/v1/117/bills/hr1836.json",
+          "title": "To amend title 38, United States Code, to ensure that the time during which members of the Armed Forces serve on active duty for training qualifies for educational assistance under the Post-9/11 Educational Assistance Program of the Department of Veterans Affairs, and for other purposes.",
+          "latest_action": "Received in the Senate and Read twice and referred to the Committee on Veterans&#39; Affairs."
+        },
+        "amendment": {},
+        "question": "On Motion to Recommit",
+        "question_text": "",
+        "description": "Guard and Reserve GI Bill Parity Act",
+        "vote_type": "YEA-AND-NAY",
+        "date": "2022-01-12",
+        "time": "15:18:00",
+        "result": "Failed",
+        "democratic": {
+          "yes": 0,
+          "no": 219,
+          "present": 0,
+          "not_voting": 2,
+          "majority_position": "No"
+        },
+        "republican": {
+          "yes": 204,
+          "no": 0,
+          "present": 0,
+          "not_voting": 8,
+          "majority_position": "Yes"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 204,
+          "no": 219,
+          "present": 0,
+          "not_voting": 10
+        }
+      },
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 2,
+        "roll_call": 4,
+        "source": "http://clerk.house.gov/evs/2022/roll004.xml",
+        "url": "http://clerk.house.gov/evs/2022/roll004.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/2/votes/4.json",
+        "bill": {
+          "bill_id": "hr1836-117",
+          "number": "H.R.1836",
+          "sponsor_id": "L000593",
+          "api_uri": "https://api.propublica.org/congress/v1/117/bills/hr1836.json",
+          "title": "To amend title 38, United States Code, to ensure that the time during which members of the Armed Forces serve on active duty for training qualifies for educational assistance under the Post-9/11 Educational Assistance Program of the Department of Veterans Affairs, and for other purposes.",
+          "latest_action": "Received in the Senate and Read twice and referred to the Committee on Veterans&#39; Affairs."
+        },
+        "amendment": {},
+        "question": "On Agreeing to the Amendment",
+        "question_text": "",
+        "description": "Moore of Alabama Part A Amendment No. 2",
+        "vote_type": "YEA-AND-NAY",
+        "date": "2022-01-12",
+        "time": "14:51:00",
+        "result": "Failed",
+        "democratic": {
+          "yes": 0,
+          "no": 219,
+          "present": 0,
+          "not_voting": 2,
+          "majority_position": "No"
+        },
+        "republican": {
+          "yes": 198,
+          "no": 6,
+          "present": 0,
+          "not_voting": 8,
+          "majority_position": "Yes"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 198,
+          "no": 225,
+          "present": 0,
+          "not_voting": 10
+        }
+      },
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 2,
+        "roll_call": 3,
+        "source": "http://clerk.house.gov/evs/2022/roll003.xml",
+        "url": "http://clerk.house.gov/evs/2022/roll003.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/2/votes/3.json",
+        "bill": {
+          "bill_id": "hres860-117",
+          "number": "H.RES.860",
+          "sponsor_id": "P000593",
+          "api_uri": "https://api.propublica.org/congress/v1/117/bills/hres860.json",
+          "title": "Providing for consideration of the bill (H.R. 1836) to amend title 38, United States Code, to ensure that the time during which members of the Armed Forces serve on active duty for training qualifies for educational assistance under the Post-9/11 Educational Assistance Program of the Department of Veterans Affairs, and for other purposes; providing for consideration of the bill (H.R. 4673) to amend title 38, United States Code, to provide for the automatic enrollment of eligible veterans in patient enrollment system of Department of Veterans Affairs, and for other purposes; and for other purposes.",
+          "latest_action": "Motion to reconsider laid on the table Agreed to without objection."
+        },
+        "amendment": {},
+        "question": "On Agreeing to the Resolution",
+        "question_text": "",
+        "description": "Providing for consideration of the bill (H.R. 1836) Guard and Reserve GI Bill Parity Act; providing for consideration of the bill (H.R. 4673) Ensuring Veterans’ Smooth Transition Act; and for other purposes",
+        "vote_type": "YEA-AND-NAY",
+        "date": "2022-01-11",
+        "time": "14:31:00",
+        "result": "Passed",
+        "democratic": {
+          "yes": 219,
+          "no": 0,
+          "present": 0,
+          "not_voting": 2,
+          "majority_position": "Yes"
+        },
+        "republican": {
+          "yes": 0,
+          "no": 203,
+          "present": 0,
+          "not_voting": 9,
+          "majority_position": "No"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 219,
+          "no": 203,
+          "present": 0,
+          "not_voting": 11
+        }
+      },
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 2,
+        "roll_call": 2,
+        "source": "http://clerk.house.gov/evs/2022/roll002.xml",
+        "url": "http://clerk.house.gov/evs/2022/roll002.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/2/votes/2.json",
+        "bill": {
+          "bill_id": "hres860-117",
+          "number": "H.RES.860",
+          "sponsor_id": "P000593",
+          "api_uri": "https://api.propublica.org/congress/v1/117/bills/hres860.json",
+          "title": "Providing for consideration of the bill (H.R. 1836) to amend title 38, United States Code, to ensure that the time during which members of the Armed Forces serve on active duty for training qualifies for educational assistance under the Post-9/11 Educational Assistance Program of the Department of Veterans Affairs, and for other purposes; providing for consideration of the bill (H.R. 4673) to amend title 38, United States Code, to provide for the automatic enrollment of eligible veterans in patient enrollment system of Department of Veterans Affairs, and for other purposes; and for other purposes.",
+          "latest_action": "Motion to reconsider laid on the table Agreed to without objection."
+        },
+        "amendment": {},
+        "question": "On Ordering the Previous Question",
+        "question_text": "",
+        "description": "Providing for consideration of the bill (H.R. 1836) Guard and Reserve GI Bill Parity Act; providing for consideration of the bill (H.R. 4673) Ensuring Veterans’ Smooth Transition Act; and for other purposes",
+        "vote_type": "YEA-AND-NAY",
+        "date": "2022-01-11",
+        "time": "14:06:00",
+        "result": "Passed",
+        "democratic": {
+          "yes": 219,
+          "no": 0,
+          "present": 0,
+          "not_voting": 2,
+          "majority_position": "Yes"
+        },
+        "republican": {
+          "yes": 0,
+          "no": 203,
+          "present": 0,
+          "not_voting": 9,
+          "majority_position": "No"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 219,
+          "no": 203,
+          "present": 0,
+          "not_voting": 11
+        }
+      },
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 2,
+        "roll_call": 1,
+        "source": "http://clerk.house.gov/evs/2022/roll001.xml",
+        "url": "http://clerk.house.gov/evs/2022/roll001.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/2/votes/1.json",
+        "bill": {
+          "bill_id": "quorum-117",
+          "number": "QUORUM",
+          "sponsor_id": null,
+          "api_uri": null,
+          "title": null,
+          "latest_action": null
+        },
+        "amendment": {},
+        "question": "Call of the House",
+        "question_text": "",
+        "description": "",
+        "vote_type": "QUORUM",
+        "date": "2022-01-10",
+        "time": "19:02:00",
+        "result": "Passed",
+        "democratic": {
+          "yes": 0,
+          "no": 0,
+          "present": 216,
+          "not_voting": 5,
+          "majority_position": ""
+        },
+        "republican": {
+          "yes": 0,
+          "no": 0,
+          "present": 188,
+          "not_voting": 24,
+          "majority_position": ""
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 0,
+          "no": 0,
+          "present": 404,
+          "not_voting": 29
+        }
+      },
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 1,
+        "roll_call": 449,
+        "source": "http://clerk.house.gov/evs/2021/roll449.xml",
+        "url": "http://clerk.house.gov/evs/2021/roll449.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/1/votes/449.json",
+        "bill": {
+          "bill_id": "sjres33-117",
+          "number": "S.J.RES.33",
+          "sponsor_id": "S000148",
+          "api_uri": "https://api.propublica.org/congress/v1/117/bills/sjres33.json",
+          "title": "A joint resolution joint resolution relating to increasing the debt limit.",
+          "latest_action": "Became Public Law No: 117-73."
+        },
+        "amendment": {},
+        "question": "On Passage",
+        "question_text": "",
+        "description": "Joint resolution relating to increasing the debt limit",
+        "vote_type": "YEA-AND-NAY",
+        "date": "2021-12-14",
+        "time": "00:20:00",
+        "result": "Passed",
+        "democratic": {
+          "yes": 220,
+          "no": 0,
+          "present": 0,
+          "not_voting": 1,
+          "majority_position": "Yes"
+        },
+        "republican": {
+          "yes": 1,
+          "no": 209,
+          "present": 0,
+          "not_voting": 3,
+          "majority_position": "No"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 221,
+          "no": 209,
+          "present": 0,
+          "not_voting": 4
+        }
+      },
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 1,
+        "roll_call": 448,
+        "source": "http://clerk.house.gov/evs/2021/roll448.xml",
+        "url": "http://clerk.house.gov/evs/2021/roll448.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/1/votes/448.json",
+        "bill": {
+          "bill_id": "hr5665-117",
+          "number": "H.R.5665",
+          "sponsor_id": "O000173",
+          "api_uri": "https://api.propublica.org/congress/v1/117/bills/hr5665.json",
+          "title": "To establish in the Department of State the Office to Monitor and Combat Islamophobia, and for other purposes.",
+          "latest_action": "Received in the Senate and Read twice and referred to the Committee on Foreign Relations."
+        },
+        "amendment": {},
+        "question": "On Passage",
+        "question_text": "",
+        "description": "Combating International Islamophobia Act",
+        "vote_type": "YEA-AND-NAY",
+        "date": "2021-12-14",
+        "time": "23:28:00",
+        "result": "Passed",
+        "democratic": {
+          "yes": 219,
+          "no": 0,
+          "present": 0,
+          "not_voting": 2,
+          "majority_position": "Yes"
+        },
+        "republican": {
+          "yes": 0,
+          "no": 212,
+          "present": 0,
+          "not_voting": 1,
+          "majority_position": "No"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 219,
+          "no": 212,
+          "present": 0,
+          "not_voting": 3
+        }
+      },
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 1,
+        "roll_call": 447,
+        "source": "http://clerk.house.gov/evs/2021/roll447.xml",
+        "url": "http://clerk.house.gov/evs/2021/roll447.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/1/votes/447.json",
+        "bill": {
+          "bill_id": "hres851-117",
+          "number": "H.RES.851",
+          "sponsor_id": "T000193",
+          "api_uri": "https://api.propublica.org/congress/v1/117/bills/hres851.json",
+          "title": "Recommending that the House of Representatives find Mark Randall Meadows in contempt of Congress for refusal to comply with a subpoena duly issued by the Select Committee to Investigate the January 6th Attack on the United States Capitol.",
+          "latest_action": "Motion to reconsider laid on the table Agreed to without objection."
+        },
+        "amendment": {},
+        "question": "On Agreeing to the Resolution",
+        "question_text": "",
+        "description": "Recommending that the House of Representatives find Mark Randall Meadows in contempt of Congress for refusal to comply with a subpoena duly issued by the Select Committee to Investigate the January 6th Attack on the United States Capitol",
+        "vote_type": "YEA-AND-NAY",
+        "date": "2021-12-14",
+        "time": "23:03:00",
+        "result": "Passed",
+        "democratic": {
+          "yes": 220,
+          "no": 0,
+          "present": 0,
+          "not_voting": 1,
+          "majority_position": "Yes"
+        },
+        "republican": {
+          "yes": 2,
+          "no": 208,
+          "present": 0,
+          "not_voting": 3,
+          "majority_position": "No"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 222,
+          "no": 208,
+          "present": 0,
+          "not_voting": 4
+        }
+      },
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 1,
+        "roll_call": 446,
+        "source": "http://clerk.house.gov/evs/2021/roll446.xml",
+        "url": "http://clerk.house.gov/evs/2021/roll446.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/1/votes/446.json",
+        "bill": {
+          "bill_id": "hres852-117",
+          "number": "H.RES.852",
+          "sponsor_id": "M001206",
+          "api_uri": "https://api.propublica.org/congress/v1/117/bills/hres852.json",
+          "title": "Providing for consideration of the joint resolution (S.J. Res. 33) joint resolution relating to increasing the debt limit.",
+          "latest_action": "Motion to reconsider laid on the table Agreed to without objection."
+        },
+        "amendment": {},
+        "question": "On Agreeing to the Resolution",
+        "question_text": "",
+        "description": "Providing for consideration of the joint resolution (S.J.Res.33) joint resolution relating to increasing the debt limit",
+        "vote_type": "YEA-AND-NAY",
+        "date": "2021-12-14",
+        "time": "22:36:00",
+        "result": "Passed",
+        "democratic": {
+          "yes": 220,
+          "no": 0,
+          "present": 0,
+          "not_voting": 1,
+          "majority_position": "Yes"
+        },
+        "republican": {
+          "yes": 0,
+          "no": 212,
+          "present": 0,
+          "not_voting": 1,
+          "majority_position": "No"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 220,
+          "no": 212,
+          "present": 0,
+          "not_voting": 2
+        }
+      },
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 1,
+        "roll_call": 445,
+        "source": "http://clerk.house.gov/evs/2021/roll445.xml",
+        "url": "http://clerk.house.gov/evs/2021/roll445.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/1/votes/445.json",
+        "bill": {
+          "bill_id": "hres852-117",
+          "number": "H.RES.852",
+          "sponsor_id": "M001206",
+          "api_uri": "https://api.propublica.org/congress/v1/117/bills/hres852.json",
+          "title": "Providing for consideration of the joint resolution (S.J. Res. 33) joint resolution relating to increasing the debt limit.",
+          "latest_action": "Motion to reconsider laid on the table Agreed to without objection."
+        },
+        "amendment": {},
+        "question": "On Ordering the Previous Question",
+        "question_text": "",
+        "description": "Providing for consideration of the joint resolution (S.J.Res.33) joint resolution relating to increasing the debt limit",
+        "vote_type": "YEA-AND-NAY",
+        "date": "2021-12-14",
+        "time": "22:08:00",
+        "result": "Passed",
+        "democratic": {
+          "yes": 220,
+          "no": 0,
+          "present": 0,
+          "not_voting": 1,
+          "majority_position": "Yes"
+        },
+        "republican": {
+          "yes": 0,
+          "no": 212,
+          "present": 0,
+          "not_voting": 1,
+          "majority_position": "No"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 220,
+          "no": 212,
+          "present": 0,
+          "not_voting": 2
+        }
+      },
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 1,
+        "roll_call": 444,
+        "source": "http://clerk.house.gov/evs/2021/roll444.xml",
+        "url": "http://clerk.house.gov/evs/2021/roll444.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/1/votes/444.json",
+        "bill": {
+          "bill_id": "hres849-117",
+          "number": "H.RES.849",
+          "sponsor_id": "M000312",
+          "api_uri": "https://api.propublica.org/congress/v1/117/bills/hres849.json",
+          "title": "Providing for consideration of the (H.R. 5665) to establish in the Department of State the Office to Monitor and Combat Islamophobia, and for other purposes.",
+          "latest_action": "Motion to reconsider laid on the table Agreed to without objection."
+        },
+        "amendment": {},
+        "question": "On Agreeing to the Resolution",
+        "question_text": "",
+        "description": "Providing for consideration of the (H.R. 5665) to establish in the Department of State the Office to Monitor and Combat Islamophobia, and for other purposes",
+        "vote_type": "YEA-AND-NAY",
+        "date": "2021-12-14",
+        "time": "16:08:00",
+        "result": "Passed",
+        "democratic": {
+          "yes": 219,
+          "no": 1,
+          "present": 0,
+          "not_voting": 1,
+          "majority_position": "Yes"
+        },
+        "republican": {
+          "yes": 0,
+          "no": 212,
+          "present": 0,
+          "not_voting": 1,
+          "majority_position": "No"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 219,
+          "no": 213,
+          "present": 0,
+          "not_voting": 2
+        }
+      },
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 1,
+        "roll_call": 443,
+        "source": "http://clerk.house.gov/evs/2021/roll443.xml",
+        "url": "http://clerk.house.gov/evs/2021/roll443.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/1/votes/443.json",
+        "bill": {
+          "bill_id": "hres849-117",
+          "number": "H.RES.849",
+          "sponsor_id": "M000312",
+          "api_uri": "https://api.propublica.org/congress/v1/117/bills/hres849.json",
+          "title": "Providing for consideration of the (H.R. 5665) to establish in the Department of State the Office to Monitor and Combat Islamophobia, and for other purposes.",
+          "latest_action": "Motion to reconsider laid on the table Agreed to without objection."
+        },
+        "amendment": {},
+        "question": "On Ordering the Previous Question",
+        "question_text": "",
+        "description": "Providing for consideration of the (H.R. 5665) to establish in the Department of State the Office to Monitor and Combat Islamophobia, and for other purposes",
+        "vote_type": "YEA-AND-NAY",
+        "date": "2021-12-14",
+        "time": "15:37:00",
+        "result": "Passed",
+        "democratic": {
+          "yes": 220,
+          "no": 0,
+          "present": 0,
+          "not_voting": 1,
+          "majority_position": "Yes"
+        },
+        "republican": {
+          "yes": 0,
+          "no": 210,
+          "present": 0,
+          "not_voting": 3,
+          "majority_position": "No"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 220,
+          "no": 210,
+          "present": 0,
+          "not_voting": 4
+        }
+      },
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 1,
+        "roll_call": 442,
+        "source": "http://clerk.house.gov/evs/2021/roll442.xml",
+        "url": "http://clerk.house.gov/evs/2021/roll442.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/1/votes/442.json",
+        "bill": {
+          "bill_id": "hres848-117",
+          "number": "H.RES.848",
+          "sponsor_id": "R000606",
+          "api_uri": "https://api.propublica.org/congress/v1/117/bills/hres848.json",
+          "title": "Relating to the consideration of House Report 117-216 and an accompanying resolution.",
+          "latest_action": "Motion to reconsider laid on the table Agreed to without objection."
+        },
+        "amendment": {},
+        "question": "On Agreeing to the Resolution",
+        "question_text": "",
+        "description": "Relating to the consideration of House Report 117-216 and an accompanying resolution",
+        "vote_type": "YEA-AND-NAY",
+        "date": "2021-12-14",
+        "time": "15:08:00",
+        "result": "Passed",
+        "democratic": {
+          "yes": 218,
+          "no": 0,
+          "present": 0,
+          "not_voting": 3,
+          "majority_position": "Yes"
+        },
+        "republican": {
+          "yes": 2,
+          "no": 210,
+          "present": 0,
+          "not_voting": 1,
+          "majority_position": "No"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 220,
+          "no": 210,
+          "present": 0,
+          "not_voting": 4
+        }
+      },
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 1,
+        "roll_call": 441,
+        "source": "http://clerk.house.gov/evs/2021/roll441.xml",
+        "url": "http://clerk.house.gov/evs/2021/roll441.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/1/votes/441.json",
+        "bill": {
+          "bill_id": "hres848-117",
+          "number": "H.RES.848",
+          "sponsor_id": "R000606",
+          "api_uri": "https://api.propublica.org/congress/v1/117/bills/hres848.json",
+          "title": "Relating to the consideration of House Report 117-216 and an accompanying resolution.",
+          "latest_action": "Motion to reconsider laid on the table Agreed to without objection."
+        },
+        "amendment": {},
+        "question": "On Ordering the Previous Question",
+        "question_text": "",
+        "description": "Relating to the consideration of House Report 117-216 and an accompanying resolution",
+        "vote_type": "YEA-AND-NAY",
+        "date": "2021-12-14",
+        "time": "14:39:00",
+        "result": "Passed",
+        "democratic": {
+          "yes": 216,
+          "no": 0,
+          "present": 0,
+          "not_voting": 5,
+          "majority_position": "Yes"
+        },
+        "republican": {
+          "yes": 2,
+          "no": 209,
+          "present": 0,
+          "not_voting": 2,
+          "majority_position": "No"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 218,
+          "no": 209,
+          "present": 0,
+          "not_voting": 7
+        }
+      },
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 1,
+        "roll_call": 440,
+        "source": "http://clerk.house.gov/evs/2021/roll440.xml",
+        "url": "http://clerk.house.gov/evs/2021/roll440.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/1/votes/440.json",
+        "bill": {
+          "bill_id": "hr5314-117",
+          "number": "H.R.5314",
+          "sponsor_id": "S001150",
+          "api_uri": "https://api.propublica.org/congress/v1/117/bills/hr5314.json",
+          "title": "To protect our democracy by preventing abuses of presidential power, restoring checks and balances and accountability and transparency in government, and defending elections against foreign interference, and for other purposes.",
+          "latest_action": "Received in the Senate."
+        },
+        "amendment": {},
+        "question": "On Passage",
+        "question_text": "",
+        "description": "Protecting Our Democracy Act",
+        "vote_type": "YEA-AND-NAY",
+        "date": "2021-12-09",
+        "time": "16:07:00",
+        "result": "Passed",
+        "democratic": {
+          "yes": 219,
+          "no": 0,
+          "present": 0,
+          "not_voting": 2,
+          "majority_position": "Yes"
+        },
+        "republican": {
+          "yes": 1,
+          "no": 208,
+          "present": 0,
+          "not_voting": 4,
+          "majority_position": "No"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 220,
+          "no": 208,
+          "present": 0,
+          "not_voting": 6
+        }
+      },
+      {
+        "congress": 117,
+        "chamber": "House",
+        "session": 1,
+        "roll_call": 439,
+        "source": "http://clerk.house.gov/evs/2021/roll439.xml",
+        "url": "http://clerk.house.gov/evs/2021/roll439.xml",
+        "vote_uri": "https://api.propublica.org/congress/v1/117/house/sessions/1/votes/439.json",
+        "bill": {
+          "bill_id": "hr5314-117",
+          "number": "H.R.5314",
+          "sponsor_id": "S001150",
+          "api_uri": "https://api.propublica.org/congress/v1/117/bills/hr5314.json",
+          "title": "To protect our democracy by preventing abuses of presidential power, restoring checks and balances and accountability and transparency in government, and defending elections against foreign interference, and for other purposes.",
+          "latest_action": "Received in the Senate."
+        },
+        "amendment": {},
+        "question": "On Motion to Recommit",
+        "question_text": "",
+        "description": "Protecting Our Democracy Act",
+        "vote_type": "YEA-AND-NAY",
+        "date": "2021-12-09",
+        "time": "15:56:00",
+        "result": "Failed",
+        "democratic": {
+          "yes": 0,
+          "no": 217,
+          "present": 0,
+          "not_voting": 4,
+          "majority_position": "No"
+        },
+        "republican": {
+          "yes": 212,
+          "no": 0,
+          "present": 0,
+          "not_voting": 1,
+          "majority_position": "Yes"
+        },
+        "independent": {
+          "yes": 0,
+          "no": 0,
+          "present": 0,
+          "not_voting": 0
+        },
+        "total": {
+          "yes": 212,
+          "no": 217,
+          "present": 0,
+          "not_voting": 5
+        }
+      }
+    ]
+  }
+}
