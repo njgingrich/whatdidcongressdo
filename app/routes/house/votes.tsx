@@ -1,31 +1,39 @@
 import { LoaderFunction, useLoaderData } from "remix";
 
 import {votes} from '~/api';
+import ChamberPage from "~/components/ChamberPage";
 import VoteCard from "~/components/VoteCard";
 import { TypeVote } from "~/types/votes";
+import { getDateInDC } from "~/util";
 
 type TypeLoaderData = {
-    votes: TypeVote[];
+    today: TypeVote[];
+    recent: TypeVote[];
 }
 
-export const loader: LoaderFunction = () => {
-    let data: TypeLoaderData = {votes: votes.getVotesForDate('house', new Date())};
+export const loader: LoaderFunction = async () => {
+    let data: TypeLoaderData = {
+        today: await votes.getVotesForDate('house', getDateInDC('yyyy-MM-dd')),
+        recent: await votes.getRecentVotes('house'),
+    };
     return data;
 };
 
 export default function HouseVotesPage() {
     const data = useLoaderData<TypeLoaderData>();
 
+    function ListComponent({ data }: {data: any}) {
+        return <VoteCard vote={data} />
+    }
+
     return (
         <main>
-            <h2 className="chamber-page--header">Votes</h2>
-            <ul className="action-card--list">
-                {data.votes.map(vote => (
-                    <li className="action-card--list__item" key={vote.questionType}>
-                        <VoteCard vote={vote} />
-                    </li>
-                ))}
-            </ul>
+            <ChamberPage
+                today={data.today}
+                recent={data.recent}
+                emptyMessage="The House has not done anything today. Check out the Recent tab to see their latest actions."
+                ListComponent={ListComponent}
+            />
         </main>
     )
 }

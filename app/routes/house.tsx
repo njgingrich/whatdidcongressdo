@@ -2,9 +2,11 @@ import { NavLink, Outlet } from "remix";
 import type { LinksFunction } from "remix";
 
 import houseStyles from '~/styles/house.css';
+import tabsStyles from "@reach/tabs/styles.css";
 
 export const links: LinksFunction = () => {
     return [
+        { rel: 'stylesheet', href: tabsStyles },
         { rel: 'stylesheet', href: houseStyles },
     ]
 }

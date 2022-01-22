@@ -1,10 +1,39 @@
 import type { TypeChamber } from "~/types/votes";
-
-import mockRecentHearings from '~/test/cassettes/committees/house_recent_hearings.json';
 import { TypeHearing, TypeHearingResponse } from "~/types/committees";
 
-export function getHearingsForDate(chamber: TypeChamber, date: Date) {
-    return getHearingsFromResponse(mockRecentHearings.results[0].hearings);
+import { request } from "~/api/service";
+import { getDateInDC } from "~/util";
+
+export async function getHearingsForDate(chamber: TypeChamber, date: string): Promise<TypeHearing[]> {
+    let lastDate = date;
+    let offset = 0;
+    let hearings: TypeHearingResponse[] = [];
+
+    while (lastDate === date) {
+        const json = await request(`/117/committees/hearings.json?offset=${offset}`);
+
+        json.results[0].hearings.forEach((hearing: TypeHearingResponse) => {
+            lastDate = hearing.date;
+
+            if (hearing.chamber.toLowerCase() === chamber && hearing.date === date) {
+                hearings.push(hearing);
+            }
+        })
+
+        offset += 20;
+    }
+
+    return getHearingsFromResponse(hearings);
+}
+
+export async function getRecentHearings(chamber: TypeChamber): Promise<TypeHearing[]> {
+  const json = await request('/117/committees/hearings.json');
+  const hearings: TypeHearingResponse[] = json.results[0].hearings;
+
+  const mostRecentDate = getDateInDC("yyyy-MM-dd");
+  const recentBills = hearings.filter((h) => h.date !== mostRecentDate);
+
+  return getHearingsFromResponse(recentBills);
 }
 
 function getHearingsFromResponse(res: TypeHearingResponse[]): TypeHearing[] {

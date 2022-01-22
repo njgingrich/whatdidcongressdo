@@ -1,10 +1,37 @@
 import type { TypeChamber } from "~/types/votes";
-
-import mockHouseUpdatedBills from '~/test/cassettes/bills/house_updated.json';
 import { EnumBillType, TypeBill, TypeBillResponse } from "~/types/bills";
 
-export function getBillsForDate(chamber: TypeChamber, date: Date) {
-    return getBillsFromResponse(mockHouseUpdatedBills.results[0].bills)
+import { request } from '~/api/service';
+import { getDateInDC } from "~/util";
+
+export async function getBillsForDate(chamber: TypeChamber, date: string): Promise<TypeBill[]> {
+  let lastDate = date;
+  let offset = 0;
+  let bills: TypeBillResponse[] = [];
+
+  while (lastDate === date) {
+    const json = await request(`/117/${chamber}/bills/updated.json?offset=${offset}`);
+
+    lastDate = json.results[0].bills[19].last_major_action_date;
+    offset += 20;
+    bills.push(...json.results[0].bills);
+  }
+
+  bills = bills.filter(b => b.latest_major_action_date === date);
+
+  return getBillsFromResponse(bills);
+}
+
+export async function getRecentBills(chamber: TypeChamber): Promise<TypeBill[]> {
+  const json = await request(`/117/${chamber}/bills/updated.json`);
+  const bills: TypeBillResponse[] = json.results[0].bills;
+
+  const mostRecentDate = getDateInDC('yyyy-MM-dd');
+  const recentBills = bills.filter(
+    (a) => a.latest_major_action_date !== mostRecentDate
+  );
+
+  return getBillsFromResponse(recentBills);
 }
 
 function getBillsFromResponse(billResponses: TypeBillResponse[]): TypeBill[] {

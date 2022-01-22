@@ -3,14 +3,14 @@ import { LoaderFunction, useLoaderData } from "remix";
 import {floor} from '~/api';
 import FloorActionCard from "~/components/FloorActionCard";
 import { TypeFloorAction } from "~/types/floor";
+import { getDateInDC } from "~/util";
 
 type TypeLoaderData = {
     actions: TypeFloorAction[];
 }
 
 export const loader: LoaderFunction = async () => {
-    const actions = await floor.getActionsForDate('senate', new Date());
-    console.log({actions});
+    const actions = await floor.getActionsForDate('senate', getDateInDC());
 
     const data: TypeLoaderData = { actions };
     return data;

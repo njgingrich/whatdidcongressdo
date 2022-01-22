@@ -8,6 +8,7 @@ type TypeProps = {
 
 export default function BillCard({ bill }: TypeProps) {
     const introducedDate = `Introduced ${format(new Date(bill.dates.introduced), "PPP")}`;
+    const updatedDate = `Updated ${format(new Date(bill.dates.lastActionDate), "PPP")}`
     const sponsorName = `${bill.sponsor.title} ${bill.sponsor.name} (${bill.sponsor.party}-${bill.sponsor.state})`
     const cosponsorText = bill.sponsor.cosponsors > 0
         ? `${bill.sponsor.cosponsors} cosponsor${bill.sponsor.cosponsors > 1 ? 's' : ''}`
@@ -16,13 +17,11 @@ export default function BillCard({ bill }: TypeProps) {
     return (
         <ActionCard cardType="bill">
             <span className="action-card--time">
-                {introducedDate}
+                {`${introducedDate} - ${updatedDate}`}
             </span>
             <h3 className="action-card--title">{bill.title}</h3>
             <span className="action-card--subtitle">{bill.number}</span>
-            <p className="action-card--description">
-                {bill.details.lastAction}
-            </p>
+            <p className="action-card--description" dangerouslySetInnerHTML={{__html: bill.details.lastAction }} />
             <div className="action-card--result">
                 {/* <span>{bill.details.lastAction}</span> */}
             </div>

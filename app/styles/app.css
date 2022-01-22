@@ -28,6 +28,7 @@
     --color-primary: rgb(10, 36, 88);
     --color-primary-light: rgb(240, 242, 245);
     --color-accent: rgb(237, 190, 135);
+    --color-accent-light: rgb(255, 251, 236);
     --color-background: rgb(255, 255, 255);
     --color-party-republican: rgb(232, 27, 35);
     --color-party-democratic: rgb(0, 174, 243);
@@ -260,7 +261,27 @@ footer a::after, nav a::after {
     column-gap: var(--space-500);
 }
 
-.chamber-page--header {
-    font-weight: 700;
-    margin-bottom: var(--space-600);
+.chamber-page--tabs[data-reach-tab-list] {
+    background: none;
+}
+
+.chamber-page--tab[data-reach-tab] {
+    background-color: var(--color-accent-light);
+    color: var(--color-primary);
+    border: 2px solid transparent;
+    margin-bottom: var(--space-400);
+    margin-right: var(--space-400);
+    padding: var(--space-200) var(--space-400);
+
+    font-size: var(--f-size-200);
+}
+
+.chamber-page--tab[data-reach-tab][data-selected] {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    border-bottom-color: var(--color-primary);
+}
+
+.chamber-page--tab[data-reach-tab]:hover {
+    border-color: var(--color-primary);
 }

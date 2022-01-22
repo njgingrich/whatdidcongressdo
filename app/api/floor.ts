@@ -1,5 +1,3 @@
-import format from "date-fns/format";
-
 import type { TypeChamber } from "~/types/votes";
 import type { TypeFloorAction, TypeFloorActionResponse } from "~/types/floor";
 
@@ -12,7 +10,6 @@ export async function getActionsForDate(chamber: TypeChamber, date: string): Pro
 
   while (numResults === 20) {
     const json = await request(`/${chamber}/floor_updates/${date}.json?offset=${offset}`);
-    console.log(json);
 
     numResults = json.results[0].num_results ?? 0;
     offset += 20;

@@ -3,31 +3,38 @@ import { LoaderFunction, useLoaderData } from "remix";
 import {committees} from '~/api';
 import HearingCard from "~/components/HearingCard";
 import { TypeHearing } from "~/types/committees";
+import { getDateInDC } from "~/util";
+
+import ChamberPage from "~/components/ChamberPage";
 
 type TypeLoaderData = {
-    hearings: TypeHearing[];
+    today: TypeHearing[];
+    recent: TypeHearing[];
 }
 
-export const loader: LoaderFunction = () => {
-    const hearingsForDate = committees.getHearingsForDate('house', new Date());
-
-    const data: TypeLoaderData = { hearings: hearingsForDate };
+export const loader: LoaderFunction = async () => {
+    const data: TypeLoaderData = {
+        today: await committees.getHearingsForDate('house', getDateInDC('yyyy-MM-dd')),
+        recent: await committees.getRecentHearings('house'),
+    };
     return data;
 }
 
 export default function HouseCommitteesPage() {
     const data = useLoaderData<TypeLoaderData>();
 
+    function ListComponent({ data }: {data: any}) {
+        return <HearingCard hearing={data} />
+    }
+
     return (
         <main>
-            <h2 className="chamber-page--header">Bills</h2>
-            <ul className="action-card--list">
-                {data.hearings.map(hearing => (
-                    <li className="action-card--list__item" key={`${hearing.committee.code}-${hearing.timestamp}`}>
-                        <HearingCard hearing={hearing} />
-                    </li>
-                ))}
-            </ul>
+            <ChamberPage
+                today={data.today}
+                recent={data.recent}
+                emptyMessage="The House has no hearings scheduled today. Check out the Recent tab to see the latest hearings."
+                ListComponent={ListComponent}
+            />
         </main>
     )
 }

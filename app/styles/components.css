@@ -329,6 +329,7 @@
 }
 .action-card--details__avatar {
     grid-area: avatar;
+    align-self: center;
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -408,6 +409,7 @@
 .action-card[data-card-type="vote"] .action-card--link {
     grid-area: link;
     align-self: center;
+    justify-self: start;
 }
 .action-card--votes {
     grid-area: votes;

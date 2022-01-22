@@ -13,9 +13,7 @@ export default function FloorActionCard({ action }: TypeProps) {
             <time className="action-card--time">
                 {timestamp}
             </time>
-            <p className="action-card--description">
-                {action.description}
-            </p>
+            <p className="action-card--description" dangerouslySetInnerHTML={{__html: action.description }} />
         </ActionCard>
     )
 }

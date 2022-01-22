@@ -5,6 +5,8 @@ import FloorActionCard from "~/components/FloorActionCard";
 import { TypeFloorAction } from "~/types/floor";
 import { getDateInDC } from "~/util";
 
+import ChamberPage from "~/components/ChamberPage";
+
 type TypeLoaderData = {
     today: TypeFloorAction[];
     recent: TypeFloorAction[];
@@ -21,24 +23,18 @@ export const loader: LoaderFunction = async () => {
 export default function HouseFloorPage() {
     const data = useLoaderData<TypeLoaderData>();
 
+    function ListComponent({ data }: {data: any}) {
+        return <FloorActionCard action={data} />
+    }
+
     return (
         <main>
-            <h2 className="chamber-page--header">Floor proceedings</h2>
-            <ul className="action-card--list">
-                {data.today.map(action => (
-                    <li className="action-card--list__item" key={action.description}>
-                        <FloorActionCard action={action} />
-                    </li>
-                ))}
-            </ul>
-            <h3>Recent</h3>
-            <ul className="action-card--list">
-                {data.recent.map(action => (
-                    <li className="action-card--list__item" key={action.description}>
-                        <FloorActionCard action={action} />
-                    </li>
-                ))}
-            </ul>
+            <ChamberPage
+                today={data.today}
+                recent={data.recent}
+                emptyMessage="The House has not done anything today. Check out the Recent tab to see their latest actions."
+                ListComponent={ListComponent}
+            />
         </main>
     )
 }

@@ -37,9 +37,7 @@ export default function VoteCard({ vote }: TypeProps) {
             <time className="action-card--time">{timestamp}</time>
             <h3 className="action-card--title">{vote.title}</h3>
             {vote.subtitle ?? <span className="action-card--subtitle">{vote.subtitle}</span>}
-            <p className="action-card--description">
-                {vote.description}
-            </p>
+            <p className="action-card--description" dangerouslySetInnerHTML={{__html: vote.description }} />
             <a className="action-card--link" href={vote.link} target="_blank" rel="noopener">
                 Read more
             </a>

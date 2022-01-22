@@ -10,19 +10,38 @@ import {
   TypeVoteResponse,
   TypeVoteType,
 } from "~/types/votes";
+import { request } from "./service";
 
-export function getVotesForDate(chamber: TypeChamber, date: Date): TypeVote[] {
-  const dateString = format(date, "yyyy-mm-dd");
+export async function getVotesForDate(chamber: TypeChamber, date: string): Promise<TypeVote[]> {
+  let numResults = 20;
+  let offset = 0;
+  let votes: TypeVoteResponse[] = [];
 
-  return getVotesFromResponse(mockHouseRecentVotesResponse.results);
+  while (numResults === 20) {
+    const json = await request(`/${chamber}/votes/${date}/${date}?offset=${offset}`);
+
+    numResults = json.results.num_results ?? 0;
+    offset += 20;
+    votes.push(...json.results.votes);
+  }
+
+  return getVotesFromResponse(votes);
 }
 
-function getVotesFromResponse(response: {
-  votes: TypeVoteResponse[];
-}): TypeVote[] {
+export async function getRecentVotes(chamber: TypeChamber): Promise<TypeVote[]> {
+  const json = await request(`/${chamber}/votes/recent.json`);
+  const votes: TypeVoteResponse[] = json.results.votes;
+
+  const mostRecentDate = votes[0].date;
+  const recentVotes = votes.filter(v => v.date !== mostRecentDate);
+
+  return getVotesFromResponse(recentVotes);
+}
+
+function getVotesFromResponse(voteResponses: TypeVoteResponse[]): TypeVote[] {
   const votes: TypeVote[] = [];
 
-  for (let vote of response?.votes) {
+  for (let vote of voteResponses) {
     votes.push({
       congress: `${vote.congress}`,
       chamber:
