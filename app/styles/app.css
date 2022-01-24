@@ -72,6 +72,7 @@ body, html {
     font-family: var(--font-body);
     color: var(--color-primary);
     font-size: var(--f-size-300);
+    line-height: 1.3;
 }
 
 html {
@@ -147,17 +148,32 @@ footer a::after, nav a::after {
 
 .page-container > .page-full-edge {
     grid-column: 1 / -1;
-    margin-left: calc(-1 * var(--space-400));
-    margin-right: calc(-1 * var(--space-400));
+}
+
+@media screen and (min-width: 900px) {
+    .page-container > .page-full-edge {
+        margin-left: calc(-1 * var(--space-400));
+        margin-right: calc(-1 * var(--space-400));
+    }
 }
 
 .page-footer {
     display: grid;
-    padding: var(--content-gutter);
-    grid-template-columns: 1fr 1fr 2fr;
+    padding: var(--space-600);
+    grid-template-columns: 4fr 3fr;
+    grid-template-rows: auto auto;
     height: 240px;
     background-color: var(--color-primary);
     color: var(--color-background);
+}
+.page-footer--links:first-child {
+    grid-area: 1 / 1 / 2 / 2;
+}
+.page-footer--links:nth-child(2) {
+    grid-area: 2 / 1 / 3 / 2;
+}
+.page-footer--share {
+    grid-area: 1 / 2 / 3 / -1;
 }
 
 .page-footer--share {
@@ -196,6 +212,27 @@ footer a::after, nav a::after {
     height: 24px;
 }
 
+@media screen and (min-width: 500px) {
+    .page-footer {
+        grid-template-columns: 2fr 2fr 3fr;
+        grid-template-rows: auto;
+    }
+    .page-footer--links:first-child {
+        grid-area: 1 / 1 / 2 / 2;
+    }
+    .page-footer--links:nth-child(2) {
+        grid-area: 1 / 2 / 2 / 3;
+    }
+    .page-footer--share {
+        grid-area: 1 / 3 / 2 / -1;
+    }
+}
+@media screen and (min-width: 600px) {
+    .page-footer {
+        padding: var(--content-gutter);
+    }
+}
+
 .page-topper {
     display: flex;
     flex-direction: column;
@@ -213,12 +250,25 @@ footer a::after, nav a::after {
 .section-chambers {
     display: grid;
     margin-top: calc(-2 * var(--space-800));
-    grid-gap: var(--space-800);
-    grid-template-columns: 1fr 1fr;
-    justify-content: center;
+    margin-left: var(--space-400);
+    margin-right: var(--space-400);
+    grid-column-gap: var(--space-800);
+    grid-row-gap: var(--space-600);
+    grid-template-columns: 1fr;
+    justify-items: center;
 
     position: relative;
     top: calc(var(--space-500) * -1);
+}
+
+@media screen and (min-width: 900px) {
+    .section-chambers {
+        grid-template-columns: 1fr 1fr;
+    }
+    .section-chambers > .chamber-card {
+        width: 100%;
+        max-width: initial;
+    }
 }
 
 .section-info {
@@ -237,51 +287,44 @@ footer a::after, nav a::after {
     max-width: 60ch;
 }
 
-.chamber-banner {
+.section-about {
     display: grid;
-    grid-template-columns: 1fr minmax(auto, 1200px) 1fr;
-    align-items: end;
-    padding: var(--space-400);
-    height: 128px;
-    background-color: var(--color-primary);
-    color: var(--color-background);
-    border-top-left-radius: var(--border-size);
-    border-top-right-radius: var(--border-size);
-}
-
-.chamber-banner--header {
-    grid-column: 2 / 3;
-    font-size: var(--f-size-800);
-    font-weight: 700;
-}
-
-.chamber-container {
-    display: grid;
-    grid-template-columns: 248px auto;
-    column-gap: var(--space-500);
-}
-
-.chamber-page--tabs[data-reach-tab-list] {
-    background: none;
-}
-
-.chamber-page--tab[data-reach-tab] {
-    background-color: var(--color-accent-light);
-    color: var(--color-primary);
-    border: 2px solid transparent;
-    margin-bottom: var(--space-400);
+    justify-items: center;
+    position: relative;
+    margin-top: calc(-1 * var(--space-900));
+    margin-left: var(--space-400);
     margin-right: var(--space-400);
-    padding: var(--space-200) var(--space-400);
-
-    font-size: var(--f-size-200);
+    top: calc(-1 * var(--space-500));
 }
 
-.chamber-page--tab[data-reach-tab][data-selected] {
-    background-color: var(--color-primary);
-    color: var(--color-background);
-    border-bottom-color: var(--color-primary);
+.about-card {
+    max-width: 80ch;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-500);
+    padding: var(--space-500);
+    background-color: var(--color-background);
+    border-left: 30px solid var(--color-accent);
 }
 
-.chamber-page--tab[data-reach-tab]:hover {
-    border-color: var(--color-primary);
+.about-card--title {
+    font-size: var(--f-size-700);
+    position: relative;
+}
+.about-card--title::before {
+    border-bottom: 1px solid var(--color-primary);
+    bottom: -12px;
+    content: " ";
+    height: 0;
+    left: 0;
+    position: absolute;
+    width: 180px;
+}
+
+.about-card--text {
+    font-size: var(--f-size-400);
+}
+
+.section-about--topper .lead-img {
+    max-height: 300px;
 }

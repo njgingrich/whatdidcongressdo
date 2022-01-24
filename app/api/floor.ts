@@ -1,6 +1,7 @@
 import type { TypeChamber } from "~/types/votes";
 import type { TypeFloorAction, TypeFloorActionResponse } from "~/types/floor";
 
+import { getDateInDC } from '~/util';
 import { request } from "./service";
 
 export async function getActionsForDate(chamber: TypeChamber, date: string): Promise<TypeFloorAction[]> {
@@ -23,7 +24,7 @@ export async function getRecentActions(chamber: TypeChamber): Promise<TypeFloorA
   const json = await request(`/${chamber}/floor_updates.json`);
   const actions: TypeFloorActionResponse[] = json.results[0].floor_actions;
 
-  const mostRecentDate = actions[0].date;
+  const mostRecentDate = getDateInDC("yyyy-MM-dd");
   const recentActions = actions.filter(a => a.date !== mostRecentDate);
 
   return getActionsFromResponse(recentActions);

@@ -10,6 +10,7 @@ import {
   TypeVoteResponse,
   TypeVoteType,
 } from "~/types/votes";
+import { getDateInDC } from "~/util";
 import { request } from "./service";
 
 export async function getVotesForDate(chamber: TypeChamber, date: string): Promise<TypeVote[]> {
@@ -32,7 +33,7 @@ export async function getRecentVotes(chamber: TypeChamber): Promise<TypeVote[]> 
   const json = await request(`/${chamber}/votes/recent.json`);
   const votes: TypeVoteResponse[] = json.results.votes;
 
-  const mostRecentDate = votes[0].date;
+  const mostRecentDate = getDateInDC("yyyy-MM-dd");
   const recentVotes = votes.filter(v => v.date !== mostRecentDate);
 
   return getVotesFromResponse(recentVotes);

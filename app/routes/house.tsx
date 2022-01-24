@@ -1,19 +1,19 @@
 import { NavLink, Outlet } from "remix";
 import type { LinksFunction } from "remix";
 
-import houseStyles from '~/styles/house.css';
+import chamberStyles from '~/styles/chamber.css';
 import tabsStyles from "@reach/tabs/styles.css";
 
 export const links: LinksFunction = () => {
     return [
         { rel: 'stylesheet', href: tabsStyles },
-        { rel: 'stylesheet', href: houseStyles },
+        { rel: 'stylesheet', href: chamberStyles },
     ]
 }
 
 export default function HouseIndexPage() {
     return (
-        <div className="page-container">
+        <div className="page-container" data-chamber="house">
             <div className="page-full-width chamber-banner">
                 <h1 className="chamber-banner--header">House of Representatives</h1>
             </div>

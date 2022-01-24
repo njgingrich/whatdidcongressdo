@@ -1,0 +1,52 @@
+.page-container {
+    row-gap: var(--space-500);
+}
+
+.chamber-banner {
+    display: grid;
+    grid-template-columns: 1fr minmax(auto, 1200px) 1fr;
+    align-items: end;
+    padding: var(--space-400);
+    height: 128px;
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    border-top-left-radius: var(--border-size);
+    border-top-right-radius: var(--border-size);
+}
+
+.chamber-banner--header {
+    grid-column: 2 / 3;
+    font-size: var(--f-size-800);
+    font-weight: 700;
+}
+
+.chamber-container {
+    display: grid;
+    grid-template-columns: 248px auto;
+    column-gap: var(--space-500);
+}
+
+.chamber-page--tabs[data-reach-tab-list] {
+    background: none;
+}
+
+.chamber-page--tab[data-reach-tab] {
+    background-color: var(--color-accent-light);
+    color: var(--color-primary);
+    border: 2px solid transparent;
+    margin-bottom: var(--space-400);
+    margin-right: var(--space-400);
+    padding: var(--space-200) var(--space-400);
+
+    font-size: var(--f-size-200);
+}
+
+.chamber-page--tab[data-reach-tab][data-selected] {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    border-bottom-color: var(--color-primary);
+}
+
+.chamber-page--tab[data-reach-tab]:hover {
+    border-color: var(--color-primary);
+}

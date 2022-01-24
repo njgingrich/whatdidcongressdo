@@ -1,6 +1,6 @@
 import { Link } from "remix";
 
-export default function Index() {
+export default function IndexPage() {
   return (
     <div className="page-container">
       <section className="page-topper page-full-width">
@@ -133,6 +133,7 @@ export default function Index() {
         </div>
       </section>
       <section className="page-full-edge section-callout" data-align="left">
+        <img src="images/capitol_drawing.jpg" className="section-callout--image" />
         <div className="section-callout--background" />
         <div className="section-callout--content">
           <h2 className="section-callout--header">Senate</h2>
@@ -152,7 +153,6 @@ export default function Index() {
             </li>
           </ul>
         </div>
-        <img src="images/capitol_drawing.jpg" className="section-callout--image" />
       </section>
     </div>
   );
