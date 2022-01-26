@@ -1,6 +1,130 @@
-import { Link } from "remix";
+import { Link, LoaderFunction, useLoaderData } from "remix";
+import { bills, committees, floor, votes } from "~/api";
+import { TypeBill } from "~/types/bills";
+import { TypeHearing } from "~/types/committees";
+import { TypeFloorAction } from "~/types/floor";
+import { TypeVote } from "~/types/votes";
+import { formatInDC, getDateInDC } from "~/util";
+
+type TypeLatestWork = {
+  latestHearing: TypeHearing | null;
+  latestAction: TypeFloorAction | null;
+  latestVote: TypeVote | null;
+  latestBill: TypeBill | null;
+}
+type TypeLoaderData = {
+  house: TypeLatestWork;
+  senate: TypeLatestWork;
+}
+
+export const loader: LoaderFunction = async () => {
+  const requests = await Promise.allSettled([
+    committees.getRecentHearings('house'),
+    committees.getRecentHearings('senate'),
+    floor.getRecentActions('house'),
+    floor.getRecentActions('senate'),
+    votes.getRecentVotes('house'),
+    votes.getRecentVotes('senate'),
+    bills.getRecentBills('house'),
+    bills.getRecentBills('senate'),
+  ]);
+  const houseHearings   = requests[0].status === 'fulfilled' ? requests[0].value : null;
+  const senateHearings  = requests[1].status === 'fulfilled' ? requests[1].value : null;
+  const houseActions    = requests[2].status === 'fulfilled' ? requests[2].value : null;
+  const senateActions   = requests[3].status === 'fulfilled' ? requests[3].value : null;
+  const houseVotes      = requests[4].status === 'fulfilled' ? requests[4].value : null;
+  const senateVotes     = requests[5].status === 'fulfilled' ? requests[5].value : null;
+  const houseBills      = requests[6].status === 'fulfilled' ? requests[6].value : null;
+  const senateBills     = requests[7].status === 'fulfilled' ? requests[7].value : null;
+
+  const data = {
+    house: {
+      latestHearing: houseHearings ? houseHearings[0] ?? null : null,
+      latestAction: houseActions ? houseActions[0] ?? null : null,
+      latestVote: houseVotes ? houseVotes[0] ?? null : null,
+      latestBill: houseBills ? houseBills[0] ?? null : null,
+    },
+    senate: {
+      latestHearing: senateHearings ? senateHearings[0] ?? null : null,
+      latestAction: senateActions ? senateActions[0] ?? null : null,
+      latestVote: senateVotes ? senateVotes[0] ?? null : null,
+      latestBill: senateBills ? senateBills[0] ?? null : null,
+    },
+    requests,
+  }
+  return data;
+}
+
+function getHouseMessages({latestHearing, latestAction, latestVote, latestBill}: TypeLatestWork) {
+  let today = formatInDC(getDateInDC(), 'yyyy-MM-dd');
+
+  let hearing = 'There are no hearings scheduled today.';
+  if (latestHearing && formatInDC(getDateInDC(latestHearing.timestamp), 'yyyy-MM-dd') === today) {
+    hearing = `The ${latestHearing.committee.name} is meeting at ${formatInDC(getDateInDC(latestHearing.timestamp), 'p')}.`
+  }
+
+  let action = 'The House has not been in session today.';
+  if (latestAction && formatInDC(getDateInDC(latestAction.timestamp), 'yyyy-MM-dd') === today) {
+    action = `At ${formatInDC(getDateInDC(latestAction.timestamp), 'p')}: ${latestAction.description}`;
+  }
+
+  let bill = 'The House has not acted on any bills today.';
+  if (latestBill && formatInDC(getDateInDC(latestBill.dates.lastActionDate), 'yyyy-MM-dd') === today) {
+    bill = `The ${latestBill.committees} acted on ${latestBill.number}`;
+  }
+
+  let vote = 'The House has not voted on anything today.';
+  if (latestVote && formatInDC(getDateInDC(latestVote.timestamp), 'yyyy-MM-dd') === today) {
+    vote = `The House voted at ${formatInDC(getDateInDC(latestVote.timestamp), 'p')}.`;
+  }
+
+  return {
+    hearing,
+    action,
+    bill,
+    vote,
+  }
+}
+
+function getSenateMessages({latestHearing, latestAction, latestVote, latestBill}: TypeLatestWork) {
+  let today = formatInDC(getDateInDC(), 'yyyy-MM-dd');
+
+  let hearing = 'There are no hearings scheduled today.';
+  if (latestHearing && formatInDC(getDateInDC(latestHearing.timestamp), 'yyyy-MM-dd') === today) {
+    hearing = `The ${latestHearing.committee.name} is meeting at ${formatInDC(getDateInDC(latestHearing.timestamp), 'p')}.`
+  }
+
+  let action = 'The Senate has not been in session today.';
+  if (latestAction && formatInDC(getDateInDC(latestAction.timestamp), 'yyyy-MM-dd') === today) {
+    action = `At ${formatInDC(getDateInDC(latestAction.timestamp), 'p')}: ${latestAction.description}`;
+  }
+
+  let bill = 'The Senate has not acted on any bills today.';
+  if (latestBill && formatInDC(getDateInDC(latestBill.dates.lastActionDate), 'yyyy-MM-dd') === today) {
+    bill = `The ${latestBill.committees} acted on ${latestBill.number}`;
+  }
+
+  let vote = 'The Senate has not voted on anything today.';
+  if (latestVote && formatInDC(getDateInDC(latestVote.timestamp), 'yyyy-MM-dd') === today) {
+    vote = `The Senate voted at ${formatInDC(getDateInDC(latestVote.timestamp), 'p')}.`;
+  }
+
+  return {
+    hearing,
+    action,
+    bill,
+    vote,
+  }
+}
+
 
 export default function IndexPage() {
+  const data = useLoaderData<TypeLoaderData>();
+  console.log(data);
+  
+  const houseMessages = getHouseMessages(data.house);
+  const senateMessages = getSenateMessages(data.senate);
+
   return (
     <div className="page-container">
       <section className="page-topper page-full-width">
@@ -12,19 +136,19 @@ export default function IndexPage() {
             <ul className="chamber-card--links">
               <li className="chamber-card--links__item">
                 <Link to="house/committees">Committee schedules</Link>
-                <span>There are three committee sessions today.</span>
+                <span>{houseMessages.hearing}</span>
               </li>
               <li className="chamber-card--links__item">
                 <Link to="house/floor">Floor proceedings</Link>
-                <span>The House is in session as of 2:48 PM (EST).</span>
+                <span>{houseMessages.action}</span>
               </li>
               <li className="chamber-card--links__item">
                 <Link to="house/votes">Recent votes</Link>
-                <span>The last House vote was on December 15.</span>
+                <span>{houseMessages.vote}.</span>
               </li>
               <li className="chamber-card--links__item">
                 <Link to="house/floor">Recent bills</Link>
-                <span>No bills have been introduced or acted on today.</span>
+                <span>{houseMessages.bill}</span>
               </li>
             </ul>
           </div>
@@ -33,19 +157,19 @@ export default function IndexPage() {
             <ul className="chamber-card--links">
               <li className="chamber-card--links__item">
                 <Link to="senate/committees">Scheduled hearings</Link>
-                <span>There are five hearings scheduled today.</span>
+                <span>{senateMessages.hearing}</span>
               </li>
               <li className="chamber-card--links__item">
                 <Link to="senate/floor">Floor proceedings</Link>
-                <span>The Senate is in session as of 1:15 PM (EST).</span>
+                <span>{senateMessages.action}</span>
               </li>
               <li className="chamber-card--links__item">
                 <Link to="senate/votes">Recent votes</Link>
-                <span>The Senate voted 60-31 in favor of  PN1321.</span>
+                <span>{senateMessages.vote}</span>
               </li>
               <li className="chamber-card--links__item">
                 <Link to="senate/floor">Recent bills</Link>
-                <span>S.3464 was introduced by Rand Paul yesterday.</span>
+                <span>{senateMessages.bill}</span>
               </li>
             </ul>
           </div>
@@ -142,12 +266,12 @@ export default function IndexPage() {
           </p>
           <ul className="section-callout--links">
             <li className="section-callout--links__item">
-              <a href="https://www.house.gov/the-house-explained" target="_blank" rel="noopener noreferer">
+              <a href="https://www.senate.gov/history/origins.htm" target="_blank" rel="noopener noreferer">
                 Learn more about the Senate
               </a>
             </li>
             <li className="section-callout--links__item">
-              <a href="https://www.house.gov/leadership" target="_blank" rel="noopener noreferer">
+              <a href="https://www.senate.gov/senators/leadership.htm" target="_blank" rel="noopener noreferer">
                 Meet the Senate leadership
               </a>
             </li>

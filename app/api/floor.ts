@@ -1,16 +1,23 @@
+import format from "date-fns/format";
 import type { TypeChamber } from "~/types/votes";
 import type { TypeFloorAction, TypeFloorActionResponse } from "~/types/floor";
 
-import { getDateInDC } from '~/util';
+import { formatInDC, getDateInDC } from "~/util";
 import { request } from "./service";
 
-export async function getActionsForDate(chamber: TypeChamber, date: string): Promise<TypeFloorAction[]> {
+export async function getActionsForDate(
+  chamber: TypeChamber,
+  date: Date
+): Promise<TypeFloorAction[]> {
+  const dateString = formatInDC(date, "yyyy/MM/dd");
   let numResults = 20;
   let offset = 0;
   let actions: TypeFloorActionResponse[] = [];
 
   while (numResults === 20) {
-    const json = await request(`/${chamber}/floor_updates/${date}.json?offset=${offset}`);
+    const json = await request(
+      `/${chamber}/floor_updates/${dateString}.json?offset=${offset}`
+    );
 
     numResults = json.results[0].num_results ?? 0;
     offset += 20;
@@ -20,12 +27,14 @@ export async function getActionsForDate(chamber: TypeChamber, date: string): Pro
   return getActionsFromResponse(actions);
 }
 
-export async function getRecentActions(chamber: TypeChamber): Promise<TypeFloorAction[]> {
+export async function getRecentActions(
+  chamber: TypeChamber
+): Promise<TypeFloorAction[]> {
   const json = await request(`/${chamber}/floor_updates.json`);
   const actions: TypeFloorActionResponse[] = json.results[0].floor_actions;
 
-  const mostRecentDate = getDateInDC("yyyy-MM-dd");
-  const recentActions = actions.filter(a => a.date !== mostRecentDate);
+  const mostRecentDate = format(getDateInDC(), "yyyy-MM-dd");
+  const recentActions = actions.filter((a) => a.date !== mostRecentDate);
 
   return getActionsFromResponse(recentActions);
 }
@@ -50,5 +59,5 @@ function getActionsFromResponse(
     });
   }
 
-  return actions;
+  return actions.sort((a1, a2) => Date.parse(a2.timestamp) - Date.parse(a1.timestamp));
 }

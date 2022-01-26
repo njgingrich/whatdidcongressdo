@@ -13,7 +13,7 @@ type TypeLoaderData = {
 
 export const loader: LoaderFunction = async () => {
     let data: TypeLoaderData = {
-        today: await votes.getVotesForDate('house', getDateInDC('yyyy-MM-dd')),
+        today: await votes.getVotesForDate('house', getDateInDC()),
         recent: await votes.getRecentVotes('house'),
     };
     return data;

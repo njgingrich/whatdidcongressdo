@@ -1,7 +1,6 @@
-import format from 'date-fns/format';
-
 import type { TypeParty, TypeVote, TypeVoteObject, TypeVotePosition } from '~/types/votes';
 import ActionCard from "~/components/ActionCard";
+import { formatInDC } from '~/util';
 
 type TypeProps = {
     vote: TypeVote;
@@ -30,11 +29,12 @@ function getVoteRowMarkup(header: string, position: TypeVotePosition, votes: Typ
 }
 
 export default function VoteCard({ vote }: TypeProps) {
-    const timestamp = format(new Date(vote.timestamp), "p");
+    const timestamp = formatInDC(new Date(vote.timestamp), "p");
+    const datestamp = formatInDC(new Date(vote.timestamp), "PPP");
 
     return (
         <ActionCard cardType="vote" data-chamber={vote.chamber}>
-            <time className="action-card--time">{timestamp}</time>
+            <time className="action-card--time">{`${timestamp} - ${datestamp}`}</time>
             <h3 className="action-card--title">{vote.title}</h3>
             {vote.subtitle ?? <span className="action-card--subtitle">{vote.subtitle}</span>}
             <p className="action-card--description" dangerouslySetInnerHTML={{__html: vote.description }} />

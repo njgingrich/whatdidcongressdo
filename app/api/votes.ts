@@ -1,8 +1,4 @@
 import format from "date-fns/format";
-
-// import mockSenateDateVotesResponse from "~/test/cassettes/votes/senate_date.json";
-import mockHouseRecentVotesResponse from "~/test/cassettes/votes/house_recent.json";
-
 import {
   EnumQuestionType,
   TypeChamber,
@@ -10,16 +6,22 @@ import {
   TypeVoteResponse,
   TypeVoteType,
 } from "~/types/votes";
-import { getDateInDC } from "~/util";
+import { formatInDC, getDateInDC } from "~/util";
 import { request } from "./service";
 
-export async function getVotesForDate(chamber: TypeChamber, date: string): Promise<TypeVote[]> {
+export async function getVotesForDate(
+  chamber: TypeChamber,
+  date: Date
+): Promise<TypeVote[]> {
+  const dateString = formatInDC(date, "yyyy-MM-dd");
   let numResults = 20;
   let offset = 0;
   let votes: TypeVoteResponse[] = [];
 
   while (numResults === 20) {
-    const json = await request(`/${chamber}/votes/${date}/${date}?offset=${offset}`);
+    const json = await request(
+      `/${chamber}/votes/${dateString}/${dateString}?offset=${offset}`
+    );
 
     numResults = json.results.num_results ?? 0;
     offset += 20;
@@ -29,12 +31,14 @@ export async function getVotesForDate(chamber: TypeChamber, date: string): Promi
   return getVotesFromResponse(votes);
 }
 
-export async function getRecentVotes(chamber: TypeChamber): Promise<TypeVote[]> {
+export async function getRecentVotes(
+  chamber: TypeChamber
+): Promise<TypeVote[]> {
   const json = await request(`/${chamber}/votes/recent.json`);
   const votes: TypeVoteResponse[] = json.results.votes;
 
-  const mostRecentDate = getDateInDC("yyyy-MM-dd");
-  const recentVotes = votes.filter(v => v.date !== mostRecentDate);
+  const mostRecentDate = getDateInDC();
+  const recentVotes = votes.filter((v) => v.date !== format(mostRecentDate, "yyyy-MM-dd"));
 
   return getVotesFromResponse(recentVotes);
 }

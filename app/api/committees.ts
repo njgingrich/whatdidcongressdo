@@ -1,21 +1,23 @@
+import format from "date-fns/format";
 import type { TypeChamber } from "~/types/votes";
 import { TypeHearing, TypeHearingResponse } from "~/types/committees";
 
 import { request } from "~/api/service";
-import { getDateInDC } from "~/util";
+import { formatInDC, getDateInDC } from "~/util";
 
-export async function getHearingsForDate(chamber: TypeChamber, date: string): Promise<TypeHearing[]> {
-    let lastDate = date;
+export async function getHearingsForDate(chamber: TypeChamber, date: Date): Promise<TypeHearing[]> {
+    const dateString = formatInDC(date, 'yyyy-MM-dd');
+    let lastDate = dateString;
     let offset = 0;
     let hearings: TypeHearingResponse[] = [];
 
-    while (lastDate === date) {
+    while (lastDate === dateString) {
         const json = await request(`/117/committees/hearings.json?offset=${offset}`);
 
         json.results[0].hearings.forEach((hearing: TypeHearingResponse) => {
             lastDate = hearing.date;
 
-            if (hearing.chamber.toLowerCase() === chamber && hearing.date === date) {
+            if (hearing.chamber.toLowerCase() === chamber && hearing.date === dateString) {
                 hearings.push(hearing);
             }
         })
@@ -30,10 +32,20 @@ export async function getRecentHearings(chamber: TypeChamber): Promise<TypeHeari
   const json = await request('/117/committees/hearings.json');
   const hearings: TypeHearingResponse[] = json.results[0].hearings;
 
-  const mostRecentDate = getDateInDC("yyyy-MM-dd");
-  const recentBills = hearings.filter((h) => h.date !== mostRecentDate);
+  const mostRecentDate = getDateInDC();
+  const chamberHearings = hearings.filter(
+    (h) => h.chamber.toLowerCase() === chamber
+  );
+  const recentHearings = chamberHearings.filter(
+    (h) => h.date !== format(mostRecentDate, "yyyy-MM-dd")
+  );
+  const recentPastHearings = recentHearings.filter(
+    (hearing) =>
+      getDateInDC(hearing.date).getTime() <
+      getDateInDC().getTime()
+  );
 
-  return getHearingsFromResponse(recentBills);
+  return getHearingsFromResponse(recentPastHearings);
 }
 
 function getHearingsFromResponse(res: TypeHearingResponse[]): TypeHearing[] {
