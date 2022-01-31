@@ -30,17 +30,18 @@ export async function getBillsForDate(
 }
 
 export async function getRecentBills(
-  chamber: TypeChamber
+  chamber: TypeChamber,
+  options: {includeToday: boolean} = {includeToday: false}
 ): Promise<TypeBill[]> {
   const json = await request(`/117/${chamber}/bills/updated.json`);
-  const bills: TypeBillResponse[] = json.results[0].bills;
+  let bills: TypeBillResponse[] = json.results[0].bills;
 
-  const mostRecentDate = getDateInDC();
-  const recentBills = bills.filter(
-    (b) => b.latest_major_action_date !== format(mostRecentDate, "yyyy-MM-dd")
-  );
+  const today = format(getDateInDC(), "yyyy-MM-dd");
+  if (options.includeToday === false) {
+    bills = bills.filter((b) => b.latest_major_action_date !== today);
+  }
 
-  return getBillsFromResponse(recentBills);
+  return getBillsFromResponse(bills);
 }
 
 function getBillsFromResponse(billResponses: TypeBillResponse[]): TypeBill[] {

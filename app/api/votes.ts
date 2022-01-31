@@ -32,15 +32,18 @@ export async function getVotesForDate(
 }
 
 export async function getRecentVotes(
-  chamber: TypeChamber
+  chamber: TypeChamber,
+  options: { includeToday: boolean } = { includeToday: false }
 ): Promise<TypeVote[]> {
   const json = await request(`/${chamber}/votes/recent.json`);
-  const votes: TypeVoteResponse[] = json.results.votes;
+  let votes: TypeVoteResponse[] = json.results.votes;
 
-  const mostRecentDate = getDateInDC();
-  const recentVotes = votes.filter((v) => v.date !== format(mostRecentDate, "yyyy-MM-dd"));
+  const today = format(getDateInDC(), "yyyy-MM-dd");
+  if (options.includeToday === false) {
+    votes = votes.filter((v) => v.date !== today);
+  }
 
-  return getVotesFromResponse(recentVotes);
+  return getVotesFromResponse(votes);
 }
 
 function getVotesFromResponse(voteResponses: TypeVoteResponse[]): TypeVote[] {

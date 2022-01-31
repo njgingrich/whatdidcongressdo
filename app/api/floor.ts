@@ -28,15 +28,18 @@ export async function getActionsForDate(
 }
 
 export async function getRecentActions(
-  chamber: TypeChamber
+  chamber: TypeChamber,
+  options: {includeToday: boolean} = {includeToday: false}
 ): Promise<TypeFloorAction[]> {
   const json = await request(`/${chamber}/floor_updates.json`);
-  const actions: TypeFloorActionResponse[] = json.results[0].floor_actions;
+  let actions: TypeFloorActionResponse[] = json.results[0].floor_actions;
 
-  const mostRecentDate = format(getDateInDC(), "yyyy-MM-dd");
-  const recentActions = actions.filter((a) => a.date !== mostRecentDate);
+  const today = format(getDateInDC(), "yyyy-MM-dd");
+  if (options.includeToday === false) {
+    actions = actions.filter((a) => a.date !== today);
+  }
 
-  return getActionsFromResponse(recentActions);
+  return getActionsFromResponse(actions);
 }
 
 function getActionsFromResponse(

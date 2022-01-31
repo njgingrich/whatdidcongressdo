@@ -28,24 +28,24 @@ export async function getHearingsForDate(chamber: TypeChamber, date: Date): Prom
     return getHearingsFromResponse(hearings);
 }
 
-export async function getRecentHearings(chamber: TypeChamber): Promise<TypeHearing[]> {
-  const json = await request('/117/committees/hearings.json');
-  const hearings: TypeHearingResponse[] = json.results[0].hearings;
+export async function getRecentHearings(
+  chamber: TypeChamber,
+  options: { includeToday: boolean } = { includeToday: false }
+): Promise<TypeHearing[]> {
+  const json = await request("/117/committees/hearings.json");
+  let hearings: TypeHearingResponse[] = json.results[0].hearings;
 
-  const mostRecentDate = getDateInDC();
-  const chamberHearings = hearings.filter(
-    (h) => h.chamber.toLowerCase() === chamber
-  );
-  const recentHearings = chamberHearings.filter(
-    (h) => h.date !== format(mostRecentDate, "yyyy-MM-dd")
-  );
-  const recentPastHearings = recentHearings.filter(
-    (hearing) =>
-      getDateInDC(hearing.date).getTime() <
-      getDateInDC().getTime()
+  hearings = hearings.filter((h) => h.chamber.toLowerCase() === chamber);
+  hearings = hearings.filter(
+    (hearing) => getDateInDC(hearing.date).getTime() < getDateInDC().getTime()
   );
 
-  return getHearingsFromResponse(recentPastHearings);
+  const today = format(getDateInDC(), "yyyy-MM-dd");
+  if (options.includeToday === false) {
+    hearings = hearings.filter((h) => h.date !== today);
+  }
+
+  return getHearingsFromResponse(hearings);
 }
 
 function getHearingsFromResponse(res: TypeHearingResponse[]): TypeHearing[] {
