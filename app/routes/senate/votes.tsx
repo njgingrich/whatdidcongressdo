@@ -31,7 +31,7 @@ export default function SenateVotesPage() {
             <ChamberPage
                 today={data.today}
                 recent={data.recent}
-                emptyMessage="The Senate has not done anything today. Check out the Recent tab to see their latest actions."
+                emptyMessage="The Senate has not done anything today. Check out the Recent tab to see the most recent votes."
                 ListComponent={ListComponent}
             />
         </main>

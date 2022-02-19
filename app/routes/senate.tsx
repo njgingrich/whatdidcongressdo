@@ -21,6 +21,9 @@ export default function HouseIndexPage() {
                 <nav className="side-navigation">
                     <ul className="side-navigation--list">
                         <li className="side-navigation--list__item">
+                            <NavLink to="" end>Overview</NavLink>
+                        </li>
+                        <li className="side-navigation--list__item">
                             <NavLink to="floor">Floor proceedings</NavLink>
                         </li>
                         <li className="side-navigation--list__item">

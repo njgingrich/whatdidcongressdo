@@ -7,5 +7,18 @@ const headers = {
 
 export async function request(route: string) {
     const res = await fetch(`${BASE_URL}${route}`, {headers});
-    return res.json();
+    let text = await res.text();
+    let json;
+
+    try {
+        json = JSON.parse(text);
+        return json;
+    } catch (err: any) {
+        if (err.message && err.message.includes("Unexpected token")) {
+            text = text.replace(/\n\t+(?=[\w\d])/g, "\n");
+            return JSON.parse(text.replace(/\n\n/g, "\\n"));
+        } else {
+            throw new Error('Unexpected JSON input.');
+        }
+    }
 }
