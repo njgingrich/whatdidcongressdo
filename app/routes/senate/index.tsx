@@ -46,7 +46,7 @@ export default function SenateIndexPage() {
       <h2>Votes</h2>
         <ul>
           {data.votes.map(vote => (
-            <li>
+            <li key={vote.subtitle || vote.title}>
               <div>
                 <span>{vote.subtitle || vote.title}</span>
                 <span>
@@ -59,7 +59,7 @@ export default function SenateIndexPage() {
       <h2>Bills</h2>
       <ul>
         {data.bills.map(bill => (
-          <li>
+          <li key={bill.id}>
             <div>
               <span>{bill.shortTitle}</span>
               <span>{bill.number}</span>
@@ -72,7 +72,7 @@ export default function SenateIndexPage() {
       <h2>Floor Proceedings</h2>
       <ul>
         {data.actions.map(action => (
-          <li>
+          <li key={action.description}>
             <div>
               <span>{action.description}</span>
             </div>

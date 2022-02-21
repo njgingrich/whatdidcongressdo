@@ -7,6 +7,7 @@
     "build": "remix build",
     "dev": "node -r dotenv/config node_modules/.bin/remix dev",
     "postinstall": "remix setup node",
+    "deploy": "fly deploy",
     "start": "remix-serve build"
   },
   "dependencies": {

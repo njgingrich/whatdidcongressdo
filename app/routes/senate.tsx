@@ -11,7 +11,7 @@ export const links: LinksFunction = () => {
     ]
 }
 
-export default function HouseIndexPage() {
+export default function SenateIndexPage() {
     return (
         <div className="page-container" data-chamber="senate">
             <div className="page-full-width chamber-banner">

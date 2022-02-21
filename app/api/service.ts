@@ -6,6 +6,10 @@ const headers = {
 };
 
 export async function request(route: string) {
+    console.log({
+      route: `${BASE_URL}${route}`,
+      headers,
+    });
     const res = await fetch(`${BASE_URL}${route}`, {headers});
     let text = await res.text();
     let json;
