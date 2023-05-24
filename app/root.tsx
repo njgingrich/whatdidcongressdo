@@ -15,7 +15,7 @@ import appStyles from '~/styles/app.css';
 import componentStyles from '~/styles/components.css';
 
 export const meta: MetaFunction = () => {
-  return { title: "New Remix App" };
+  return { title: "What Did Congress Do?" };
 };
 
 export const links: LinksFunction = () => {
