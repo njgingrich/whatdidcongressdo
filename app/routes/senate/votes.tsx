@@ -1,4 +1,4 @@
-import { useLoaderData } from "remix";
+import { useLoaderData } from "@remix-run/react";
 
 import {votes} from '~/api';
 import ChamberPage from "~/components/ChamberPage";

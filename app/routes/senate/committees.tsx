@@ -1,4 +1,4 @@
-import {  useLoaderData } from "remix";
+import { useLoaderData } from "@remix-run/react";
 
 import {committees} from '~/api';
 import HearingCard from "~/components/HearingCard";

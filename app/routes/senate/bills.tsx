@@ -1,4 +1,4 @@
-import { useLoaderData } from "remix";
+import { useLoaderData } from "@remix-run/react";
 
 import {bills} from '~/api';
 import BillCard from "~/components/BillCard";

@@ -1,5 +1,5 @@
-import { NavLink, Outlet } from "remix";
-import type { LinksFunction } from "remix";
+import { type LinksFunction } from "@remix-run/node";
+import { NavLink, Outlet } from "@remix-run/react";
 
 import chamberStyles from '~/styles/chamber.css';
 import tabsStyles from "@reach/tabs/styles.css";

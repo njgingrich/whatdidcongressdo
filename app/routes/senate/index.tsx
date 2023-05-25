@@ -1,4 +1,4 @@
-import { useLoaderData } from "remix";
+import { useLoaderData } from "@remix-run/react";
 
 import { bills, committees, floor, votes } from "~/api";
 import { TypeBill } from "~/types/bills";
