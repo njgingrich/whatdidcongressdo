@@ -1,4 +1,4 @@
-import { LoaderFunction, useLoaderData } from "remix";
+import { useLoaderData } from "remix";
 
 import {committees} from '~/api';
 import HearingCard from "~/components/HearingCard";
@@ -12,7 +12,7 @@ type TypeLoaderData = {
     recent: TypeHearing[];
 }
 
-export const loader: LoaderFunction = async () => {
+export const loader = async () => {
     const data: TypeLoaderData = {
         today: await committees.getHearingsForDate('house', getDateInDC()),
         recent: await committees.getRecentHearings('house'),

@@ -1,4 +1,4 @@
-import { Link, LoaderFunction, useLoaderData } from "remix";
+import { Link, useLoaderData } from "remix";
 import { bills, committees, floor, votes } from "~/api";
 import { TypeBill } from "~/types/bills";
 import { TypeHearing } from "~/types/committees";
@@ -17,7 +17,7 @@ type TypeLoaderData = {
   senate: TypeLatestWork;
 }
 
-export const loader: LoaderFunction = async () => {
+export const loader = async () => {
   const date = getDateInDC();
 
   const requests = await Promise.allSettled([

@@ -1,4 +1,4 @@
-import { LoaderFunction, useLoaderData } from "remix";
+import { useLoaderData } from "remix";
 
 import {votes} from '~/api';
 import ChamberPage from "~/components/ChamberPage";
@@ -11,7 +11,7 @@ type TypeLoaderData = {
     recent: TypeVote[];
 }
 
-export const loader: LoaderFunction = async () => {
+export const loader = async () => {
     let data: TypeLoaderData = {
         today: await votes.getVotesForDate('senate', getDateInDC()),
         recent: await votes.getRecentVotes('senate'),

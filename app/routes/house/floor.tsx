@@ -1,4 +1,4 @@
-import { LoaderFunction, useLoaderData } from "remix";
+import { useLoaderData } from "remix";
 
 import {floor} from '~/api';
 import FloorActionCard from "~/components/FloorActionCard";
@@ -12,7 +12,7 @@ type TypeLoaderData = {
     recent: TypeFloorAction[];
 }
 
-export const loader: LoaderFunction = async () => {
+export const loader = async () => {
     const actions = await floor.getActionsForDate('house', getDateInDC());
     const recent = await floor.getRecentActions('house');
 

@@ -1,4 +1,4 @@
-import { LoaderFunction, useLoaderData } from "remix";
+import { useLoaderData } from "remix";
 
 import { bills, committees, floor, votes } from "~/api";
 import { TypeBill } from "~/types/bills";
@@ -15,7 +15,7 @@ type TypeLoaderData = {
     actions: TypeFloorAction[];
 };
 
-export const loader: LoaderFunction = async () => {
+export const loader = async () => {
   const date = getDateInDC('2022-02-10');
   const results = await Promise.allSettled([
     committees.getHearingsForDate("senate", date),

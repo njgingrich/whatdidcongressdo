@@ -1,13 +1,5 @@
-import {
-  Link,
-  Links,
-  LiveReload,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration
-} from "remix";
-import type { LinksFunction, MetaFunction } from "remix";
+import { type LinksFunction, type MetaFunction } from "@remix-run/node";
+import { Link, Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 
 import HeaderNav from "~/components/HeaderNav";
 

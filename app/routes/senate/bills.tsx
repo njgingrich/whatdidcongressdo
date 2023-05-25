@@ -1,4 +1,4 @@
-import { LoaderFunction, useLoaderData } from "remix";
+import { useLoaderData } from "remix";
 
 import {bills} from '~/api';
 import BillCard from "~/components/BillCard";
@@ -12,7 +12,7 @@ type TypeLoaderData = {
     recent: TypeBill[];
 }
 
-export const loader: LoaderFunction = async () => {
+export const loader = async () => {
     const data: TypeLoaderData = {
         today: await bills.getBillsForDate('senate', getDateInDC()),
         recent: await bills.getRecentBills('senate'),
