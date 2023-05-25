@@ -6,22 +6,28 @@ import { TypeBill } from "~/types/bills";
 import { getDateInDC } from "~/util";
 
 import ChamberPage from "~/components/ChamberPage";
+import { getBills } from "~/api/v2/bills";
 
 type TypeLoaderData = {
     today: TypeBill[];
     recent: TypeBill[];
+    test: any;
 }
 
 export const loader = async () => {
+    const test = await getBills('house');
+
     const data: TypeLoaderData = {
         today: await bills.getBillsForDate('house', getDateInDC()),
         recent: await bills.getRecentBills('house'),
+        test,
     };
     return data;
 }
 
 export default function HouseBillsPage() {
     const data = useLoaderData<TypeLoaderData>();
+    console.log(data.test);
 
     function ListComponent({ data }: {data: any}) {
         return <BillCard bill={data} />

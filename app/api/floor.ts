@@ -19,6 +19,7 @@ export async function getActionsForDate(
       `/${chamber}/floor_updates/${dateString}.json?offset=${offset}`
     );
 
+    console.log(json);
     numResults = json.results[0].num_results ?? 0;
     offset += 20;
     actions.push(...json.results[0].floor_actions);

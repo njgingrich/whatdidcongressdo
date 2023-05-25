@@ -1,4 +1,4 @@
-import { type LinksFunction, type MetaFunction } from "@remix-run/node";
+import { type LinksFunction, type V2_MetaFunction } from "@remix-run/node";
 import { Link, Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 
 import HeaderNav from "~/components/HeaderNav";
@@ -6,8 +6,8 @@ import HeaderNav from "~/components/HeaderNav";
 import appStyles from '~/styles/app.css';
 import componentStyles from '~/styles/components.css';
 
-export const meta: MetaFunction = () => {
-  return { title: "What Did Congress Do?" };
+export const meta: V2_MetaFunction = () => {
+  return [{ title: "What Did Congress Do?" }];
 };
 
 export const links: LinksFunction = () => {
