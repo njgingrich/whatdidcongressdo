@@ -3,7 +3,7 @@ import {z} from 'zod';
 export const BaseResponseSchema = z.object({
     pagination: z.object({
         count: z.number(),
-        next: z.string().url(),
+        next: z.string().url().optional(),
     }),
     request: z.object({
         congress: z.coerce.string().optional(),

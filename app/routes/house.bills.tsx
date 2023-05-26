@@ -6,7 +6,7 @@ import { TypeBill } from "~/types/bills";
 import { getDateInDC } from "~/util";
 
 import ChamberPage from "~/components/ChamberPage";
-import { getBills } from "~/api/v2/bills";
+import { getBillsForDate } from "~/api/v2/bills";
 
 type TypeLoaderData = {
     today: TypeBill[];
@@ -15,7 +15,7 @@ type TypeLoaderData = {
 }
 
 export const loader = async () => {
-    const test = await getBills('house');
+    const test = await getBillsForDate('house', new Date());
 
     const data: TypeLoaderData = {
         today: await bills.getBillsForDate('house', getDateInDC()),
