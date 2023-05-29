@@ -1,0 +1,16 @@
+---
+import SenateLayout from '~/layouts/senate.astro';
+import ChamberPage from "~/components/ChamberPage";
+import { getBillsForDate } from "~/api/v2/bills";
+
+const data = await getBillsForDate('senate', new Date());
+---
+<SenateLayout>
+    <main>
+        <ChamberPage
+            today={[]}
+            recent={[]}
+            emptyMessage="The Senate has not taken action on any bills today. Check out the Recent tab to see what bills have been updated recently."
+        />
+    </main>
+</SenateLayout>

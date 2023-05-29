@@ -1,0 +1,38 @@
+---
+// export const loader = async () => {
+//   const date = getDateInDC('2022-02-10');
+//   const results = await Promise.allSettled([
+//     committees.getHearingsForDate("senate", date),
+//     votes.getVotesForDate("senate", date),
+//     bills.getBillsForDate("senate", date),
+//     floor.getActionsForDate("senate", date),
+//   ]);
+
+//   const hearingsResult = results[0].status === 'fulfilled' ? results[0].value : [];
+//   const votesResult = results[1].status === 'fulfilled' ? results[1].value : [];
+//   const billsResult = results[2].status === 'fulfilled' ? results[2].value : [];
+//   const floorResult = results[3].status === 'fulfilled' ? results[3].value : [];
+//   const data: TypeLoaderData = {
+//     hearings: hearingsResult,
+//     votes: votesResult,
+//     bills: billsResult,
+//     actions: floorResult,
+//   };
+
+//   return data;
+import SenateLayout from '~/layouts/senate.astro';
+---
+<SenateLayout>
+  <main>
+    <h2>Votes</h2>
+      <ul>
+      </ul>
+    <h2>Bills</h2>
+    <ul>
+    </ul>
+    <h2>Committees</h2>
+    <h2>Floor Proceedings</h2>
+    <ul>
+    </ul>
+  </main>
+</SenateLayout>

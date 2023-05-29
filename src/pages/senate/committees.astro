@@ -1,0 +1,13 @@
+---
+import SenateLayout from '~/layouts/senate.astro';
+import ChamberPage from "~/components/ChamberPage";
+---
+<SenateLayout>
+    <main>
+        <ChamberPage
+            today={[]}
+            recent={[]}
+            emptyMessage="The Senate has no hearings scheduled today. Check out the Recent tab to see the latest hearings."
+        />
+    </main>
+</SenateLayout>

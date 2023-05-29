@@ -1,0 +1,13 @@
+---
+import HouseLayout from '~/layouts/house.astro';
+import ChamberPage from "~/components/ChamberPage";
+---
+<HouseLayout>
+    <main>
+        <ChamberPage
+            today={[]}
+            recent={[]}
+            emptyMessage="The House has not voted on anything today. Check out the Recent tab to see the latest votes."
+        />
+    </main>
+</HouseLayout>

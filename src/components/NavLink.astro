@@ -1,0 +1,5 @@
+---
+const pathname = new URL(Astro.request.url).pathname;
+const {href, class: className} = Astro.props;
+---
+<a href={href} class:list={{active: href === pathname, className}}><slot /></a>

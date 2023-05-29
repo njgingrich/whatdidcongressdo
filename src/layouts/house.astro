@@ -1,0 +1,36 @@
+---
+import '../styles/chamber.css';
+import "@reach/tabs/styles.css";
+
+import RootLayout from './root.astro';
+import NavLink from '~/components/NavLink.astro';
+---
+<RootLayout>
+    <div class="page-container" data-chamber="house">
+        <div class="page-full-width chamber-banner">
+            <h1 class="chamber-banner--header">House of Representatives</h1>
+        </div>
+        <div class="page-content chamber-container">
+            <nav class="side-navigation">
+                <ul class="side-navigation--list">
+                    <li class="side-navigation--list__item">
+                        <NavLink href="/house">Overview</NavLink>
+                    </li>
+                    <li class="side-navigation--list__item">
+                        <NavLink href="/house/floor">Floor proceedings</NavLink>
+                    </li>
+                    <li class="side-navigation--list__item">
+                        <NavLink href="/house/votes">Votes</NavLink>
+                    </li>
+                    <li class="side-navigation--list__item">
+                        <NavLink href="/house/bills">Bills</NavLink>
+                    </li>
+                    <li class="side-navigation--list__item">
+                        <NavLink href="/house/committees">Committees</NavLink>
+                    </li>
+                </ul>
+            </nav>
+            <slot />
+        </div>
+    </div>
+</RootLayout>

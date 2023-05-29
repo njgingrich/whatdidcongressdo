@@ -1,0 +1,36 @@
+---
+import '../styles/chamber.css';
+import "@reach/tabs/styles.css";
+
+import RootLayout from './root.astro';
+import NavLink from '~/components/NavLink.astro';
+---
+<RootLayout>
+    <div class="page-container" data-chamber="senate">
+        <div class="page-full-width chamber-banner">
+            <h1 class="chamber-banner--header">Senate</h1>
+        </div>
+        <div class="page-content chamber-container">
+            <nav class="side-navigation">
+                <ul class="side-navigation--list">
+                    <li class="side-navigation--list__item">
+                        <NavLink href="/senate">Overview</NavLink>
+                    </li>
+                    <li class="side-navigation--list__item">
+                        <NavLink href="/senate/floor">Floor proceedings</NavLink>
+                    </li>
+                    <li class="side-navigation--list__item">
+                        <NavLink href="/senate/votes">Votes</NavLink>
+                    </li>
+                    <li class="side-navigation--list__item">
+                        <NavLink href="/senate/bills">Bills</NavLink>
+                    </li>
+                    <li class="side-navigation--list__item">
+                        <NavLink href="/senate/committees">Committees</NavLink>
+                    </li>
+                </ul>
+            </nav>
+            <slot />
+        </div>
+    </div>
+</RootLayout>
