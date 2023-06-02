@@ -1,1 +1,1 @@
-DROP TABLE requests;
+DROP TABLE IF EXISTS requests;

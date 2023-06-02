@@ -4,10 +4,13 @@ import ChamberPage from "~/components/ChamberPage";
 import { getBillsForDate } from "~/api/v2/bills";
 
 const data = await getBillsForDate('house', new Date());
+import { Debug } from 'astro/components';
 ---
 <HouseLayout>
+    <Debug bills={data} />
     <main>
         <ChamberPage
+            client:load
             today={[]}
             recent={[]}
             emptyMessage="The House has not taken action on any bills today. Check out the Recent tab to see what bills have been updated recently."

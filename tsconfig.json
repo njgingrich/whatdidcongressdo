@@ -1,5 +1,5 @@
 {
-  // "include": ["**/*.ts", "**/*.tsx", "**/*.astro"],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.astro"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2021"],
     "isolatedModules": true,
