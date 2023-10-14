@@ -2,14 +2,13 @@ import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@reach/tabs";
 
 import EmptyState from "~/components/EmptyState";
 import BillCard from '~/components/BillCard';
+import { TypeBill } from "~/api/v2/schemas/bill";
 
-type TypeProps = {
-    today: any[];
-    recent: any[];
+interface TypeProps {
+    today: TypeBill[];
+    recent: TypeBill[];
     emptyMessage: string;
 }
-
-const ListComponent = (data: any) => <BillCard bill={data} />;
 
 export default function ChamberPage({ today, recent, emptyMessage }: TypeProps) {
     return (
@@ -28,18 +27,18 @@ export default function ChamberPage({ today, recent, emptyMessage }: TypeProps) 
                         <EmptyState message={emptyMessage} />
                     )}
                     <ul className="action-card--list">
-                        {today.map(action => (
-                            <li className="action-card--list__item" key={action.description}>
-                                <ListComponent data={action} />
+                        {today.map(item => (
+                            <li className="action-card--list__item">
+                                <BillCard bill={item} />
                             </li>
                         ))}
                     </ul>
                 </TabPanel>
                 <TabPanel>
                     <ul className="action-card--list">
-                        {recent.map(action => (
-                            <li className="action-card--list__item" key={action.description}>
-                                <ListComponent data={action} />
+                        {recent.map(item => (
+                            <li className="action-card--list__item">
+                                <BillCard bill={item} />
                             </li>
                         ))}
                     </ul>

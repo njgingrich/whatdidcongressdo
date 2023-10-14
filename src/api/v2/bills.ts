@@ -3,7 +3,7 @@ import asyncPool from 'tiny-async-pool';
 
 import { TypeChamber } from "~/types/votes";
 import { PaginationOptions, apiPath, request } from "./service";
-import { BillSchema, BillResponseSchema, SingleBillResponseSchema, TypeDetailSchemaKey, BillActionsResponseSchema, BillCommitteesResponseSchema, BillCosponsorsResponseSchema, BillRelatedBillsResponseSchema, BillSummariesResponseSchema, BillTextResponseSchema, BillSubjectsResponseSchema } from "./schemas/bill";
+import { BillSchema, BillResponseSchema, SingleBillResponseSchema, TypeDetailSchemaKey, BillActionsDetailSchema, BillCommitteesDetailSchema, BillCosponsorsDetailSchema, BillRelatedBillsDetailSchema, BillSummariesDetailSchema, BillTextDetailSchema, BillSubjectsDetailSchema, FullSingleBillSchema } from "./schemas/bill";
 import { formatInDC } from "~/util";
 
 const CONGRESS = process.env.CONGRESS ?? 118;
@@ -27,8 +27,76 @@ async function _getBillsResponse(paginationOptions?: PaginationOptions) {
     }
 }
 
+const DETAIL_PROPERTIES: TypeDetailSchemaKey[] = [
+    'actions',
+    'committees',
+    'cosponsors',
+    'relatedBills',
+    'subjects',
+    'summaries',
+    'textVersions',
+    'titles'
+];
+const DetailSchemaMap = {
+    actions: BillActionsDetailSchema,
+    committees: BillCommitteesDetailSchema,
+    cosponsors: BillCosponsorsDetailSchema,
+    relatedBills: BillRelatedBillsDetailSchema,
+    subjects: BillSubjectsDetailSchema,
+    summaries: BillSummariesDetailSchema,
+    textVersions: BillTextDetailSchema,
+    titles: BillTextDetailSchema,
+} as const;
+
+async function getBillData(bill: z.infer<typeof BillSchema>) {
+    const res = await request(apiPath(bill.url), {cache: true});
+    const parsed = SingleBillResponseSchema.safeParse(res);
+    
+    if (!parsed.success) {
+        console.error(`Error when parsing ${apiPath(bill.url)}:`, parsed.error);
+        return;
+    }
+
+    // Get the different attributes
+    const urls: string[] = [];
+    for (let property of DETAIL_PROPERTIES) {
+        const url = parsed.data.bill[property]?.url;
+        if (url !== undefined) {
+            urls.push(url);
+        }
+    }
+
+    const relatedData = await asyncPoolAll(5, urls, (url) => request(apiPath(url), {cache: true}));
+
+    const singleBill = parsed.data.bill;
+    const combined = Object.assign({}, singleBill);
+
+    for (let property of DETAIL_PROPERTIES) {
+        const Schema = DetailSchemaMap[property];
+        let propertyData = relatedData.find(el => Object.keys(el).includes(property));
+        if (propertyData) {
+            const relatedParsed = Schema.safeParse(propertyData);
+            if (!relatedParsed.success) {
+                console.error(`Error when parsing ${property} for ${apiPath(bill.url)}:`, relatedParsed.error);
+            } else {
+                // @ts-ignore we're just deep merging and then safeparsing it later anyway
+                combined[property] = Object.assign(combined[property], {data: relatedParsed.data});
+            }
+        }
+    }
+
+    const fullSchemaParsed = FullSingleBillSchema.safeParse(combined);
+    if (!fullSchemaParsed.success) {
+        console.error(combined);
+        console.error(`Error when parsing full schema for ${apiPath(bill.url)}:`, fullSchemaParsed.error);
+        return;
+    }
+
+    return fullSchemaParsed.data;
+}
+
 export async function getBillsForDate(chamber: TypeChamber, date: Date) {
-    const formattedDate = '2023-05-25'; // formatInDC(date, 'yyyy-MM-dd');
+    const formattedDate = '2023-10-11'; // formatInDC(date, 'yyyy-MM-dd');
     let responseDate = formattedDate;
     let todayBills: z.infer<typeof BillSchema>[] = [];
     let paginationOptions = {
@@ -63,39 +131,23 @@ export async function getBillsForDate(chamber: TypeChamber, date: Date) {
     return asyncPoolAll(10, todayBills, getBillData);
 }
 
-const DETAIL_PROPERTIES: TypeDetailSchemaKey[] = ['actions', 'committees', 'cosponsors', 'relatedBills', 'subjects', 'summaries', 'textVersions', 'titles'];
-const DetailSchemaMap: Record<TypeDetailSchemaKey, ZodSchema> = {
-    actions: BillActionsResponseSchema,
-    committees: BillCommitteesResponseSchema,
-    cosponsors: BillCosponsorsResponseSchema,
-    relatedBills: BillRelatedBillsResponseSchema,
-    subjects: BillSubjectsResponseSchema,
-    summaries: BillSummariesResponseSchema,
-    textVersions: BillTextResponseSchema,
-    titles: BillTextResponseSchema,
-} 
-export async function getBillData(bill: z.infer<typeof BillSchema>) {
-    const res = await request(apiPath(bill.url), {cache: true});
-    const parsed = SingleBillResponseSchema.safeParse(res);
-    
-    if (!parsed.success) {
-        console.error(`Error when parsing ${apiPath(bill.url)}:`, parsed.error);
-        return;
+export async function getRecentBills(chamber: TypeChamber) {
+    let recentBills: z.infer<typeof BillSchema>[] = [];
+    let paginationOptions = {
+        limit: 10,
+        offset: 0,
+    };
+
+    const bills = await _getBillsResponse(paginationOptions);
+    if (bills) {
+        recentBills.push(...bills);
     }
 
-    // Get the different attributes
-    const urls: string[] = [];
-    for (let property of DETAIL_PROPERTIES) {
-        const url = parsed.data.bill[property]?.url;
-        if (url !== undefined) {
-            urls.push(url);
-        }
-    }
+    // Filter by chamber
+    recentBills = recentBills.filter(bill => {
+        return bill.originChamber.toLocaleLowerCase() === chamber.toLocaleLowerCase()
+    });
 
-    const [actions, committees] = await asyncPoolAll(5, urls, (url) => request(apiPath(url), {cache: true}));
-
-    const singleBill = parsed.data.bill;
-    const combined = Object.assign({}, singleBill, {actions, committees});
-
-    return singleBill;
+    console.log('asyncing:', recentBills.length, 'items');
+    return asyncPoolAll(10, recentBills, getBillData);
 }

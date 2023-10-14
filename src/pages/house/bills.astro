@@ -1,19 +1,21 @@
 ---
 import HouseLayout from '~/layouts/house.astro';
 import ChamberPage from "~/components/ChamberPage";
-import { getBillsForDate } from "~/api/v2/bills";
+import { getBillsForDate, getRecentBills } from "~/api/v2/bills";
 
-const data = await getBillsForDate('house', new Date());
+// const data = await getBillsForDate('house', new Date());
+const recent = await getRecentBills('house');
 import { Debug } from 'astro/components';
+import { TypeBill } from '~/api/v2/schemas/bill';
 ---
 <HouseLayout>
-    <Debug bills={data} />
     <main>
         <ChamberPage
             client:load
             today={[]}
-            recent={[]}
+            recent={recent as TypeBill[]}
             emptyMessage="The House has not taken action on any bills today. Check out the Recent tab to see what bills have been updated recently."
         />
+        <!-- <Debug bills={recent} /> -->
     </main>
 </HouseLayout>

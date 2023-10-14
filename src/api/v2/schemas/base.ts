@@ -1,23 +1,22 @@
 import {z} from 'zod';
 
+export const PaginationSchema = z.object({
+    count: z.number(),
+    next: z.string().url().optional(),
+});
+export const RequestSchema = z.object({
+    congress: z.coerce.string().optional(),
+    contentType: z.string(),
+    format: z.enum(['json', 'xml']),
+});
+
 export const BaseArrayResponseSchema = z.object({
-    pagination: z.object({
-        count: z.number(),
-        next: z.string().url().optional(),
-    }),
-    request: z.object({
-        congress: z.coerce.string().optional(),
-        contentType: z.string(),
-        format: z.enum(['json', 'xml']),
-    })
+    pagination: PaginationSchema,
+    request: RequestSchema,
 });
 
 export const BaseSingleResponseSchema = z.object({
-    request: z.object({
-        congress: z.coerce.string().optional(),
-        contentType: z.string(),
-        format: z.enum(['json', 'xml']),
-    })
+    request: RequestSchema,
 });
 
 export const DetailSchema = z.object({

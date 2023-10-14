@@ -30,14 +30,14 @@ export async function request(route: string, {pagination, cache}: RequestOptions
         url.searchParams.append('offset', `${pagination.offset}`);
     }
     url.searchParams.append('api_key', API_KEY);
+    url.searchParams.append('format', 'json');
 
     console.info(`[API]: ${url}`)
     const res = await fetch(url);
     const json = await res.json();
 
     if (cache) {
-        const res = await addRequest(url, json);
-        console.log({res});
+        await addRequest(url, json);
     }
 
     return json;

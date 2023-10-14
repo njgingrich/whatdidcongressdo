@@ -1,5 +1,5 @@
 import {number, z} from 'zod';
-import { BaseArrayResponseSchema, BaseSingleResponseSchema, ChamberCodeSchema, ChamberSchema, DetailSchema, PartyCodeSchema } from './base';
+import { BaseArrayResponseSchema, BaseSingleResponseSchema, ChamberCodeSchema, ChamberSchema, DetailSchema, PaginationSchema, PartyCodeSchema } from './base';
 
 
 export const BillTypeSchema = z.enum(['HRES', 'SRES', 'HR', 'S', 'HJRES', 'SJRES', 'HCONRES', 'SCONRES']);
@@ -52,8 +52,8 @@ export const SingleBillSchema = z.object({
         pubDate: z.coerce.date(),
         title: z.string(),
         url: z.string().url(),
-    }).optional(),
-    committees: DetailSchema,
+    }).array().optional(),
+    committees: DetailSchema.optional(),
     congress: z.number(),
     constitutionalAuthorityStatementText: z.string().optional(),
     cosponsors: DetailSchema.extend({
@@ -103,9 +103,10 @@ export const BillActionSchema = z.object({
     type: z.string(),
 });
 
-export const BillActionsResponseSchema = BaseArrayResponseSchema.extend({
+export const BillActionsDetailSchema = z.object({
     actions: BillActionSchema.array().default([]),
-});
+})
+export const BillActionsResponseSchema = BaseArrayResponseSchema.merge(BillActionsDetailSchema);
 
 /*
  * URL: /bill/<congress>/<type>/<number>/amendments
@@ -124,9 +125,10 @@ export const BillAmendmentSchema = z.object({
     url: z.string().url(),
 });
 
-export const BillAmendmentsResponseSchema = BaseArrayResponseSchema.extend({
+export const BillAmendmentsDetailSchema = z.object({
     amendments: BillAmendmentSchema.array().default([]),
-});
+})
+export const BillAmendmentsResponseSchema = BaseArrayResponseSchema.merge(BillAmendmentsDetailSchema);
 
 /*
  * URL: /bill/<congress>/<type>/<number>/committees
@@ -136,7 +138,7 @@ export const BillCommitteeSchema = z.object({
     activities: z.object({
         date: z.coerce.date(),
         name: z.string(),
-    }),
+    }).array().default([]),
     chamber: ChamberSchema,
     name: z.string(),
     systemCode: z.string(),
@@ -144,9 +146,10 @@ export const BillCommitteeSchema = z.object({
     url: z.string().url(),
 });
 
-export const BillCommitteesResponseSchema = BaseArrayResponseSchema.extend({
+export const BillCommitteesDetailSchema = z.object({
     committees: BillCommitteeSchema.array().default([]),
-});
+})
+export const BillCommitteesResponseSchema = BaseSingleResponseSchema.merge(BillCommitteesDetailSchema);
 
 /*
  * URL: /bill/<congress>/<type>/<number>/cosponsors
@@ -164,9 +167,10 @@ export const BillCosponsorSchema = z.object({
     url: z.string().url(),
 });
 
-export const BillCosponsorsResponseSchema = BaseArrayResponseSchema.extend({
+export const BillCosponsorsDetailSchema = z.object({
     cosponsors: BillCosponsorSchema.array().default([]),
-});
+})
+export const BillCosponsorsResponseSchema = BaseArrayResponseSchema.merge(BillCosponsorsDetailSchema);
 
 /*
  * URL: /bill/<congress>/<type>/<number>/relatedbills
@@ -187,9 +191,10 @@ export const BillRelatedBillSchema = z.object({
     url: z.string().url(),
 });
 
-export const BillRelatedBillsResponseSchema = BaseArrayResponseSchema.extend({
+export const BillRelatedBillsDetailSchema = z.object({
     relatedBills: BillRelatedBillSchema.array().default([]),
-});
+})
+export const BillRelatedBillsResponseSchema = BaseArrayResponseSchema.merge(BillRelatedBillsDetailSchema);
 
 /*
  * URL: /bill/<congress>/<type>/<number>/subjects
@@ -203,9 +208,10 @@ export const BillSubjectSchema = z.object({
     }),
 });
 
-export const BillSubjectsResponseSchema = BaseArrayResponseSchema.extend({
+export const BillSubjectsDetailSchema = z.object({
     subjects: BillSubjectSchema,
 })
+export const BillSubjectsResponseSchema = BaseArrayResponseSchema.merge(BillSubjectsDetailSchema);
 
 /*
  * URL: /bill/<congress>/<type>/<number>/summaries
@@ -218,9 +224,10 @@ export const BillSummarySchema = z.object({
     versionCode: z.string(),
 });
 
-export const BillSummariesResponseSchema = BaseArrayResponseSchema.extend({
+export const BillSummariesDetailSchema = z.object({
     summaries: BillSummarySchema.array().default([]),
-});
+})
+export const BillSummariesResponseSchema = BaseArrayResponseSchema.merge(BillSummariesDetailSchema);
 
 /*
  * URL: /bill/<congress>/<type>/<number>/text
@@ -236,9 +243,10 @@ export const BillTextSchema = z.object({
     type: z.nullable(z.string()), 
 });
 
-export const BillTextResponseSchema = BaseArrayResponseSchema.extend({
+export const BillTextDetailSchema = z.object({
     textVersions: BillTextSchema.array().default([]),
-});
+})
+export const BillTextResponseSchema = BaseArrayResponseSchema.merge(BillTextDetailSchema);
 
 /*
  * URL: /bill/<congress>/<type>/<number>/titles
@@ -252,21 +260,41 @@ export const BillTitleSchema = z.object({
     titleType: z.string(),
 });
 
-export const BillTitlesResponseSchema = BaseArrayResponseSchema.extend({
+export const BillTitlesDetailSchema = z.object({
     titles: BillTitleSchema.array().default([]),
-});
+})
+export const BillTitlesResponseSchema = BaseArrayResponseSchema.merge(BillTitlesDetailSchema);
 
 // The full schema after making additional requests from the base SingleBillSchema
 export const FullSingleBillSchema = SingleBillSchema.extend({
-    actions: BillActionsResponseSchema,
-    amendments: BillAmendmentsResponseSchema.optional(),
-    committees: BillCommitteesResponseSchema,
-    cosponsors: BillCosponsorsResponseSchema.extend({
-        countIncludingWithdrawnCosponsors: z.number(),
+    actions: DetailSchema.extend({
+        data: BillActionsDetailSchema,
+    }),
+    amendments: DetailSchema.extend({
+        data: BillAmendmentsDetailSchema.optional(),
     }).optional(),
-    relatedBills: BillRelatedBillsResponseSchema.optional(),
-    subjects: DetailSchema.optional(), // TODO:
-    summaries: BillSummariesResponseSchema.optional(),
-    textVersions: BillTextResponseSchema.optional(),
-    titles: BillTitlesResponseSchema,
+    committees: DetailSchema.extend({
+        data: BillCommitteesDetailSchema,
+    }).optional(),
+    cosponsors: DetailSchema.extend({
+        countIncludingWithdrawnCosponsors: z.number(),
+        data: BillCosponsorsDetailSchema,
+    }).optional(),
+    relatedBills: DetailSchema.extend({
+        data: BillRelatedBillsDetailSchema,
+    }).optional(),
+    subjects: DetailSchema.extend({
+        data: BillSubjectsDetailSchema,
+    }).optional(),
+    summaries: DetailSchema.extend({
+        data: BillSummariesDetailSchema,
+    }).optional(),
+    textVersions: DetailSchema.extend({
+        data: BillTextDetailSchema,
+    }).optional(),
+    titles: DetailSchema.extend({
+        data: BillTitlesDetailSchema,
+    }),
 });
+
+export type TypeBill = NonNullable<z.infer<typeof FullSingleBillSchema>>;
