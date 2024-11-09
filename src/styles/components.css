@@ -388,7 +388,7 @@
 }
 .action-card--result span {    
     display: block;
-    background-color: var(--color-primary);
+    background-color: var(--color-accent-dark);
     color: var(--color-background);
     padding: var(--space-200) var(--space-400);
     line-height: 1.5;
@@ -406,14 +406,13 @@
 }
 .action-card--details {
     display: grid;
-    grid-template-columns: 24px auto;
+    grid-template-columns: min-content auto;
     grid-template-rows: auto auto auto;
     grid-template-areas:
         "avatar     name"
-        "cosponsors cosponsors"
         "committees committees";
-    column-gap: var(--space-300);
-    row-gap: var(--space-300);
+    column-gap: var(--space-400);
+    row-gap: var(--space-400);
     margin-bottom: var(--space-400);
 }
 .action-card--details[data-party="R"] {
@@ -428,25 +427,42 @@
 .action-card--details__avatar {
     grid-area: avatar;
     align-self: center;
-    width: 24px;
-    height: 24px;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
+    overflow: hidden;
     background-color: var(--party-color, --color-party-independent);
 }
 .action-card--details__name {
     grid-area: name;
-    align-self: center;
+    align-self: start;
     font-size: var(--f-size-400);
     font-weight: 500;
+    display: flex;
+    flex-direction: column;
 }
-.action-card--details__cosponsors {
-    grid-area: cosponsors;
+.action-card--details__name-title {
+    font-weight: 600;
 }
 .action-card--details__committees {
     grid-area: committees;
+    display: flex;
+    flex-direction: column;
+}
+.action-card--details__committees-title {
+    display: inline-block;
+    font-weight: 600;
+    margin-bottom: var(--space-200);
+}
+.action-card--details__committees-list {
+    display: flex;
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    gap: 4px;
 }
 .action-card--details__committee_code {
     width: min-content;
+    text-wrap: nowrap;
     padding: var(--space-200) var(--space-300);
     background-color: var(--color-primary);
     color: var(--color-background);
@@ -567,7 +583,7 @@ td[data-col="total"] {
         "title     title"
         "subtitle  details"
         "desc      details"
-        "result    links";
+        "links     links";
     grid-column-gap: var(--space-450);
 }
 .action-card[data-card-type="bill"] .action-card--time {
@@ -579,7 +595,7 @@ td[data-col="total"] {
 .action-card[data-card-type="bill"] .action-card--title {
     grid-area: title;
     font-size: var(--f-size-600);
-    margin-bottom: var(--space-300);
+    margin-bottom: var(--space-400);
 }
 .action-card[data-card-type="bill"] .action-card--subtitle {
     grid-area: subtitle;
@@ -594,6 +610,9 @@ td[data-col="total"] {
 .action-card[data-card-type="bill"] .action-card--links {
     grid-area: links;
     align-self: center;
+    display: flex;
+    flex-direction: row;
+    column-gap: 3rem;
 }
 .action-card[data-card-type="bill"] .action-card--result {
     grid-area: result;

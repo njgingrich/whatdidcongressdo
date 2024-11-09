@@ -1,0 +1,15 @@
+meta {
+  name: Daily Record
+  type: http
+  seq: 3
+}
+
+get {
+  url: https://api.congress.gov/v3/daily-congressional-record/170/165?format=json
+  body: none
+  auth: inherit
+}
+
+params:query {
+  format: json
+}

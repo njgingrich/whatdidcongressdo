@@ -11,8 +11,10 @@ interface TypeProps {
 }
 
 export default function ChamberPage({ today, recent, emptyMessage }: TypeProps) {
+    const hasToday = today.length > 0;
+
     return (
-        <Tabs>
+        <Tabs defaultIndex={hasToday ? 0 : 1}>
             <TabList className="chamber-page--tabs">
                 <Tab className="chamber-page--tab">
                     <h2>Today</h2>

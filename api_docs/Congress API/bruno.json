@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Congress API",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
