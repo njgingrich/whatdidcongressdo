@@ -1,0 +1,17 @@
+meta {
+  name: Bill - Actions
+  type: http
+  seq: 4
+}
+
+get {
+  url: https://api.congress.gov/v3/bill/118/hr/9747/actions
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~toDateTime: 2024-11-02T00:00:00Z
+  ~fromDateTime: 2024-11-01T00:00:00Z
+  ~sort: updateDate+desc
+}
