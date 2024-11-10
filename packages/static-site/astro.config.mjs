@@ -5,7 +5,7 @@ import netlify from "@astrojs/netlify/functions";
 
 // https://astro.build/config
 export default defineConfig({
-  // Enable React to support React JSX components.
+  site: 'https://whatdidcongressdo.today',
   integrations: [react()],
   output: "server",
   adapter: netlify()
