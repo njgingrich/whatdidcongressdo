@@ -5,7 +5,6 @@ import { getBillsForDate, getRecentBills } from "~/api/v2/bills";
 
 // const data = await getBillsForDate('house', new Date());
 const recent = await getRecentBills('house');
-import { Debug } from 'astro/components';
 import { TypeBill } from '~/api/v2/schemas/bill';
 ---
 <HouseLayout>

@@ -1,14 +1,15 @@
 import format from "date-fns/format";
 import ActionCard from "~/components/ActionCard";
 import { TypeBill } from "~/api/v2/schemas/bill";
+import { getDate } from "../util";
 
 type TypeProps = {
     bill: TypeBill;
 }
 
 export default function BillCard({ bill }: TypeProps) {
-    const introducedDate = `Introduced ${format(new Date(bill.introducedDate), "PPP")}`;
-    const updatedDate = `Updated ${format(new Date(bill.latestAction.actionDate), "PPP")}`
+    const introducedDate = `Introduced ${format(getDate(new Date(bill.introducedDate)), "PPP")}`;
+    const updatedDate = `Updated ${format(getDate(new Date(bill.latestAction.actionDate)), "PPP")}`
     const sponsorName = `Rep. ${bill.sponsors[0].firstName} ${bill.sponsors[0].lastName}`;
     const sponsorTitle = `${sponsorName} (${bill.sponsors[0].party}-${bill.sponsors[0].state})`
     const cosponsorCount = bill.cosponsors?.data.cosponsors.length ?? 0;

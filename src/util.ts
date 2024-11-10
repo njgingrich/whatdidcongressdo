@@ -14,3 +14,15 @@ export function getDateInDC(date: string | number | Date = new Date()): Date {
 export function getUTCOffsetInDC(date: Date = new Date()) {
     return getTimezoneOffset("America/New_York", date);
 }
+
+/**
+ * Get a Date instance (AKA a date you should NOT use for time). Adds TZ offset to date
+ * so when locally parsed it returns the expected date.
+ * 
+ * Ex: getDate('2024-11-08') -> Date (Fri Nov 08 2024 00:00:00 GMT-0600)
+ * @param date 
+ */
+export function getDate(date: Date = new Date()) {
+    const tzOffset = date.getTimezoneOffset();
+    return new Date(date.getTime() + tzOffset * 60 * 1000);
+}
