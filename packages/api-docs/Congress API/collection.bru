@@ -1,9 +1,7 @@
-auth {
-  mode: apikey
+headers {
+  X-Api-Key: {{API_KEY}}
 }
 
-auth:apikey {
-  key: api_key
-  value: {{API_KEY}}
-  placement: queryparams
+auth {
+  mode: none
 }

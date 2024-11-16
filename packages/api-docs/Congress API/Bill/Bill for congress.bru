@@ -5,13 +5,15 @@ meta {
 }
 
 get {
-  url: https://api.congress.gov/v3/bill/118
+  url: https://api.congress.gov/v3/bill/118?fromDateTime=2024-11-16T00:00:00Z&sort=updateDate desc&offset=0&limit=50
   body: none
   auth: inherit
 }
 
 params:query {
+  fromDateTime: 2024-11-16T00:00:00Z
+  sort: updateDate desc
+  offset: 0
+  limit: 50
   ~toDateTime: 2024-11-02T00:00:00Z
-  ~fromDateTime: 2024-11-01T00:00:00Z
-  ~sort: updateDate+desc
 }
