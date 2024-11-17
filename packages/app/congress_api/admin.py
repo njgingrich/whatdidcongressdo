@@ -10,6 +10,7 @@ from .models import BillSummary
 from .models import BillRelatedBill
 from .models import BillTextVersion
 from .models import BillTitle
+from .models import HouseFloorAction
 
 # Register your models here.
 admin.site.register(Bill)
@@ -22,3 +23,5 @@ admin.site.register(BillSummary)
 admin.site.register(BillRelatedBill)
 admin.site.register(BillTextVersion)
 admin.site.register(BillTitle)
+
+admin.site.register(HouseFloorAction)

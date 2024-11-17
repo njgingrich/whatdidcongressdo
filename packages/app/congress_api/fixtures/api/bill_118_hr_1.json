@@ -1,0 +1,93 @@
+{
+  "bill": {
+    "actions": {
+      "count": 93,
+      "url": "https://api.congress.gov/v3/bill/118/hr/1/actions?format=json"
+    },
+    "amendments": {
+      "count": 37,
+      "url": "https://api.congress.gov/v3/bill/118/hr/1/amendments?format=json"
+    },
+    "cboCostEstimates": [
+      {
+        "description": "As posted on the website of the House Committee on Rules on\nMarch 14, 2023\n",
+        "pubDate": "2023-03-23T20:59:00Z",
+        "title": "Estimated Budgetary Effects of Divisions A and B of H.R. 1, the Lower Energy Costs Act",
+        "url": "https://www.cbo.gov/publication/59022"
+      },
+      {
+        "description": "As posted on the website of the House Committee on Rules on March 14, 2023 and March 27, 2023\n",
+        "pubDate": "2023-03-28T21:18:00Z",
+        "title": "Estimated Budgetary Effects of Divisions A and B of H.R. 1, the Lower Energy Costs Act, as modified by Amendment 154, the Manager&#039;s Amendment",
+        "url": "https://www.cbo.gov/publication/59029"
+      }
+    ],
+    "committees": {
+      "count": 5,
+      "url": "https://api.congress.gov/v3/bill/118/hr/1/committees?format=json"
+    },
+    "congress": 118,
+    "constitutionalAuthorityStatementText": "<pre>\n[Congressional Record Volume 169, Number 47 (Tuesday, March 14, 2023)]\n[House]\nFrom the Congressional Record Online through the Government Publishing Office [<a href=\"https://www.gpo.gov\">www.gpo.gov</a>]\nBy Mr. SCALISE:\nH.R. 1.\nCongress has the power to enact this legislation pursuant\nto the following:\nThe power granted to Congress under Article I, Section 8 of\nthe United States Constitution.\nThe single subject of this legislation is:\nTo lower energy costs by increasing American energy\nproduction and restoring energy leadership.\n[Page H1286]\n</pre>",
+    "cosponsors": {
+      "count": 49,
+      "countIncludingWithdrawnCosponsors": 49,
+      "url": "https://api.congress.gov/v3/bill/118/hr/1/cosponsors?format=json"
+    },
+    "introducedDate": "2023-03-14",
+    "latestAction": {
+      "actionDate": "2023-03-30",
+      "actionTime": "11:47:06",
+      "text": "The Clerk was authorized to correct section numbers, punctuation, and cross references, and to make other necessary technical and conforming corrections in the engrossment of H.R. 1."
+    },
+    "number": "1",
+    "originChamber": "House",
+    "originChamberCode": "H",
+    "policyArea": {
+      "name": "Energy"
+    },
+    "relatedBills": {
+      "count": 44,
+      "url": "https://api.congress.gov/v3/bill/118/hr/1/relatedbills?format=json"
+    },
+    "sponsors": [
+      {
+        "bioguideId": "S001176",
+        "district": 1,
+        "firstName": "Steve",
+        "fullName": "Rep. Scalise, Steve [R-LA-1]",
+        "isByRequest": "N",
+        "lastName": "Scalise",
+        "party": "R",
+        "state": "LA",
+        "url": "https://api.congress.gov/v3/member/S001176?format=json"
+      }
+    ],
+    "subjects": {
+      "count": 53,
+      "url": "https://api.congress.gov/v3/bill/118/hr/1/subjects?format=json"
+    },
+    "summaries": {
+      "count": 2,
+      "url": "https://api.congress.gov/v3/bill/118/hr/1/summaries?format=json"
+    },
+    "textVersions": {
+      "count": 2,
+      "url": "https://api.congress.gov/v3/bill/118/hr/1/text?format=json"
+    },
+    "title": "Lower Energy Costs Act",
+    "titles": {
+      "count": 10,
+      "url": "https://api.congress.gov/v3/bill/118/hr/1/titles?format=json"
+    },
+    "type": "HR",
+    "updateDate": "2024-11-09T05:06:25Z",
+    "updateDateIncludingText": "2024-11-09T05:06:25Z"
+  },
+  "request": {
+    "billNumber": "1",
+    "billType": "hr",
+    "congress": "118",
+    "contentType": "application/json",
+    "format": "json"
+  }
+}

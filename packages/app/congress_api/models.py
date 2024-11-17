@@ -105,3 +105,15 @@ class BillTitle(ApiResultModel):
     type = models.CharField(max_length=255)
     type_code = models.IntegerField()
     update_date = models.DateTimeField()
+
+class HouseFloorAction(TimeStampedModel):
+    update_datetime = models.DateTimeField()
+    action_id = models.CharField(max_length=255)
+    unique_id = models.CharField(max_length=255)
+    timestamp = models.DateTimeField()
+    action_item = models.CharField(max_length=255, blank=True)
+    bill_ids = models.TextField() # CSV of bill IDs parsed from text
+    description = models.TextField()
+
+    def __str__(self):
+        return f"{self.unique_id} - {self.timestamp}"
