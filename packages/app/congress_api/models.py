@@ -43,7 +43,7 @@ class Bill(ApiResultModel):
     
     @property
     def last_action(self):
-        return self.actions.last().text
+        return self.actions.first().text
     
     @property
     def cosponsors_description(self):
