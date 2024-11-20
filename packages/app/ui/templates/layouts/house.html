@@ -1,0 +1,34 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="page-container" data-chamber="house">
+  <div class="page-full-width chamber-banner">
+    <h1 class="chamber-banner--header">House of Representatives</h1>
+  </div>
+  <div class="page-content chamber-container">
+    <nav class="side-navigation">
+      <ul class="side-navigation--list">
+        <li class="side-navigation--list__item">
+          <!-- <a href="{% url 'house_index' %}">Overview</a> -->
+          {% include '../components/nav-link.html' with view_name='house_index' text='Overview' %}
+        </li>
+        <li class="side-navigation--list__item">
+          <a href="/house/floor">Floor proceedings</a>
+        </li>
+        <li class="side-navigation--list__item">
+          <a href="/house/votes">Votes</a>
+        </li>
+        <li class="side-navigation--list__item">
+          <!-- <a href="{% url 'house_bills' %}" >Bills</a> -->
+          {% include '../components/nav-link.html' with view_name='house_bills' text='Bills' %}
+        </li>
+        <li class="side-navigation--list__item">
+          <a href="/house/committees">Committees</a>
+        </li>
+      </ul>
+    </nav>
+
+    {% block subcontent %}{% endblock %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'layouts/house.html' %}
+
+{% block subcontent %}
+<ul class="action-card--list">
+    {% for bill in bills %}
+        <li class="action-card--list__item">
+            {% include '../../components/bill-card.html' with bill=bill %}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

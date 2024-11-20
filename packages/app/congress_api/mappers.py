@@ -11,7 +11,7 @@ from .api.client import ApiClient
 from .models import Bill
 from .util import get_nested
 
-def build_bill_actions(client: ApiClient, bill: Bill):
+def build_bill_actions(client: ApiClient, bill: Bill, bill_data: dict):
     action_data = get_bill_actions(client, bill.congress, bill.type, bill.number)
     actions = [_build_bill_action(action, bill) for action in action_data]
     return actions
@@ -19,23 +19,25 @@ def build_bill_actions(client: ApiClient, bill: Bill):
 def _build_bill_action(action: dict, bill: Bill):
     from congress_api.models import BillAction
 
-    return BillAction.objects.create(
+    return BillAction.objects.get_or_create(
         bill=bill,
         action_code=action.get("actionCode", ''),
         action_date=action["actionDate"],
+        action_time=action.get("actionTime", None),
         source_system=get_nested(action, "sourceSystem.name"),
         source_system_code=get_nested(action, "sourceSystem.code"),
         text=action["text"],
         type=action["type"],
+        committee=action.get("committees", [])[0].get("systemCode", '') if action.get("committees") else '',
     )
 
-def build_bill_amendments(client: ApiClient, bill: Bill):
+def build_bill_amendments(client: ApiClient, bill: Bill, bill_data: dict):
     from congress_api.models import BillAmendment
 
     amendment_data = get_bill_amendments(client, bill.congress, bill.type, bill.number)
     amendments = []
     for amendment in amendment_data:
-        a = BillAmendment.objects.create(
+        a = BillAmendment.objects.get_or_create(
             bill=bill,
             congress=amendment['congress'],
             number=amendment['number'],
@@ -46,27 +48,30 @@ def build_bill_amendments(client: ApiClient, bill: Bill):
 
     return amendments
 
-def build_bill_committees(client: ApiClient, bill: Bill):
+def build_bill_committees(client: ApiClient, bill: Bill, bill_data: dict):
     from congress_api.models import BillCommittee
 
     committee_data = get_bill_committees(client, bill.congress, bill.type, bill.number)
     committees = []
     for committee in committee_data:
-        c = BillCommittee.objects.create(
+        c = BillCommittee.objects.get_or_create(
             bill=bill,
             system_code=committee['systemCode'],
+            chamber=committee['chamber'],
+            name=committee['name'],
+            type=committee['type'],
         )
         committees.append(c)
 
     return committees
 
-def build_bill_cosponsors(client: ApiClient, bill: Bill):
+def build_bill_cosponsors(client: ApiClient, bill: Bill, bill_data: dict):
     from congress_api.models import BillCosponsor
 
     cosponsor_data = get_bill_cosponsors(client, bill.congress, bill.type, bill.number)
     cosponsors = []
     for cosponsor in cosponsor_data:
-        c = BillCosponsor.objects.create(
+        c = BillCosponsor.objects.get_or_create(
             bill=bill,
             bioguide_id=cosponsor['bioguideId'],
             first_name=cosponsor['firstName'],
@@ -82,13 +87,34 @@ def build_bill_cosponsors(client: ApiClient, bill: Bill):
 
     return cosponsors
 
-def build_bill_subjects(client: ApiClient, bill: Bill):
+def build_bill_sponsors(client: ApiClient, bill: Bill, bill_data: dict):
+    from congress_api.models import BillSponsor
+
+    sponsors = []
+    for sponsor in bill_data['sponsors']:
+        s = BillSponsor.objects.get_or_create(
+            bill=bill,
+            bioguide_id=sponsor['bioguideId'],
+            first_name=sponsor['firstName'],
+            middle_name=sponsor.get('middleName', ''),
+            last_name=sponsor['lastName'],
+            full_name=sponsor['fullName'],
+            party=sponsor['party'],
+            state=sponsor['state'],
+            district=sponsor.get('district', ''),
+            is_by_request=(False if sponsor['isByRequest'] == 'N' else True),
+        )
+        sponsors.append(s)
+
+    return sponsors
+
+def build_bill_subjects(client: ApiClient, bill: Bill, bill_data: dict):
     from congress_api.models import BillSubject
 
     subject_data = get_bill_subjects(client, bill.congress, bill.type, bill.number)
     subjects = []
     for subject in subject_data['legislativeSubjects']:
-        s = BillSubject.objects.create(
+        s = BillSubject.objects.get_or_create(
             bill=bill,
             name=subject['name'],
             update_date=subject['updateDate'],
@@ -97,13 +123,13 @@ def build_bill_subjects(client: ApiClient, bill: Bill):
 
     return subjects
 
-def build_bill_summaries(client: ApiClient, bill: Bill):
+def build_bill_summaries(client: ApiClient, bill: Bill, bill_data: dict):
     from congress_api.models import BillSummary
 
     summary_data = get_bill_summaries(client, bill.congress, bill.type, bill.number)
     summaries = []
     for summary in summary_data:
-        s = BillSummary.objects.create(
+        s = BillSummary.objects.get_or_create(
             bill=bill,
             action_date=summary['actionDate'],
             description=summary.get('description', ''),
@@ -115,13 +141,13 @@ def build_bill_summaries(client: ApiClient, bill: Bill):
 
     return summaries
 
-def build_bill_related_bills(client: ApiClient, bill: Bill):
+def build_bill_related_bills(client: ApiClient, bill: Bill, bill_data: dict):
     from congress_api.models import BillRelatedBill
 
     related_bill_data = get_bill_related_bills(client, bill.congress, bill.type, bill.number)
     related_bills = []
     for related_bill in related_bill_data:
-        r = BillRelatedBill.objects.create(
+        r = BillRelatedBill.objects.get_or_create(
             bill=bill,
             congress=related_bill['congress'],
             number=related_bill['number'],
@@ -132,7 +158,7 @@ def build_bill_related_bills(client: ApiClient, bill: Bill):
 
     return related_bills
 
-def build_bill_text_versions(client: ApiClient, bill: Bill):
+def build_bill_text_versions(client: ApiClient, bill: Bill, bill_data: dict):
     from congress_api.models import BillTextVersion
 
     text_version_data = get_bill_text_versions(client, bill.congress, bill.type, bill.number)
@@ -143,7 +169,7 @@ def build_bill_text_versions(client: ApiClient, bill: Bill):
         pdf_url = next((item for item in formats if item['url'].endswith('.pdf')), None)
         xml_url = next((item for item in formats if item['url'].endswith('.xml')), None)
 
-        t = BillTextVersion.objects.create(
+        t = BillTextVersion.objects.get_or_create(
             bill=bill,
             type=text_version['type'],
             version_datetime=text_version['date'],
@@ -155,13 +181,13 @@ def build_bill_text_versions(client: ApiClient, bill: Bill):
 
     return text_versions
 
-def build_bill_titles(client: ApiClient, bill: Bill):
+def build_bill_titles(client: ApiClient, bill: Bill, bill_data: dict):
     from congress_api.models import BillTitle
 
     title_data = get_bill_titles(client, bill.congress, bill.type, bill.number)
     titles = []
     for title in title_data:
-        t = BillTitle.objects.create(
+        t = BillTitle.objects.get_or_create(
             bill=bill,
             title=title['title'],
             text_version_code=title.get('billTextVersionCode', ''),
@@ -179,6 +205,7 @@ FIELD_BUILDER_MAP = {
     "amendments": build_bill_amendments,
     "committees": build_bill_committees,
     "cosponsors": build_bill_cosponsors,
+    "sponsors": build_bill_sponsors,
     "subjects": build_bill_subjects,
     "summaries": build_bill_summaries,
     "related_bills": build_bill_related_bills,

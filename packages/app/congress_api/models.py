@@ -27,6 +27,41 @@ class Bill(ApiResultModel):
 
     def __str__(self):
         return f"{self.type} {self.number}"
+    
+    def sponsor(self):
+        if self.sponsors.count() == 0:
+            return None
+        return self.sponsors.first()
+    
+    @property
+    def subtitle(self):
+        return f"{self.type} {self.number}"
+    
+    @property
+    def time(self):
+        return f"Introduced {self.introduced_date.strftime("%B %d, %Y")} - Updated {self.update_date.strftime("%B %d, %Y")}"
+    
+    @property
+    def last_action(self):
+        return self.actions.last().text
+    
+    @property
+    def cosponsors_description(self):
+        if self.cosponsors.count() == 0:
+            return "No cosponsors"
+        elif self.cosponsors.count() == 1:
+            return "1 cosponsor"
+        else:
+            return f"{self.cosponsors.count()} cosponsors"
+
+    @property
+    def congress_url(self):
+        return f"https://www.congress.gov/bill/{self.congress}th-congress/{self.origin_chamber}-bill/{self.number}"
+
+    @property
+    def govtrack_url(self):
+        return f"https://www.govtrack.us/congress/bills/{self.congress}/{self.type.lower()}{self.number}"
+
 
 class BillAction(ApiResultModel):
     bill = models.ForeignKey(Bill, on_delete=models.CASCADE, related_name='actions')
@@ -37,6 +72,7 @@ class BillAction(ApiResultModel):
     source_system_code = models.IntegerField(null=True, blank=True)
     text = models.TextField()
     type = models.CharField(max_length=255)
+    committee = models.CharField(max_length=255, blank=True) # committee system code
 
     def __str__(self):
         return f"{self.bill} - {self.type} ({self.action_date})"
@@ -48,14 +84,12 @@ class BillAmendment(ApiResultModel):
     type = models.CharField(max_length=255)
     update_date = models.DateTimeField()
 
-class BillActionCommittee(ApiResultModel):
-    bill_action = models.ForeignKey(BillAction, on_delete=models.CASCADE, related_name='committees')
-    name = models.CharField(max_length=255)
-    system_code = models.CharField(max_length=255)
-
 class BillCommittee(ApiResultModel):
     bill = models.ForeignKey(Bill, on_delete=models.CASCADE, related_name='committees')
     system_code = models.CharField(max_length=255)
+    chamber = models.CharField(max_length=255)
+    name = models.TextField()
+    type = models.CharField(max_length=255)
 
 class BillCosponsor(ApiResultModel):
     bill = models.ForeignKey(Bill, on_delete=models.CASCADE, related_name='cosponsors')
@@ -68,6 +102,10 @@ class BillCosponsor(ApiResultModel):
     district = models.CharField(max_length=2, blank=True)
     is_original_cosponsor = models.BooleanField()
     sponsorship_date = models.DateField()
+
+    @property
+    def avatar_url(self):
+        return f"https://www.congress.gov/img/member/{self.bioguide_id.lower()}_200.jpg"
 
 class BillSubject(ApiResultModel):
     bill = models.ForeignKey(Bill, on_delete=models.CASCADE, related_name='subjects')
@@ -88,6 +126,33 @@ class BillRelatedBill(ApiResultModel):
     number = models.CharField(max_length=255)
     type = models.CharField(max_length=255)
     title = models.TextField()
+
+class BillSponsor(TimeStampedModel):
+    bill = models.ForeignKey(Bill, on_delete=models.CASCADE, related_name='sponsors')
+    bioguide_id = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=255)
+    middle_name = models.CharField(max_length=255, blank=True)
+    last_name = models.CharField(max_length=255)
+    full_name = models.CharField(max_length=255)
+    party = models.CharField(max_length=2)
+    state = models.CharField(max_length=2)
+    district = models.CharField(max_length=2, blank=True)
+    is_by_request = models.BooleanField()
+
+    @property
+    def avatar_url(self):
+        return f"https://www.congress.gov/img/member/{self.bioguide_id.lower()}_200.jpg"
+    
+    @property
+    def name(self):
+       return f"{self.first_name} {self.last_name}"
+    
+    def title(self):
+        position = "Sen."
+        if "rep" in self.full_name.lower():
+            position = "Rep."
+        
+        return f"{position} {self.name} ({self.party}-{self.state})"
 
 class BillTextVersion(ApiResultModel):
     bill = models.ForeignKey(Bill, on_delete=models.CASCADE, related_name='text_versions')

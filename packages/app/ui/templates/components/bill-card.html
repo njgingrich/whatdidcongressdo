@@ -1,0 +1,40 @@
+<div class="action-card" data-card-type='bill'>
+    <span class="action-card--time">
+        {{bill.time}}
+    </span>
+    <h3 class="action-card--title">{{bill.title}}</h3>
+    <span class="action-card--subtitle">{{bill.subtitle}}</span>
+    <p class="action-card--description">{{bill.last_action}}</p>
+    <!-- <div class="action-card--result">
+        <span></span>
+    </div> -->
+
+    <div class="action-card--details" data-party={{bill.sponsor.party}}>
+        <div class="action-card--details__avatar">
+            <img src={{bill.sponsor.avatar_url}} alt={{bill.sponsor.name}} />
+        </div>
+        <div class="action-card--details__name">
+            <span class="action-card--details__name-title">{{bill.sponsor.title}}</span>
+            <span class="action-card--details__cosponsors">{{bill.cosponsors_description}}</span>
+        </div>
+        <div class="action-card--details__committees">
+            <span class="action-card--details__committees-title">Committees</span>
+            <div class="action-card--details__committees-list">
+                {% for committee in bill.committees.all %}
+                    <div class="action-card--details__committee_code">
+                        <span>{{committee.name}}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="action-card--links">
+        <a class="action-card--link" href={{bill.congress_url}} target="_blank" rel="noopener">
+            Read more
+        </a>
+        <a class="action-card--link" href={{bill.govtrack_url}} target="_blank" rel="noopener">
+            Learn more on GovTrack
+        </a>
+    </div>
+</div>
